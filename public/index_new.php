@@ -49,6 +49,7 @@ try {
 
     <!-- Stylesheets -->
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/header.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/profiles.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
 
@@ -57,33 +58,7 @@ try {
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="../assets/images/logob.png" alt="Bihak Center Logo">
-        </div>
-
-        <!-- Language Switcher -->
-        <div class="language-switcher">
-            <a href="#" onclick="changeLanguage('fr'); return false;">Français</a> |
-            <a href="#" onclick="changeLanguage('en'); return false;">English</a>
-        </div>
-
-        <!-- Navigation -->
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index_new.php" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="work.html">Our Work</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="opportunities.html">Opportunities</a></li>
-                <li><a href="signup.php" class="cta-nav">Share Your Story</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <!-- Google Translate Element (Hidden) -->
-    <div id="google_translate_element" style="display: none;"></div>
+    <?php include __DIR__ . '/../includes/header.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -238,6 +213,7 @@ try {
 
     <!-- JavaScript -->
     <script src="../assets/js/translate.js"></script>
+    <script src="../assets/js/header.js"></script>
     <script src="../assets/js/scroll-to-top.js"></script>
     <script src="../assets/js/profiles-loader.js"></script>
 </body>
