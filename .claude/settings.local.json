@@ -3,7 +3,12 @@
     "allow": [
       "Bash(git init:*)",
       "Bash(git restore:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(tree:*)",
+      "Bash(gh:*)",
+      "Bash(mysql:*)",
+      "Bash(php:*)"
     ],
     "deny": [],
     "ask": []

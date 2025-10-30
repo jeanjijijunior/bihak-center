@@ -1,0 +1,412 @@
+/**
+ * Profiles Display Styles
+ * Homepage profile cards with featured layout
+ */
+
+/* Profiles Section */
+.profiles-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-size: 2.5rem;
+    color: #1cabe2;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.section-header p {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Profiles Grid */
+.profiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Featured Card (Newest - Larger) */
+.profile-card.featured {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.featured-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Profile Media */
+.profile-media {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    background: #f5f5f5;
+    position: relative;
+}
+
+.featured .profile-media {
+    height: 400px;
+}
+
+.profile-media img,
+.profile-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover .profile-media img,
+.profile-card:hover .profile-media video {
+    transform: scale(1.05);
+}
+
+/* Profile Content */
+.profile-content {
+    padding: 20px;
+}
+
+.featured .profile-content {
+    padding: 30px;
+}
+
+.profile-name {
+    font-size: 1.3rem;
+    color: #1cabe2;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.featured .profile-name {
+    font-size: 1.8rem;
+}
+
+.profile-title {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    line-height: 1.4;
+}
+
+.featured .profile-title {
+    font-size: 1.2rem;
+}
+
+.profile-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.featured .profile-description {
+    font-size: 1.05rem;
+}
+
+/* Profile Meta */
+.profile-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 0.85rem;
+    color: #777;
+}
+
+.profile-meta span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.profile-meta svg {
+    flex-shrink: 0;
+}
+
+/* Profile Link */
+.profile-link {
+    display: inline-block;
+    color: #1cabe2;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.profile-link:hover {
+    color: #147ba5;
+    text-decoration: underline;
+}
+
+/* No Profiles State */
+.no-profiles {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    background: #f9f9f9;
+    border-radius: 15px;
+}
+
+.no-profiles h3 {
+    color: #1cabe2;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.no-profiles p {
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+/* Load More Section */
+.load-more-container {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.btn-load-more {
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-load-more:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(28, 171, 226, 0.3);
+}
+
+.btn-load-more:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1cabe2;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    margin: 40px 0;
+}
+
+.cta-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.cta-content p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px;
+    opacity: 0.95;
+}
+
+.cta-button.large {
+    padding: 18px 45px;
+    font-size: 1.2rem;
+}
+
+/* Hero Actions */
+.hero-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.cta-button.primary {
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+    color: white;
+}
+
+.cta-button.secondary {
+    background: white;
+    color: #1cabe2;
+    border: 2px solid #1cabe2;
+}
+
+.cta-button.secondary:hover {
+    background: #1cabe2;
+    color: white;
+}
+
+/* Navigation CTA */
+.cta-nav {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.cta-nav:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .profile-card.featured {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .featured .profile-media {
+        height: 300px;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .profiles-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .profile-card.featured {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .featured .profile-media {
+        height: 250px;
+    }
+
+    .featured .profile-name {
+        font-size: 1.5rem;
+    }
+
+    .featured .profile-title {
+        font-size: 1.1rem;
+    }
+
+    .featured .profile-content {
+        padding: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .cta-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .cta-section {
+        padding: 40px 20px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profiles-section {
+        padding: 40px 15px;
+    }
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+
+    .section-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-header p {
+        font-size: 1rem;
+    }
+
+    .profile-media {
+        height: 200px;
+    }
+
+    .profile-name {
+        font-size: 1.1rem;
+    }
+
+    .featured-badge {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+
+    .btn-load-more {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
