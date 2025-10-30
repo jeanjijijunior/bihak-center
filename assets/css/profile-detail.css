@@ -1,0 +1,389 @@
+/**
+ * Profile Detail Page Styles
+ * Full profile view with hero and sidebar
+ */
+
+/* Profile Hero */
+.profile-hero {
+    position: relative;
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+    padding: 60px 20px 40px;
+    color: white;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    background: url('../images/Designer.jpeg') center/cover;
+}
+
+.hero-content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-image-container {
+    flex-shrink: 0;
+}
+
+.profile-image-large {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.profile-hero-info {
+    flex: 1;
+}
+
+.profile-title-large {
+    font-size: 2.5rem;
+    margin: 0 0 15px 0;
+    font-weight: 700;
+}
+
+.profile-subtitle {
+    font-size: 1.3rem;
+    margin: 0 0 20px 0;
+    opacity: 0.95;
+    font-weight: 400;
+}
+
+.profile-quick-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.profile-quick-info span {
+    display: inline-block;
+}
+
+/* Main Content */
+.profile-main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+}
+
+/* Content Sections */
+.profile-content-section {
+    background: white;
+}
+
+.story-section,
+.goals-section,
+.achievements-section,
+.media-section {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border-left: 4px solid #1cabe2;
+}
+
+.story-section h2,
+.goals-section h2,
+.achievements-section h2,
+.media-section h2 {
+    color: #1cabe2;
+    font-size: 1.8rem;
+    margin: 0 0 20px 0;
+}
+
+.story-content,
+.goals-content,
+.achievements-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.profile-video,
+.profile-additional-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-card,
+.social-card,
+.support-card,
+.stats-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.info-card h3,
+.social-card h3,
+.support-card h3 {
+    color: #1cabe2;
+    font-size: 1.3rem;
+    margin: 0 0 20px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    color: #666;
+    font-weight: 600;
+}
+
+.info-item span {
+    color: #333;
+    text-align: right;
+}
+
+/* Social Links Sidebar */
+.social-links-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.social-link.facebook {
+    background: #1877f2;
+    color: white;
+}
+
+.social-link.twitter {
+    background: #1da1f2;
+    color: white;
+}
+
+.social-link.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+}
+
+.social-link.linkedin {
+    background: #0077b5;
+    color: white;
+}
+
+.social-link:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Support Card */
+.support-card {
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+    color: white;
+    text-align: center;
+}
+
+.support-card h3 {
+    color: white;
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.support-card p {
+    margin: 15px 0 20px;
+    opacity: 0.95;
+}
+
+.btn-support {
+    display: inline-block;
+    padding: 12px 30px;
+    background: white;
+    color: #1cabe2;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-support:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Stats Card */
+.stats-card {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stat-item strong {
+    font-size: 1.8rem;
+    color: #1cabe2;
+    font-weight: 700;
+}
+
+.stat-item span {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Back Link */
+.back-link-container {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 12px 30px;
+    background: #f0f0f0;
+    color: #1cabe2;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.back-link:hover {
+    background: #1cabe2;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-sidebar {
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 25px;
+    }
+
+    .profile-image-large {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-title-large {
+        font-size: 2rem;
+    }
+
+    .profile-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .profile-quick-info {
+        justify-content: center;
+    }
+
+    .story-section,
+    .goals-section,
+    .achievements-section,
+    .media-section {
+        padding: 20px;
+    }
+
+    .info-card,
+    .social-card,
+    .support-card,
+    .stats-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-hero {
+        padding: 40px 15px 30px;
+    }
+
+    .profile-image-large {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-title-large {
+        font-size: 1.6rem;
+    }
+
+    .profile-subtitle {
+        font-size: 1rem;
+    }
+
+    .profile-quick-info {
+        font-size: 0.9rem;
+    }
+
+    .story-section h2,
+    .goals-section h2,
+    .achievements-section h2,
+    .media-section h2 {
+        font-size: 1.4rem;
+    }
+
+    .story-content,
+    .goals-content,
+    .achievements-content {
+        font-size: 0.95rem;
+    }
+
+    .stats-card {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
