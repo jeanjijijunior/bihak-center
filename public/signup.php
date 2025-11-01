@@ -1,3 +1,18 @@
+<?php
+/**
+ * Signup Page - Profile Creation Form
+ */
+
+// Start session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require_once __DIR__ . '/../config/security.php';
+
+// Generate CSRF token
+$csrf_token = Security::generateCSRFToken();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +22,7 @@
     <title>Sign Up - Bihak Center</title>
 
     <link rel="icon" type="image/png" href="../assets/images/favimg.png">
+    <link rel="stylesheet" type="text/css" href="../assets/css/header_new.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/signup.css">
@@ -14,38 +30,24 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="../assets/images/logob.png" alt="Bihak Center Logo">
-        </div>
-
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="work.html">Our Work</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="opportunities.html">Opportunities</a></li>
-                <li><a href="signup.php" class="active">Sign Up</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include '../includes/header_new.php'; ?>
 
     <!-- Main Content -->
     <div class="signup-container">
         <div class="signup-header">
-            <h1>Share Your Story</h1>
+            <h1>Share your story</h1>
             <p>Join Bihak Center and let us support your journey to success</p>
         </div>
 
         <div id="message-container"></div>
 
         <form id="signupForm" method="POST" action="process_signup.php" enctype="multipart/form-data" class="signup-form">
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
 
             <!-- Personal Information -->
             <div class="form-section">
-                <h2>Personal Information</h2>
+                <h2>Personal information</h2>
 
                 <div class="form-row">
                     <div class="form-group">
@@ -56,6 +58,19 @@
                     <div class="form-group">
                         <label for="email">Email Address <span class="required">*</span></label>
                         <input type="email" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input type="password" id="password" name="password" required minlength="8" placeholder="At least 8 characters">
+                        <small style="color: #718096; font-size: 0.85rem;">Must be at least 8 characters long</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password_confirm">Confirm Password <span class="required">*</span></label>
+                        <input type="password" id="password_confirm" name="password_confirm" required minlength="8">
                     </div>
                 </div>
 
@@ -142,7 +157,7 @@
 
             <!-- Your Story -->
             <div class="form-section">
-                <h2>Your Story</h2>
+                <h2>Your story</h2>
 
                 <div class="form-group">
                     <label for="title">Profile Title <span class="required">*</span></label>
@@ -175,27 +190,24 @@
 
             <!-- Media Upload -->
             <div class="form-section">
-                <h2>Profile Media</h2>
-                <p class="section-description">Upload a photo or video that represents you and your story</p>
+                <h2>Profile media</h2>
+                <p class="section-description">Upload photos that represent you and your story (you can upload multiple images)</p>
 
                 <div class="form-group">
-                    <label for="profile_image">Profile Photo <span class="required">*</span></label>
-                    <input type="file" id="profile_image" name="profile_image" accept="image/*" required>
-                    <small>Accepted formats: JPG, PNG (Max size: 5MB)</small>
-                    <div id="image-preview" class="media-preview"></div>
+                    <label for="profile_images">Profile photos <span class="required">*</span></label>
+                    <input type="file" id="profile_images" name="profile_images[]" accept="image/*" multiple required>
+                    <small>Accepted formats: JPG, PNG (max size: 5MB per image). You can select multiple images.</small>
+                    <div id="images-preview-container" class="media-preview-grid"></div>
                 </div>
 
-                <div class="form-group">
-                    <label for="media_file">Additional Media (Optional)</label>
-                    <input type="file" id="media_file" name="media_file" accept="image/*,video/*">
-                    <small>Upload an additional photo or video (Max size: 20MB for video, 5MB for image)</small>
-                    <div id="media-preview" class="media-preview"></div>
+                <div id="image-descriptions-container" style="margin-top: 20px; display: none;">
+                    <!-- Image description fields will be added here dynamically -->
                 </div>
             </div>
 
             <!-- Social Media -->
             <div class="form-section">
-                <h2>Social Media (Optional)</h2>
+                <h2>Social media (optional)</h2>
 
                 <div class="form-row">
                     <div class="form-group">

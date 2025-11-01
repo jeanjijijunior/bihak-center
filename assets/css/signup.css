@@ -372,6 +372,28 @@
     }
 }
 
+/* Multiple Images Preview Grid */
+.media-preview-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 15px;
+    padding: 15px;
+    background: #f7fafc;
+    border-radius: 8px;
+    min-height: 50px;
+}
+
+.image-preview-item {
+    position: relative;
+    display: inline-block;
+}
+
+.remove-image-btn:hover {
+    background: #dc2626 !important;
+    transform: scale(1.1);
+}
+
 /* Print Styles */
 @media print {
     .form-actions,
