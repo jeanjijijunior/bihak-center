@@ -613,10 +613,14 @@ try {
         }
 
         .social-links img {
-            width: 28px;
-            height: 28px;
-            filter: brightness(0) invert(1);
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
             transition: transform 0.3s ease;
+            background: white;
+            border-radius: 8px;
+            padding: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         .social-links a:hover img {
@@ -1019,19 +1023,19 @@ try {
                 <ul>
                     <li>
                         <a href="https://facebook.com/bihakcenter" target="_blank" rel="noopener noreferrer">
-                            <img src="../assets/images/facebk.png" alt="Facebook">
+                            <img src="/bihak-center/assets/images/facebook-icon.png" alt="Facebook">
                             <span>Bihak Center</span>
                         </a>
                     </li>
                     <li>
                         <a href="https://instagram.com/bihakcenter" target="_blank" rel="noopener noreferrer">
-                            <img src="../assets/images/image.png" alt="Instagram">
+                            <img src="/bihak-center/assets/images/instagram-icon.png" alt="Instagram">
                             <span>Bihak Center</span>
                         </a>
                     </li>
                     <li>
                         <a href="https://twitter.com/bihak_center" target="_blank" rel="noopener noreferrer">
-                            <img src="../assets/images/xx.webp" alt="Twitter">
+                            <img src="/bihak-center/assets/images/twitter-icon.png" alt="Twitter/X">
                             <span>@bihak_center</span>
                         </a>
                     </li>
