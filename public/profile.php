@@ -4,13 +4,18 @@
  * Displays full profile information
  */
 
+// Start session before any output
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../config/database.php';
 
 // Get profile ID
 $profileId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($profileId <= 0) {
-    header('Location: index_new.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -43,7 +48,7 @@ try {
 }
 
 if (!$profile) {
-    header('Location: index_new.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -61,30 +66,514 @@ $age = $now->diff($dob)->y;
     <title><?php echo htmlspecialchars($profile['full_name']); ?> - Bihak Center</title>
 
     <link rel="icon" type="image/png" href="../assets/images/favimg.png">
-    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/profile-detail.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/header_new.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+        }
+
+        /* Profile Hero */
+        .profile-hero {
+            position: relative;
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+            padding: 60px 20px 40px;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0.1;
+            background: url('../assets/images/Designer.jpeg') center/cover;
+        }
+
+        .hero-content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-image-container {
+            flex-shrink: 0;
+        }
+
+        .profile-image-large {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-hero-info {
+            flex: 1;
+        }
+
+        .profile-title-large {
+            font-size: 2.5rem;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+
+        .profile-subtitle {
+            font-size: 1.3rem;
+            margin: 0 0 20px 0;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .profile-quick-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .profile-quick-info span {
+            display: inline-block;
+        }
+
+        /* Main Content */
+        .profile-main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+
+        /* Content Sections */
+        .profile-content-section {
+            background: white;
+        }
+
+        .story-section,
+        .goals-section,
+        .achievements-section,
+        .media-section {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 4px solid #1cabe2;
+        }
+
+        .story-section h2,
+        .goals-section h2,
+        .achievements-section h2,
+        .media-section h2 {
+            color: #1cabe2;
+            font-size: 1.8rem;
+            margin: 0 0 20px 0;
+        }
+
+        .story-content,
+        .goals-content,
+        .achievements-content {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .profile-video,
+        .profile-additional-image {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Sidebar */
+        .profile-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-card,
+        .social-card,
+        .support-card,
+        .stats-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card h3,
+        .social-card h3,
+        .support-card h3 {
+            color: #1cabe2;
+            font-size: 1.3rem;
+            margin: 0 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item strong {
+            color: #666;
+            font-weight: 600;
+        }
+
+        .info-item span {
+            color: #333;
+            text-align: right;
+        }
+
+        /* Social Links Sidebar */
+        .social-links-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .social-link.facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .social-link.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+
+        .social-link.instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+
+        .social-link.linkedin {
+            background: #0077b5;
+            color: white;
+        }
+
+        .social-link:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Support Card */
+        .support-card {
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .support-card h3 {
+            color: white;
+            border-bottom-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .support-card p {
+            margin: 15px 0 20px;
+            opacity: 0.95;
+        }
+
+        .btn-support {
+            display: inline-block;
+            padding: 12px 30px;
+            background: white;
+            color: #1cabe2;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-support:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contact Details */
+        .contact-details {
+            margin-top: 20px;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contact-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            text-align: left;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .contact-item div {
+            flex: 1;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            word-break: break-all;
+            transition: opacity 0.3s;
+        }
+
+        .contact-item a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Stats Card */
+        .stats-card {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-item strong {
+            font-size: 1.8rem;
+            color: #1cabe2;
+            font-weight: 700;
+        }
+
+        .stat-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Back Link */
+        .back-link-container {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .back-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #f0f0f0;
+            color: #1cabe2;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            background: #1cabe2;
+            color: white;
+        }
+
+        /* Scroll to Top Button */
+        #myBtn {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: #1cabe2;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 18px;
+            width: 50px;
+            height: 50px;
+            transition: all 0.3s;
+        }
+
+        #myBtn:hover {
+            background-color: #147ba5;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content-wrapper {
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+
+            .profile-image-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .profile-title-large {
+                font-size: 2rem;
+            }
+
+            .profile-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .profile-quick-info {
+                justify-content: center;
+            }
+
+            .story-section,
+            .goals-section,
+            .achievements-section,
+            .media-section {
+                padding: 20px;
+            }
+
+            .info-card,
+            .social-card,
+            .support-card,
+            .stats-card {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-hero {
+                padding: 40px 15px 30px;
+            }
+
+            .profile-image-large {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-title-large {
+                font-size: 1.6rem;
+            }
+
+            .profile-subtitle {
+                font-size: 1rem;
+            }
+
+            .profile-quick-info {
+                font-size: 0.9rem;
+            }
+
+            .story-section h2,
+            .goals-section h2,
+            .achievements-section h2,
+            .media-section h2 {
+                font-size: 1.4rem;
+            }
+
+            .story-content,
+            .goals-content,
+            .achievements-content {
+                font-size: 0.95rem;
+            }
+
+            .stats-card {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <div class="logo">
-            <img src="../assets/images/logob.png" alt="Bihak Center Logo">
-        </div>
-
-        <nav class="navbar">
-            <ul class="nav-links">
-                <li><a href="index_new.php">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="work.html">Our Work</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="opportunities.html">Opportunities</a></li>
-                <li><a href="signup.php" class="cta-nav">Share Your Story</a></li>
-            </ul>
-        </nav>
-    </header>
+    <?php include '../includes/header_new.php'; ?>
 
     <!-- Profile Hero -->
     <section class="profile-hero">
@@ -229,7 +718,38 @@ $age = $now->diff($dob)->y;
                 <div class="support-card">
                     <h3>Support This Story</h3>
                     <p>Want to help <?php echo htmlspecialchars(explode(' ', $profile['full_name'])[0]); ?> achieve their dreams?</p>
-                    <a href="contact.html?ref=<?php echo $profile['id']; ?>" class="btn-support">Get in Touch</a>
+                    <button onclick="toggleContactDetails()" class="btn-support" id="contactToggleBtn">Get in Touch</button>
+
+                    <!-- Contact Details (Initially Hidden) -->
+                    <div id="contactDetails" class="contact-details" style="display: none;">
+                        <div class="contact-divider"></div>
+                        <div class="contact-info">
+                            <?php if (!empty($profile['email'])): ?>
+                            <div class="contact-item">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                </svg>
+                                <div>
+                                    <strong>Email:</strong>
+                                    <a href="mailto:<?php echo htmlspecialchars($profile['email']); ?>"><?php echo htmlspecialchars($profile['email']); ?></a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($profile['phone'])): ?>
+                            <div class="contact-item">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                <div>
+                                    <strong>Phone:</strong>
+                                    <a href="tel:<?php echo htmlspecialchars($profile['phone']); ?>"><?php echo htmlspecialchars($profile['phone']); ?></a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Stats -->
@@ -253,45 +773,27 @@ $age = $now->diff($dob)->y;
     </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>Discover Our Programs</h3>
-                <ul>
-                    <li><a href="work.html#orientation">Academic & Professional Orientation</a></li>
-                    <li><a href="work.html#coaching">Project Development Coaching</a></li>
-                    <li><a href="work.html#financial">Financial Support</a></li>
-                    <li><a href="work.html#technology">Technology for Development</a></li>
-                </ul>
-            </div>
-
-            <div class="about-us">
-                <h3>About Us</h3>
-                <ul>
-                    <li><a href="about.html#vision">Our Vision</a></li>
-                    <li><a href="about.html#mission">Our Mission</a></li>
-                    <li><a href="about.html#motivation">Our Motivation</a></li>
-                </ul>
-            </div>
-
-            <div class="social-links">
-                <h3>Follow Us</h3>
-                <ul>
-                    <li><a href="https://facebook.com/bihakcenter" target="_blank"><img src="../assets/images/facebk.png" alt="Facebook"><span>Bihak Center</span></a></li>
-                    <li><a href="https://instagram.com/bihakcenter" target="_blank"><img src="../assets/images/image.png" alt="Instagram"><span>Bihak Center</span></a></li>
-                    <li><a href="https://twitter.com/bihak_center" target="_blank"><img src="../assets/images/xx.webp" alt="Twitter"><span>@bihak_center</span></a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 Bihak Center | All Rights Reserved</p>
-        </div>
-    </footer>
+    <?php include '../includes/footer_new.php'; ?>
 
     <!-- Scroll to Top -->
     <button id="myBtn" aria-label="Scroll to top">↑</button>
 
     <script src="../assets/js/scroll-to-top.js"></script>
+
+    <script>
+        // Toggle contact details visibility
+        function toggleContactDetails() {
+            const contactDetails = document.getElementById('contactDetails');
+            const toggleBtn = document.getElementById('contactToggleBtn');
+
+            if (contactDetails.style.display === 'none') {
+                contactDetails.style.display = 'block';
+                toggleBtn.textContent = 'Hide Contact Info';
+            } else {
+                contactDetails.style.display = 'none';
+                toggleBtn.textContent = 'Get in Touch';
+            }
+        }
+    </script>
 </body>
 </html>

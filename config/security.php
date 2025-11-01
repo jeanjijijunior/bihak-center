@@ -183,11 +183,24 @@ class Security {
         try {
             $conn = getDatabaseConnection();
 
+            // Check if rate_limits table exists
+            $tableCheck = $conn->query("SHOW TABLES LIKE 'rate_limits'");
+            if ($tableCheck->num_rows === 0) {
+                // Table doesn't exist, allow the action (fail open for better UX during setup)
+                closeDatabaseConnection($conn);
+                return true;
+            }
+
             // Clean old entries
             $conn->query("DELETE FROM rate_limits WHERE window_start < DATE_SUB(NOW(), INTERVAL $window SECOND)");
 
             // Check current attempts
             $stmt = $conn->prepare("SELECT attempts FROM rate_limits WHERE identifier = ? AND action = ?");
+            if (!$stmt) {
+                // Query failed, allow the action (fail open)
+                closeDatabaseConnection($conn);
+                return true;
+            }
             $stmt->bind_param('ss', $identifier, $action);
             $stmt->execute();
             $result = $stmt->get_result();

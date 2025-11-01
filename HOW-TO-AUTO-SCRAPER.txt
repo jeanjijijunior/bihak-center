@@ -1,0 +1,222 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║        SETUP AUTOMATIC DAILY SCRAPER - SIMPLE GUIDE           ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+══════════════════════════════════════════════════════════════════
+WHAT THIS DOES:
+══════════════════════════════════════════════════════════════════
+
+The automatic scraper will:
+✓ Run every day at 2:00 AM automatically
+✓ Check for new opportunities (scholarships, jobs, internships, grants)
+✓ Add new opportunities to your database
+✓ Update existing opportunities
+✓ Keep your website fresh with 40+ opportunities
+✓ Work in the background - you don't need to do anything!
+
+
+══════════════════════════════════════════════════════════════════
+SIMPLE SETUP (2 MINUTES):
+══════════════════════════════════════════════════════════════════
+
+STEP 1: Find this file:
+        SETUP-AUTO-SCRAPER.bat
+        (It's in the same folder as this guide)
+
+STEP 2: Right-click on it
+
+STEP 3: Select "Run as administrator"
+
+STEP 4: Click "Yes" when Windows asks for permission
+
+STEP 5: Wait for it to complete (10-30 seconds)
+
+STEP 6: Done! ✓
+
+The scraper will now run automatically every day at 2:00 AM!
+
+
+══════════════════════════════════════════════════════════════════
+VERIFY IT'S WORKING:
+══════════════════════════════════════════════════════════════════
+
+After setup, check if it worked:
+
+1. Press Win+R on your keyboard
+2. Type: taskschd.msc
+3. Press Enter
+4. Look for: BihakCenter-DailyScraper
+5. You should see:
+   - Status: Ready
+   - Next Run Time: Tomorrow at 2:00 AM
+   - Last Run Result: The operation completed successfully (0x0)
+
+If you see these, it's working! ✓
+
+
+══════════════════════════════════════════════════════════════════
+TEST IT NOW:
+══════════════════════════════════════════════════════════════════
+
+Don't want to wait until 2:00 AM? Test it now!
+
+1. Open Task Scheduler (Win+R → taskschd.msc)
+2. Find: BihakCenter-DailyScraper
+3. Right-click on it
+4. Click "Run"
+5. Wait 10-30 seconds
+6. Check your opportunities page - should show 44 opportunities!
+
+
+══════════════════════════════════════════════════════════════════
+CHANGE THE TIME:
+══════════════════════════════════════════════════════════════════
+
+Want it to run at a different time? Easy!
+
+1. Open Task Scheduler (Win+R → taskschd.msc)
+2. Find: BihakCenter-DailyScraper
+3. Right-click → Properties
+4. Go to "Triggers" tab
+5. Double-click the trigger
+6. Change the time (e.g., 1:00 AM, 3:00 AM, 12:00 PM, etc.)
+7. Click OK, OK
+
+
+══════════════════════════════════════════════════════════════════
+RUN MULTIPLE TIMES PER DAY:
+══════════════════════════════════════════════════════════════════
+
+Want fresh opportunities multiple times per day?
+
+1. Open Task Scheduler
+2. Find your task
+3. Right-click → Properties
+4. Go to "Triggers" tab
+5. Click "New..."
+6. Set another time (e.g., 2:00 PM)
+7. Click OK
+
+Now it runs at 2:00 AM AND 2:00 PM!
+
+
+══════════════════════════════════════════════════════════════════
+VIEW LOGS:
+══════════════════════════════════════════════════════════════════
+
+Want to see what the scraper is doing?
+
+Open this file:
+C:\xampp\htdocs\bihak-center\logs\scraper.log
+
+It shows:
+- When it ran
+- How many opportunities were scraped
+- How many were added
+- How many were updated
+- Any errors that occurred
+
+
+══════════════════════════════════════════════════════════════════
+DISABLE THE AUTO-SCRAPER:
+══════════════════════════════════════════════════════════════════
+
+Want to turn it off temporarily?
+
+1. Open Task Scheduler
+2. Find: BihakCenter-DailyScraper
+3. Right-click
+4. Click "Disable"
+
+To turn it back on:
+1. Right-click again
+2. Click "Enable"
+
+
+══════════════════════════════════════════════════════════════════
+DELETE THE AUTO-SCRAPER:
+══════════════════════════════════════════════════════════════════
+
+Want to remove it completely?
+
+1. Open Task Scheduler
+2. Find: BihakCenter-DailyScraper
+3. Right-click
+4. Click "Delete"
+5. Click "Yes" to confirm
+
+
+══════════════════════════════════════════════════════════════════
+TROUBLESHOOTING:
+══════════════════════════════════════════════════════════════════
+
+PROBLEM: "This script requires Administrator privileges"
+SOLUTION: Right-click the .bat file and choose "Run as administrator"
+
+PROBLEM: "Scraper script not found"
+SOLUTION: Make sure files are in C:\xampp\htdocs\bihak-center
+         Run EASY-SETUP.bat first to copy files to XAMPP
+
+PROBLEM: Task shows in Task Scheduler but doesn't run
+SOLUTION:
+- Make sure MySQL is running in XAMPP
+- Check the log file for errors
+- Right-click task → Run to test it manually
+
+PROBLEM: No new opportunities appearing
+SOLUTION:
+- Scraper might be finding duplicates (it updates existing ones)
+- Check scraper_log table in phpMyAdmin to see results
+- Run manually to see output: php scrapers\run_scrapers.php
+
+
+══════════════════════════════════════════════════════════════════
+MANUAL RUN (Without Auto-Setup):
+══════════════════════════════════════════════════════════════════
+
+If the automatic setup doesn't work, you can do it manually:
+
+1. Press Win+R
+2. Type: taskschd.msc
+3. Press Enter
+4. Click "Create Basic Task..." (on the right)
+5. Name: BihakCenter-DailyScraper
+6. Click Next
+7. Select "Daily"
+8. Click Next
+9. Set time: 2:00:00 AM
+10. Click Next
+11. Select "Start a program"
+12. Click Next
+13. Program: C:\xampp\php\php.exe
+14. Arguments: scrapers\run_scrapers.php
+15. Start in: C:\xampp\htdocs\bihak-center
+16. Click Next
+17. Check "Open properties..."
+18. Click Finish
+19. In properties, check "Run whether user is logged on or not"
+20. Check "Run with highest privileges"
+21. Click OK
+22. Done!
+
+
+══════════════════════════════════════════════════════════════════
+SUMMARY:
+══════════════════════════════════════════════════════════════════
+
+✓ Right-click SETUP-AUTO-SCRAPER.bat
+✓ Run as administrator
+✓ Done! Scraper runs daily at 2:00 AM
+✓ Your website always has fresh opportunities
+✓ No manual work needed!
+
+
+══════════════════════════════════════════════════════════════════
+
+That's it! Once set up, you never need to worry about updating
+opportunities again. They'll be added automatically every day! 🎉
+
+══════════════════════════════════════════════════════════════════

@@ -3,7 +3,7 @@
     <div class="header-container">
         <!-- Logo (Links to Homepage) -->
         <div class="logo">
-            <a href="index_new.php" title="Bihak Center - Home">
+            <a href="index.php" title="Bihak Center - Home">
                 <img src="../assets/images/logob.png" alt="Bihak Center Logo">
             </a>
         </div>
@@ -18,11 +18,11 @@
         <!-- Navigation Menu -->
         <nav class="navbar" id="main-navbar">
             <ul class="nav-links">
-                <li><a href="index_new.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index_new.php' ? 'active' : ''; ?>">Home</a></li>
-                <li><a href="about.html" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about.html' ? 'active' : ''; ?>">About</a></li>
-                <li><a href="work.html" class="<?php echo basename($_SERVER['PHP_SELF']) == 'work.html' ? 'active' : ''; ?>">Our Work</a></li>
-                <li><a href="contact.html" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.html' ? 'active' : ''; ?>">Contact</a></li>
-                <li><a href="opportunities.html" class="<?php echo basename($_SERVER['PHP_SELF']) == 'opportunities.html' ? 'active' : ''; ?>">Opportunities</a></li>
+                <li><a href="index.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">Home</a></li>
+                <li><a href="about.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'about.php' ? 'active' : ''; ?>">About</a></li>
+                <li><a href="work.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'work.php' ? 'active' : ''; ?>">Our Work</a></li>
+                <li><a href="contact.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'contact.php' ? 'active' : ''; ?>">Contact</a></li>
+                <li><a href="opportunities.php" class="<?php echo basename($_SERVER['PHP_SELF']) == 'opportunities.php' ? 'active' : ''; ?>">Opportunities</a></li>
                 <li><a href="signup.php" class="cta-nav <?php echo basename($_SERVER['PHP_SELF']) == 'signup.php' ? 'active' : ''; ?>">Share Your Story</a></li>
             </ul>
         </nav>

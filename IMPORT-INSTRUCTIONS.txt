@@ -1,0 +1,207 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║        HOW TO IMPORT THE DATABASE - STEP BY STEP              ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+The file to import: IMPORT-ALL-DATABASE.sql
+(It's in the same folder as this file)
+
+
+══════════════════════════════════════════════════════════════════
+STEP 1: START MYSQL
+══════════════════════════════════════════════════════════════════
+
+1. Open XAMPP Control Panel
+2. Look for the line that says "MySQL"
+3. Click the "Start" button next to MySQL
+4. Wait until it says "Running" or the button turns gray
+5. ✓ MySQL is now running!
+
+
+══════════════════════════════════════════════════════════════════
+STEP 2: OPEN PHPMYADMIN
+══════════════════════════════════════════════════════════════════
+
+1. Open your web browser (Chrome, Firefox, Edge, etc.)
+2. Type in the address bar: localhost/phpmyadmin
+3. Press Enter
+4. You should see the phpMyAdmin interface
+5. ✓ phpMyAdmin is now open!
+
+
+══════════════════════════════════════════════════════════════════
+STEP 3: IMPORT THE DATABASE FILE
+══════════════════════════════════════════════════════════════════
+
+1. In phpMyAdmin, look at the top menu
+2. Click on the tab that says "Import"
+3. You'll see a section that says "File to import:"
+4. Click the "Choose File" or "Browse..." button
+5. Navigate to this folder:
+   C:\Users\JeanJuniorNiyonkuru\Downloads\Bihak site - Copie\Bihak site - Copie\
+6. Find and select: IMPORT-ALL-DATABASE.sql
+7. Scroll all the way to the bottom of the page
+8. Click the big "Go" button
+9. Wait 5-15 seconds (don't close the page!)
+
+
+══════════════════════════════════════════════════════════════════
+STEP 4: CHECK IF IT WORKED
+══════════════════════════════════════════════════════════════════
+
+You should see a green box that says:
+  "✓ Import has been successfully finished"
+  "15 queries executed"
+
+If you see this, SUCCESS! ✓
+
+Now look at the left sidebar in phpMyAdmin.
+You should see a database called "bihak"
+Click on it.
+
+You should see these tables:
+  - admins
+  - admin_activity_log
+  - admin_sessions
+  - opportunities
+  - opportunity_tags
+  - opportunity_tag_relations
+  - profiles
+  - rate_limits
+  - scraper_log
+  - user_activity_log
+  - user_saved_opportunities
+  - user_sessions
+  - users
+
+If you see all these tables, PERFECT! ✓✓✓
+
+
+══════════════════════════════════════════════════════════════════
+STEP 5: TEST YOUR WEBSITE
+══════════════════════════════════════════════════════════════════
+
+Now open these URLs in your browser:
+
+1. Opportunities Page:
+   http://localhost/bihak-center/public/opportunities.php
+
+   Should show: Sample opportunities WITHOUT any errors!
+
+2. User Login:
+   http://localhost/bihak-center/public/login.php
+
+   Should show: Login form
+
+3. Admin Login:
+   http://localhost/bihak-center/public/admin/login.php
+
+   Should show: Admin login form
+
+
+══════════════════════════════════════════════════════════════════
+LOGIN CREDENTIALS (Test These!)
+══════════════════════════════════════════════════════════════════
+
+ADMIN LOGIN:
+  URL:      http://localhost/bihak-center/public/admin/login.php
+  Username: admin
+  Password: Admin@123
+
+USER LOGIN:
+  URL:      http://localhost/bihak-center/public/login.php
+  Email:    demo@bihakcenter.org
+  Password: Demo@123
+
+
+══════════════════════════════════════════════════════════════════
+WHAT THE DATABASE CONTAINS
+══════════════════════════════════════════════════════════════════
+
+After importing, you'll have:
+
+✓ 3 sample profiles (young people stories)
+✓ 1 admin account (admin/Admin@123)
+✓ 1 demo user account (demo@bihakcenter.org/Demo@123)
+✓ 4 sample opportunities (1 scholarship, 1 job, 1 internship, 1 grant)
+✓ All required tables for the system to work
+✓ Security tables (sessions, rate limiting, etc.)
+
+
+══════════════════════════════════════════════════════════════════
+NEXT STEP: LOAD MORE OPPORTUNITIES
+══════════════════════════════════════════════════════════════════
+
+After the database is imported, you can load 40 opportunities:
+
+1. Open Command Prompt
+2. Navigate to your project folder:
+   cd "C:\Users\JeanJuniorNiyonkuru\Downloads\Bihak site - Copie\Bihak site - Copie"
+3. Run:
+   php scrapers\run_scrapers.php
+4. Wait 10-30 seconds
+5. Done! You now have 40 opportunities loaded!
+
+
+══════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+══════════════════════════════════════════════════════════════════
+
+ERROR: "MySQL is not running"
+→ Go back to STEP 1 and start MySQL in XAMPP
+
+ERROR: "Access denied"
+→ Use phpMyAdmin instead (it handles passwords automatically)
+
+ERROR: "Can't find file"
+→ Make sure you're selecting: IMPORT-ALL-DATABASE.sql
+   from the correct folder
+
+ERROR: "Database already exists"
+→ In phpMyAdmin:
+  1. Click "bihak" in left sidebar
+  2. Click "Operations" tab at top
+  3. Scroll down to "Remove database"
+  4. Click "Drop the database (DROP)"
+  5. Confirm
+  6. Now try importing again
+
+ERROR: Still see errors on website
+→ Clear your browser cache (Ctrl+Shift+Delete)
+→ Refresh the page (Ctrl+F5)
+→ Try opening in incognito/private mode
+
+
+══════════════════════════════════════════════════════════════════
+SUCCESS CHECKLIST
+══════════════════════════════════════════════════════════════════
+
+✓ MySQL is running in XAMPP
+✓ Imported IMPORT-ALL-DATABASE.sql successfully
+✓ "bihak" database shows in phpMyAdmin
+✓ All 13+ tables are visible
+✓ Opportunities page loads without errors
+✓ Can see sample opportunities
+✓ Can login as admin (admin/Admin@123)
+✓ Can login as user (demo@bihakcenter.org/Demo@123)
+
+If all checked, YOU'RE DONE! 🎉
+
+
+══════════════════════════════════════════════════════════════════
+NEED MORE HELP?
+══════════════════════════════════════════════════════════════════
+
+Check these files:
+  - FIX-DATABASE-ERRORS.md (detailed troubleshooting)
+  - QUICK-START.md (quick start guide)
+  - COMPLETE-PROJECT-STATUS.md (full documentation)
+
+
+══════════════════════════════════════════════════════════════════
+
+That's it! The database is the key to everything working.
+Once it's imported, all the errors will disappear! ✨
+
+══════════════════════════════════════════════════════════════════

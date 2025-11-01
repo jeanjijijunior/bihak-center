@@ -1,37 +1,27 @@
+<?php
+/**
+ * User Detail Page
+ */
+
+// Start session before any output
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Bihak Center</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="images/favimg.png">
-    <link rel="stylesheet" type="text/css" href="CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="../assets/images/favimg.png">
+    <link rel="stylesheet" type="text/css" href="../assets/css/header_new.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
-
-<header>
-  <div class="logo">
-      <img src="images/logob.png" alt="Bihak Center Logo">
-  </div>
-
-  <div class="language-switcher">
-      <a href="#">Français</a> | 
-      <a href="#">English</a>
-  </div>
-
-  <nav class="navbar">
-      <ul class="nav-links">
-  <li><a href="index.php">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="work.html">Our Work</a></li>
-            <li><a href="contact.html">Contact</a></li>
-    	    <li><a href="opportunities.html">Opportunities</a></li>
-	    <li><a href="login-join.html">My account</a></li>
-      </ul>
-  </nav>
-</header>
+    <?php include '../includes/header_new.php'; ?>
 
 
     <?php

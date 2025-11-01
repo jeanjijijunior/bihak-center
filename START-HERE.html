@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bihak Center - Setup Instructions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1cabe2;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #1cabe2;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .step h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .step p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .step-number {
+            display: inline-block;
+            background: #1cabe2;
+            color: white;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .button {
+            display: inline-block;
+            background: #1cabe2;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .button:hover {
+            background: #0e7fa5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(28,171,226,0.4);
+        }
+        .button-secondary {
+            background: #6c757d;
+        }
+        .button-secondary:hover {
+            background: #545b62;
+        }
+        .credentials {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .credentials h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .credentials code {
+            background: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d63384;
+            font-weight: bold;
+        }
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .success-box h3 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        .file-location {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+            margin: 10px 0;
+        }
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+        .checklist li {
+            padding: 8px 0 8px 30px;
+            position: relative;
+        }
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            color: #1cabe2;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Bihak Center Setup</h1>
+        <p class="subtitle">Follow these simple steps to get your website running</p>
+
+        <!-- STEP 1 -->
+        <div class="step">
+            <h2><span class="step-number">1</span> Start MySQL</h2>
+            <p>Open XAMPP Control Panel and click "Start" next to MySQL. Wait until it says "Running".</p>
+            <p><strong>MySQL Status:</strong> <span id="mysql-status">Checking...</span></p>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step">
+            <h2><span class="step-number">2</span> Open phpMyAdmin</h2>
+            <p>Click the button below to open phpMyAdmin where you'll import the database:</p>
+            <a href="http://localhost/phpmyadmin" target="_blank" class="button">
+                📊 Open phpMyAdmin
+            </a>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="step">
+            <h2><span class="step-number">3</span> Import Database File</h2>
+            <p>In phpMyAdmin:</p>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li>Click the <strong>"Import"</strong> tab at the top</li>
+                <li>Click <strong>"Choose File"</strong></li>
+                <li>Select this file:</li>
+            </ol>
+            <div class="file-location">
+                <strong>📁 File to import:</strong><br>
+                IMPORT-ALL-DATABASE.sql
+            </div>
+            <p style="margin-top: 10px;"><strong>Location:</strong> Same folder as this HTML file</p>
+            <ol style="margin-left: 20px; line-height: 1.8;" start="4">
+                <li>Scroll to the bottom</li>
+                <li>Click the <strong>"Go"</strong> button</li>
+                <li>Wait 5-15 seconds</li>
+            </ol>
+        </div>
+
+        <!-- SUCCESS CHECK -->
+        <div class="success-box">
+            <h3>✅ Success Check</h3>
+            <p>You should see a green message:</p>
+            <p><strong>"Import has been successfully finished, 15 queries executed."</strong></p>
+            <p style="margin-top: 10px;">In the left sidebar, you should see a database called <code>bihak</code> with 13+ tables.</p>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step">
+            <h2><span class="step-number">4</span> Test Your Website</h2>
+            <p>Now visit your website to see if everything works:</p>
+
+            <a href="http://localhost/bihak-center/public/index.php" target="_blank" class="button">
+                🏠 Homepage
+            </a>
+            <a href="http://localhost/bihak-center/public/opportunities.php" target="_blank" class="button">
+                🎓 Opportunities Page
+            </a>
+            <br><br>
+            <a href="http://localhost/bihak-center/public/login.php" target="_blank" class="button button-secondary">
+                👤 User Login
+            </a>
+            <a href="http://localhost/bihak-center/public/admin/login.php" target="_blank" class="button button-secondary">
+                🔐 Admin Login
+            </a>
+        </div>
+
+        <!-- CREDENTIALS -->
+        <div class="credentials">
+            <h3>🔑 Login Credentials</h3>
+            <p><strong>Admin Portal:</strong></p>
+            <ul style="list-style: none; padding-left: 20px;">
+                <li>Username: <code>admin</code></li>
+                <li>Password: <code>Admin@123</code></li>
+            </ul>
+            <br>
+            <p><strong>Demo User Account:</strong></p>
+            <ul style="list-style: none; padding-left: 20px;">
+                <li>Email: <code>demo@bihakcenter.org</code></li>
+                <li>Password: <code>Demo@123</code></li>
+            </ul>
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="step">
+            <h2><span class="step-number">5</span> Load More Opportunities (Optional)</h2>
+            <p>After database import works, load 40 opportunities:</p>
+            <ol style="margin-left: 20px; line-height: 1.8;">
+                <li>Open Command Prompt</li>
+                <li>Type: <code>cd "C:\Users\JeanJuniorNiyonkuru\Downloads\Bihak site - Copie\Bihak site - Copie"</code></li>
+                <li>Press Enter</li>
+                <li>Type: <code>php scrapers\run_scrapers.php</code></li>
+                <li>Press Enter</li>
+                <li>Wait 10-30 seconds</li>
+            </ol>
+            <p style="margin-top: 10px;">This adds <strong>8 scholarships + 10 jobs + 10 internships + 12 grants = 40 opportunities!</strong></p>
+        </div>
+
+        <!-- VERIFICATION CHECKLIST -->
+        <div class="step">
+            <h2>✅ Verification Checklist</h2>
+            <p>Make sure everything works:</p>
+            <ul class="checklist">
+                <li>MySQL is running (green in XAMPP)</li>
+                <li>Database "bihak" exists in phpMyAdmin</li>
+                <li>All tables are visible (admins, users, opportunities, etc.)</li>
+                <li>Opportunities page loads without errors</li>
+                <li>Can see sample opportunities</li>
+                <li>Can login as admin (admin/Admin@123)</li>
+                <li>Can login as user (demo@bihakcenter.org/Demo@123)</li>
+                <li>No database errors on any page</li>
+            </ul>
+        </div>
+
+        <!-- WHAT YOU GET -->
+        <div class="success-box">
+            <h3>🎉 What You Get After Setup</h3>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li><strong>3 sample profiles</strong> of young people</li>
+                <li><strong>1 admin account</strong> for managing the website</li>
+                <li><strong>1 demo user account</strong> for testing</li>
+                <li><strong>4 sample opportunities</strong> (1 of each type)</li>
+                <li><strong>40 more opportunities</strong> after running scraper</li>
+                <li><strong>Full authentication system</strong> (login, sessions, security)</li>
+                <li><strong>Admin dashboard</strong> for approving profiles</li>
+                <li><strong>Search and filter</strong> system for opportunities</li>
+                <li><strong>Bilingual support</strong> (English/French)</li>
+            </ul>
+        </div>
+
+        <!-- TROUBLESHOOTING -->
+        <div class="warning">
+            <strong>⚠️ Having Issues?</strong><br>
+            If something doesn't work:
+            <ol style="margin-left: 20px; margin-top: 10px;">
+                <li>Make sure MySQL is running (check XAMPP)</li>
+                <li>Try opening phpMyAdmin in incognito/private mode</li>
+                <li>Clear your browser cache (Ctrl+Shift+Delete)</li>
+                <li>Check the files: <code>FIX-DATABASE-ERRORS.md</code> or <code>QUICK-START.md</code></li>
+            </ol>
+        </div>
+
+        <!-- FOOTER -->
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 2px solid #e9ecef;">
+            <p style="color: #666; margin-bottom: 15px;">Need more help? Check these files in your project folder:</p>
+            <p>
+                <code>IMPORT-INSTRUCTIONS.txt</code> •
+                <code>FIX-DATABASE-ERRORS.md</code> •
+                <code>COMPLETE-PROJECT-STATUS.md</code>
+            </p>
+            <p style="margin-top: 20px; color: #1cabe2; font-weight: bold; font-size: 1.2rem;">
+                🌟 Your Bihak Center website will be ready in 5 minutes! 🌟
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Check if MySQL is running
+        fetch('http://localhost/phpmyadmin')
+            .then(() => {
+                document.getElementById('mysql-status').innerHTML = '<span style="color: green; font-weight: bold;">✓ Running</span>';
+            })
+            .catch(() => {
+                document.getElementById('mysql-status').innerHTML = '<span style="color: red; font-weight: bold;">✗ Not Running - Please start MySQL in XAMPP</span>';
+            });
+    </script>
+</body>
+</html>

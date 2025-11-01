@@ -94,15 +94,25 @@ if "%ERRORLEVEL%"=="0" (
     if %errorlevel% equ 0 (
         echo ✓ Database created!
         echo.
-        echo Importing schema...
+        echo Importing main schema...
         "C:\xampp\mysql\bin\mysql.exe" -u root bihak < "%DEST%\includes\profiles_schema.sql" 2>nul
 
         if %errorlevel% equ 0 (
-            echo ✓ Schema imported successfully!
+            echo ✓ Main schema imported successfully!
             echo ✓ 8 fictive profiles loaded!
         ) else (
-            echo ⚠ Schema import may have failed
-            echo   You can import manually from phpMyAdmin
+            echo ⚠ Main schema import may have failed
+        )
+
+        echo.
+        echo Importing admin tables...
+        "C:\xampp\mysql\bin\mysql.exe" -u root bihak < "%DEST%\includes\admin_tables.sql" 2>nul
+
+        if %errorlevel% equ 0 (
+            echo ✓ Admin tables imported successfully!
+            echo ✓ Default admin account created
+        ) else (
+            echo ⚠ Admin tables import may have failed
         )
     ) else (
         echo ⚠ Database creation failed (may need password)
@@ -158,7 +168,8 @@ echo Your website is at:
 echo   📁 %DEST%
 echo.
 echo 🌐 Access your website:
-echo   http://localhost/bihak-center/public/index_new.php
+echo   Homepage: http://localhost/bihak-center/public/index.php
+echo   Admin:    http://localhost/bihak-center/public/admin/login.php
 echo.
 echo 🗄️ Database management:
 echo   http://localhost/phpmyadmin
@@ -166,10 +177,17 @@ echo.
 echo ✨ What's included:
 echo   ✓ User registration system
 echo   ✓ Dynamic profiles homepage
+echo   ✓ Admin dashboard with approval system
+echo   ✓ Enterprise-grade security
 echo   ✓ 8 pre-loaded demo profiles
 echo   ✓ Mobile-responsive design
 echo   ✓ Profile detail pages
 echo   ✓ Load More functionality
+echo.
+echo 🔐 Default Admin Login:
+echo   Username: admin
+echo   Password: Admin@123
+echo   ⚠ CHANGE PASSWORD IMMEDIATELY AFTER FIRST LOGIN!
 echo.
 echo 📋 Next steps:
 echo   1. Make sure Apache and MySQL are running (XAMPP Control)
@@ -177,7 +195,8 @@ echo   2. Visit: http://localhost/phpmyadmin
 echo      - Check if 'bihak' database exists
 echo      - If not, import: %DEST%\includes\profiles_schema.sql
 echo   3. Visit your website!
-echo      http://localhost/bihak-center/public/index_new.php
+echo      Homepage: http://localhost/bihak-center/public/index.php
+echo      Admin:    http://localhost/bihak-center/public/admin/login.php
 echo.
 echo 💡 Test on phone:
 echo   1. Get your PC's IP: ipconfig
@@ -186,7 +205,9 @@ echo.
 
 choice /C YN /M "Open your website in browser now"
 if not errorlevel 2 (
-    start http://localhost/bihak-center/public/index_new.php
+    start http://localhost/bihak-center/public/index.php
+    timeout /t 2 /nobreak >nul
+    start http://localhost/bihak-center/public/admin/login.php
 )
 
 echo.

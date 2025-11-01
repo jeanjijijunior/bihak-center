@@ -1,14 +1,10 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git init:*)",
-      "Bash(git restore:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(tree:*)",
-      "Bash(gh:*)",
-      "Bash(mysql:*)",
-      "Bash(php:*)"
+      "Bash(powershell -Command \"(Get-Content ''c:\\xampp\\htdocs\\bihak-center\\public\\signup.php'' | Measure-Object -Line).Lines\")",
+      "Bash(powershell:*)",
+      "Bash(git push:*)",
+      "Bash(git remote add:*)"
     ],
     "deny": [],
     "ask": []
