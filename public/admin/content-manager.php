@@ -57,8 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pages_query = "SELECT DISTINCT page_name FROM page_contents WHERE is_active = TRUE ORDER BY page_name";
 $pages_result = $conn->query($pages_query);
 $pages = [];
-while ($row = $pages_result->fetch_assoc()) {
-    $pages[] = $row['page_name'];
+if ($pages_result && $pages_result->num_rows > 0) {
+    while ($row = $pages_result->fetch_assoc()) {
+        $pages[] = $row['page_name'];
+    }
 }
 
 // Get content for selected page
