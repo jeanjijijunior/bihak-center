@@ -37,8 +37,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="https://twitter.com/bihak_center" target="_blank" rel="noopener noreferrer">
-                        <img src="/bihak-center/assets/images/twitter-icon.png" alt="Twitter/X">
+                    <a href="https://x.com/bihak_center" target="_blank" rel="noopener noreferrer">
+                        <img src="/bihak-center/assets/images/x-logo.png" alt="X (Twitter)">
                         <span>@bihak_center</span>
                     </a>
                 </li>
