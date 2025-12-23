@@ -21,12 +21,16 @@ $response = [
 try {
     // Check if form was submitted
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-        throw new Exception('Invalid request method');
+        throw new Exception('Invalid request method. Please submit the form properly.');
     }
 
     // Validate CSRF token
-    if (!isset($_POST['csrf_token']) || !Security::validateCSRFToken($_POST['csrf_token'])) {
-        throw new Exception('Invalid security token. Please refresh the page and try again.');
+    if (!isset($_POST['csrf_token'])) {
+        throw new Exception('Security token is missing. Please refresh the page and try again.');
+    }
+
+    if (!Security::validateCSRFToken($_POST['csrf_token'])) {
+        throw new Exception('Invalid or expired security token. Please refresh the page and try again.');
     }
 
     // Sanitize and validate input
@@ -79,13 +83,26 @@ try {
     }
 
     // Check if email already exists
-    $conn = getDatabaseConnection();
+    try {
+        $conn = getDatabaseConnection();
+    } catch (Exception $dbError) {
+        throw new Exception('Database connection failed: ' . $dbError->getMessage());
+    }
+
+    if (!$conn) {
+        throw new Exception('Could not connect to database. Please try again later.');
+    }
+
     $checkEmail = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    if (!$checkEmail) {
+        throw new Exception('Database query error: ' . $conn->error);
+    }
+
     $checkEmail->bind_param('s', $data['email']);
     $checkEmail->execute();
     $checkEmail->store_result();
     if ($checkEmail->num_rows > 0) {
-        $response['errors'][] = 'An account with this email already exists';
+        $response['errors'][] = 'An account with this email already exists. Please use a different email or try logging in.';
     }
     $checkEmail->close();
 
@@ -196,15 +213,18 @@ try {
         $password_hash = Security::hashPassword($data['password']);
         $verification_token = bin2hex(random_bytes(32));
 
-        $userSql = "INSERT INTO users (email, password_hash, full_name, phone, is_active, email_verified, verification_token, created_at)
-                    VALUES (?, ?, ?, ?, TRUE, FALSE, ?, NOW())";
+        $userSql = "INSERT INTO users (email, password, full_name, is_active, email_verified, verification_token)
+                    VALUES (?, ?, ?, 1, 0, ?)";
 
         $userStmt = $conn->prepare($userSql);
-        $userStmt->bind_param('sssss',
+        if (!$userStmt) {
+            throw new Exception('Failed to prepare user insert statement: ' . $conn->error);
+        }
+
+        $userStmt->bind_param('ssss',
             $data['email'],
             $password_hash,
             $data['full_name'],
-            $data['phone'],
             $verification_token
         );
 
@@ -236,6 +256,10 @@ try {
     )";
 
     $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('Failed to prepare profile insert statement: ' . $conn->error);
+    }
+
     $stmt->bind_param(
         'isssssssssssssssssssssss',
         $userId,
@@ -322,13 +346,41 @@ try {
     }
 
 } catch (Exception $e) {
+    // Capture database error BEFORE closing connection
+    $dbError = '';
+    if (isset($conn) && $conn->error) {
+        $dbError = $conn->error;
+    }
+
+    // Now close connection
     if (isset($conn)) {
         $conn->rollback();
         closeDatabaseConnection($conn);
     }
-    $response['message'] = $e->getMessage();
-    error_log('Signup Error: ' . $e->getMessage());
+
+    // Get detailed error information
+    $errorMessage = $e->getMessage();
+    $errorFile = $e->getFile();
+    $errorLine = $e->getLine();
+
+    // Log the full error
+    error_log("Signup Error: $errorMessage in $errorFile on line $errorLine");
+
+    // Return user-friendly error with details
+    $response['message'] = $errorMessage;
+    $response['error_details'] = [
+        'type' => get_class($e),
+        'file' => basename($errorFile),
+        'line' => basename($errorFile) . ':' . $errorLine
+    ];
+
+    // If there was a database error, provide more context
+    if (!empty($dbError)) {
+        $response['database_error'] = $dbError;
+        $response['message'] .= ' (Database: ' . $dbError . ')';
+    }
 }
 
+// Always return JSON
 echo json_encode($response);
 ?>

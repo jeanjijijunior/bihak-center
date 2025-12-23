@@ -21,6 +21,10 @@ if ($profileId <= 0) {
 
 // Fetch profile
 $profile = null;
+$canOfferMentorship = false;
+$canRequestMentorship = false;
+$existingRelationship = null;
+
 try {
     $conn = getDatabaseConnection();
 
@@ -39,6 +43,28 @@ try {
         $updateStmt->bind_param('i', $profileId);
         $updateStmt->execute();
         $updateStmt->close();
+
+        // Check mentorship options
+        if ($profile['user_id']) {
+            // If viewer is a mentor (sponsor), show "Offer Mentorship" button
+            if (isset($_SESSION['sponsor_id']) && $_SESSION['sponsor_id'] != $profile['user_id']) {
+                // Check if there's already a relationship
+                $relStmt = $conn->prepare("
+                    SELECT * FROM mentorship_relationships
+                    WHERE mentor_id = ? AND mentee_id = ?
+                ");
+                $relStmt->bind_param('ii', $_SESSION['sponsor_id'], $profile['user_id']);
+                $relStmt->execute();
+                $relResult = $relStmt->get_result();
+
+                if ($relResult->num_rows > 0) {
+                    $existingRelationship = $relResult->fetch_assoc();
+                } else {
+                    $canOfferMentorship = true;
+                }
+                $relStmt->close();
+            }
+        }
     }
 
     $stmt->close();
@@ -714,6 +740,35 @@ $age = $now->diff($dob)->y;
                     </div>
                 <?php endif; ?>
 
+                <!-- Mentorship CTA (for mentors viewing user profiles) -->
+                <?php if ($canOfferMentorship): ?>
+                <div class="support-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <h3 style="color: white; border-bottom-color: rgba(255, 255, 255, 0.3);">🤝 Mentorship Opportunity</h3>
+                    <p>Offer mentorship to <?php echo htmlspecialchars(explode(' ', $profile['full_name'])[0]); ?> and help guide their journey</p>
+                    <button onclick="offerMentorship(<?php echo $profile['user_id']; ?>, '<?php echo htmlspecialchars($profile['full_name']); ?>')" class="btn-support">
+                        Offer Mentorship
+                    </button>
+                </div>
+                <?php elseif ($existingRelationship): ?>
+                <div class="support-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <h3 style="color: white; border-bottom-color: rgba(255, 255, 255, 0.3);">✓ Mentorship Status</h3>
+                    <p>
+                        <?php if ($existingRelationship['status'] === 'active'): ?>
+                            You are mentoring <?php echo htmlspecialchars(explode(' ', $profile['full_name'])[0]); ?>
+                        <?php elseif ($existingRelationship['status'] === 'pending'): ?>
+                            Mentorship request pending
+                        <?php else: ?>
+                            Previous mentorship relationship
+                        <?php endif; ?>
+                    </p>
+                    <?php if ($existingRelationship['status'] === 'active'): ?>
+                    <a href="mentorship/workspace.php?id=<?php echo $existingRelationship['id']; ?>" class="btn-support">
+                        Open Workspace
+                    </a>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+
                 <!-- Support CTA -->
                 <div class="support-card">
                     <h3>Support This Story</h3>
@@ -768,7 +823,7 @@ $age = $now->diff($dob)->y;
 
         <!-- Back to Stories -->
         <div class="back-link-container">
-            <a href="index_new.php#stories" class="back-link">← Back to All Stories</a>
+            <a href="stories.php" class="back-link">← Back to All Stories</a>
         </div>
     </main>
 
@@ -794,6 +849,47 @@ $age = $now->diff($dob)->y;
                 toggleBtn.textContent = 'Get in Touch';
             }
         }
+
+        // Offer mentorship to user
+        function offerMentorship(menteeId, menteeName) {
+            if (!confirm(`Offer mentorship to ${menteeName}?\n\nThey will receive a notification and can accept or decline your offer.`)) {
+                return;
+            }
+
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            fetch('../api/mentorship/request.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    mentee_id: menteeId,
+                    requested_by: 'mentor'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('✓ Mentorship offer sent successfully!\n\nThe user will be notified and you\'ll receive an update when they respond.');
+                    btn.textContent = '✓ Offer Sent';
+                    btn.style.background = '#10b981';
+                    location.reload(); // Reload to show updated status
+                } else {
+                    alert('Error: ' + data.message);
+                    btn.disabled = false;
+                    btn.textContent = 'Offer Mentorship';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                btn.disabled = false;
+                btn.textContent = 'Offer Mentorship';
+            });
+        }
     </script>
+
+    <!-- Chat Widget is now included automatically via footer_new.php -->
 </body>
 </html>

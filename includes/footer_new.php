@@ -268,3 +268,6 @@
         }
     }
 </style>
+
+<!-- Chat Widget - Visible on all pages for authenticated users -->
+<?php include __DIR__ . '/chat_widget.php'; ?>

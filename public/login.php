@@ -1,8 +1,8 @@
 <?php
 /**
- * User Login Page
- * For young people to access their accounts
- * Admin users are automatically redirected to admin login
+ * Unified Login Page
+ * For all user types: regular users, mentors/sponsors, and administrators
+ * Automatically detects user type and redirects to appropriate dashboard
  */
 
 require_once __DIR__ . '/../config/user_auth.php';
@@ -26,6 +26,12 @@ if (Auth::check()) {
     exit;
 }
 
+// If already logged in as mentor/sponsor, redirect to dashboard
+if (isset($_SESSION['sponsor_id'])) {
+    header('Location: mentorship/dashboard.php');
+    exit;
+}
+
 $error = '';
 $success = '';
 
@@ -42,8 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($email) || empty($password)) {
             $error = 'Please enter both email and password.';
         } else {
-            // First, check if this is an admin account
             $conn = getDatabaseConnection();
+            $loginSuccess = false;
+
+            // First, check if this is an admin account
             $stmt = $conn->prepare("SELECT COUNT(*) as count FROM admins WHERE email = ? OR username = ?");
             $stmt->bind_param('ss', $email, $email);
             $stmt->execute();
@@ -57,14 +65,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $adminResult = Auth::login($email, $password, $remember);
 
                 if ($adminResult['success']) {
+                    $loginSuccess = true;
                     // Redirect to admin dashboard
                     header('Location: admin/dashboard.php');
                     exit;
                 } else {
                     $error = $adminResult['message'];
                 }
-            } else {
-                // Try user login
+            }
+
+            // If not admin, check if this is a mentor/sponsor account
+            if (!$loginSuccess) {
+                $stmt = $conn->prepare("
+                    SELECT id, full_name, email, password_hash, role_type, status, is_active
+                    FROM sponsors
+                    WHERE email = ? AND password_hash IS NOT NULL
+                ");
+                $stmt->bind_param('s', $email);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                $sponsor = $result->fetch_assoc();
+                $stmt->close();
+
+                if ($sponsor) {
+                    // Check if account is approved and active
+                    if ($sponsor['status'] !== 'approved') {
+                        $error = 'Your account is pending approval. Please wait for admin confirmation.';
+                    } elseif (!$sponsor['is_active']) {
+                        $error = 'Your account has been deactivated. Please contact support.';
+                    } elseif (password_verify($password, $sponsor['password_hash'])) {
+                        // Login successful as mentor/sponsor
+                        $_SESSION['sponsor_id'] = $sponsor['id'];
+                        $_SESSION['sponsor_name'] = $sponsor['full_name'];
+                        $_SESSION['sponsor_email'] = $sponsor['email'];
+                        $_SESSION['sponsor_role'] = $sponsor['role_type'];
+
+                        // Log activity (if activity_log table exists)
+                        $activity_stmt = $conn->prepare("
+                            INSERT INTO activity_log (user_type, user_id, action, description, ip_address, created_at)
+                            VALUES ('sponsor', ?, 'login', 'Mentor/Sponsor logged in', ?, NOW())
+                        ");
+                        if ($activity_stmt) {
+                            $ip = $_SERVER['REMOTE_ADDR'];
+                            $activity_stmt->bind_param('is', $sponsor['id'], $ip);
+                            $activity_stmt->execute();
+                            $activity_stmt->close();
+                        }
+
+                        $loginSuccess = true;
+
+                        // Redirect to mentorship dashboard
+                        header('Location: mentorship/dashboard.php');
+                        exit;
+                    } else {
+                        $error = 'Invalid email or password.';
+                    }
+                }
+            }
+
+            // If still not logged in, try regular user login
+            if (!$loginSuccess) {
                 $userResult = UserAuth::login($email, $password, $remember);
 
                 if ($userResult['success']) {
@@ -82,9 +142,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     header('Location: ' . $redirect);
                     exit;
                 } else {
-                    $error = $userResult['message'];
+                    // Only set error if no previous error was set
+                    if (empty($error)) {
+                        $error = $userResult['message'];
+                    }
                 }
             }
+
+            closeDatabaseConnection($conn);
         }
     }
 }
@@ -103,43 +168,236 @@ $csrf_token = Security::generateCSRFToken();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Bihak Center</title>
-    <link rel="stylesheet" href="../assets/css/admin-login.css">
-    <link rel="icon" type="image/png" href="../assets/images/logob.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/images/favimg.png">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="../assets/css/header_new.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
     <style>
-        /* Override admin colors with user-friendly colors */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: #f5f7fa;
+        }
+
+        /* Login Container - Consistent with Incubation Blue-Orange-Green Color Scheme */
+        .login-container {
+            max-width: 500px;
+            margin: 120px auto 60px;
+            padding: 0 20px;
+        }
+
+        .login-box {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .login-header p {
+            color: #718096;
+            font-size: 16px;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .alert-error {
+            background: #fee;
+            color: #c53030;
+            border: 1px solid #feb2b2;
+        }
+
+        .alert-success {
+            background: #d1fae5;
+            color: #059669;
+            border: 1px solid #10b981;
+        }
+
+        .alert svg {
+            flex-shrink: 0;
+        }
+
+        /* Form Styles */
+        .login-form {
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            pointer-events: none;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #a0aec0;
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.3s;
+        }
+
+        .toggle-password:hover {
+            color: #6366f1;
+        }
+
+        /* Form Options */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .forgot-link {
+            color: #6366f1;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Button - Blue-Orange-Green Scheme */
+        .btn {
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
         .btn-primary:hover {
-            box-shadow: 0 6px 20px rgba(28, 171, 226, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
         }
 
-        .login-footer a {
-            color: #1cabe2;
+        .btn-primary:active {
+            transform: translateY(0);
         }
 
-        .back-to-home {
-            display: inline-block;
-            margin-bottom: 20px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        .btn-icon {
+            flex-shrink: 0;
         }
 
-        .back-to-home:hover {
-            transform: translateX(-5px);
-        }
-
+        /* Links Sections */
         .signup-link {
             text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
+            margin-top: 24px;
+            padding-top: 24px;
             border-top: 1px solid #e2e8f0;
         }
 
@@ -150,29 +408,96 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .signup-link a {
-            color: #1cabe2;
+            color: #6366f1;
             text-decoration: none;
             font-weight: 600;
+            font-size: 15px;
         }
 
         .signup-link a:hover {
             text-decoration: underline;
         }
+
+        .admin-link {
+            border-top: none !important;
+            padding-top: 10px !important;
+            margin-top: 10px !important;
+        }
+
+        .admin-link p {
+            color: #94a3b8 !important;
+            font-size: 13px !important;
+        }
+
+        .admin-link a {
+            color: #f59e0b !important;
+            font-size: 14px !important;
+        }
+
+        /* Login Footer */
+        .login-footer {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .security-notice {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #10b981;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .login-help {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .login-help a {
+            color: #6366f1;
+            text-decoration: none;
+        }
+
+        .login-help a:hover {
+            text-decoration: underline;
+        }
+
+        .separator {
+            color: #cbd5e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-container {
+                margin: 100px auto 40px;
+            }
+
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .form-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
     </style>
 </head>
 <body>
+    <?php include '../includes/header_new.php'; ?>
+
     <div class="login-container">
         <div class="login-box">
-            <!-- Back to Home -->
-            <a href="index.php" class="back-to-home">
-                ← Back to Home
-            </a>
-
             <!-- Logo and Header -->
             <div class="login-header">
                 <img src="../assets/images/logob.png" alt="Bihak Center" class="login-logo">
-                <h1>Welcome Back!</h1>
-                <p>Sign in to your account</p>
+                <h1 data-translate="welcomeBack">Welcome Back!</h1>
+                <p data-translate="signInToAccount">Sign in to access your account</p>
             </div>
 
             <?php if ($error): ?>
@@ -198,7 +523,7 @@ $csrf_token = Security::generateCSRFToken();
                 <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
 
                 <div class="form-group">
-                    <label for="email">Email Address</label>
+                    <label for="email" data-translate="emailAddress">Email Address</label>
                     <div class="input-wrapper">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="input-icon">
                             <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
@@ -218,7 +543,7 @@ $csrf_token = Security::generateCSRFToken();
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password" data-translate="password">Password</label>
                     <div class="input-wrapper">
                         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="input-icon">
                             <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
@@ -228,6 +553,7 @@ $csrf_token = Security::generateCSRFToken();
                             id="password"
                             name="password"
                             class="form-control"
+                            data-translate="enterYourPassword"
                             placeholder="Enter your password"
                             required
                             autocomplete="current-password"
@@ -244,13 +570,13 @@ $csrf_token = Security::generateCSRFToken();
                 <div class="form-options">
                     <label class="checkbox-wrapper">
                         <input type="checkbox" name="remember" id="remember">
-                        <span class="checkbox-label">Remember me for 30 days</span>
+                        <span class="checkbox-label" data-translate="rememberMe30Days">Remember me for 30 days</span>
                     </label>
-                    <a href="forgot-password.php" class="forgot-link">Forgot password?</a>
+                    <a href="forgot-password.php" class="forgot-link" data-translate="forgotPassword">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="btn btn-primary btn-login">
-                    <span class="btn-text">Sign In</span>
+                    <span class="btn-text" data-translate="signIn">Sign In</span>
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="btn-icon">
                         <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/>
                     </svg>
@@ -259,18 +585,18 @@ $csrf_token = Security::generateCSRFToken();
 
             <!-- Sign Up Link -->
             <div class="signup-link">
-                <p>Don't have an account yet?</p>
-                <a href="signup.php">Create an Account - Share Your Story</a>
+                <p data-translate="dontHaveAccountYet">Don't have an account yet?</p>
+                <a href="signup.php" data-translate="createAccountShareStory">Create an Account - Share Your Story</a>
             </div>
 
-            <!-- Admin Login Link -->
-            <div class="signup-link" style="border-top: none; padding-top: 10px; margin-top: 10px;">
-                <p style="color: #94a3b8; font-size: 13px;">Are you an administrator?</p>
-                <a href="admin/login.php" style="color: #f59e0b; font-size: 14px;">
+            <!-- Get Involved Link for Mentors/Sponsors -->
+            <div class="signup-link admin-link">
+                <p data-translate="wantToMentorSponsor">Want to mentor or sponsor young people?</p>
+                <a href="get-involved.php">
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 4px;">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd"/>
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
                     </svg>
-                    Admin Portal Login
+                    <span data-translate="getInvolvedMentorSponsor">Get Involved as Mentor/Sponsor</span>
                 </a>
             </div>
 
@@ -280,23 +606,18 @@ $csrf_token = Security::generateCSRFToken();
                     <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
-                    Secure connection with encryption
+                    <span data-translate="secureConnection">Secure connection with encryption</span>
                 </p>
                 <div class="login-help">
-                    <a href="index.php">Back to Website</a>
+                    <a href="index.php" data-translate="backToWebsite">Back to Website</a>
                     <span class="separator">•</span>
-                    <a href="contact.php">Need help?</a>
+                    <a href="contact.php" data-translate="needHelp">Need help?</a>
                 </div>
             </div>
         </div>
-
-        <!-- Background Animation -->
-        <div class="background-animation">
-            <div class="circle circle-1"></div>
-            <div class="circle circle-2"></div>
-            <div class="circle circle-3"></div>
-        </div>
     </div>
+
+    <?php include '../includes/footer_new.php'; ?>
 
     <script>
         // Toggle password visibility

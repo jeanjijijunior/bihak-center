@@ -120,12 +120,14 @@ class UserAuth {
                 ];
             }
 
-            // Get user
+            // Get user with profile status
             $stmt = $conn->prepare("
-                SELECT id, email, password, full_name, profile_id, is_active,
-                       email_verified, failed_login_attempts, locked_until
-                FROM users
-                WHERE email = ?
+                SELECT u.id, u.email, u.password, u.full_name, u.profile_id, u.is_active,
+                       u.email_verified, u.failed_login_attempts, u.locked_until,
+                       p.status as profile_status
+                FROM users u
+                LEFT JOIN profiles p ON u.profile_id = p.id
+                WHERE u.email = ?
             ");
             $stmt->bind_param('s', $email);
             $stmt->execute();
@@ -229,6 +231,7 @@ class UserAuth {
             $_SESSION['user_name'] = $user['full_name'];
             $_SESSION['profile_id'] = $user['profile_id'];
             $_SESSION['email_verified'] = $user['email_verified'];
+            $_SESSION['user_status'] = $user['profile_status'] ?? 'pending';
             $_SESSION['session_token'] = $session_token;
             $_SESSION['session_expires'] = time() + self::$session_lifetime;
 

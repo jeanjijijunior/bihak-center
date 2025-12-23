@@ -150,16 +150,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     window.location.href = 'login.php?message=' + encodeURIComponent('Account created successfully! Please log in.');
                 }, 3000);
             } else {
+                // Build detailed error message
+                let errorDetails = [];
+
                 if (result.errors && result.errors.length > 0) {
-                    showMessage(result.message, 'error', result.errors);
-                } else {
-                    showMessage(result.message, 'error');
+                    errorDetails = result.errors;
                 }
+
+                // Add database error if present
+                if (result.database_error) {
+                    errorDetails.push('Database Error: ' + result.database_error);
+                }
+
+                // Add error details for debugging
+                if (result.error_details) {
+                    console.error('Error Details:', result.error_details);
+                    errorDetails.push('Error Type: ' + result.error_details.type);
+                }
+
+                showMessage(result.message || 'An error occurred', 'error', errorDetails);
                 messageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (error) {
-            showMessage('An error occurred. Please try again.', 'error');
+            // More detailed error message
+            let errorMsg = 'An error occurred while processing your request. ';
+
+            if (error.message) {
+                errorMsg += 'Details: ' + error.message;
+            }
+
+            showMessage(errorMsg, 'error', [
+                'Please check your internet connection',
+                'Make sure all required fields are filled',
+                'Check the browser console (F12) for more details'
+            ]);
+
             console.error('Submission error:', error);
+            console.error('Error stack:', error.stack);
         } finally {
             // Remove loading state
             submitBtn.classList.remove('loading');

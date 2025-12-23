@@ -152,8 +152,12 @@ closeDatabaseConnection($conn);
                             <?php while ($profile = $recent_profiles->fetch_assoc()): ?>
                                 <div class="profile-item">
                                     <div class="profile-avatar">
-                                        <?php if ($profile['profile_image']): ?>
-                                            <img src="../../<?php echo htmlspecialchars($profile['profile_image']); ?>" alt="<?php echo htmlspecialchars($profile['full_name']); ?>">
+                                        <?php
+                                        $image_path = $profile['profile_image'];
+                                        $image_exists = $image_path && file_exists(__DIR__ . '/../../' . $image_path);
+                                        ?>
+                                        <?php if ($image_exists): ?>
+                                            <img src="../../<?php echo htmlspecialchars($image_path); ?>" alt="<?php echo htmlspecialchars($profile['full_name']); ?>">
                                         <?php else: ?>
                                             <div class="avatar-placeholder">
                                                 <?php echo strtoupper(substr($profile['full_name'], 0, 1)); ?>
@@ -225,6 +229,18 @@ closeDatabaseConnection($conn);
                             </div>
                         </a>
 
+                        <a href="manage-passwords.php" class="action-card">
+                            <div class="action-icon">
+                                <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div class="action-content">
+                                <h4>Password Management</h4>
+                                <p>Manage credentials for all user types</p>
+                            </div>
+                        </a>
+
                         <a href="settings.php" class="action-card">
                             <div class="action-icon">
                                 <svg width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
@@ -272,5 +288,8 @@ closeDatabaseConnection($conn);
     </main>
 
     <script src="../../assets/js/admin-dashboard.js"></script>
+
+    <!-- Chat Widget -->
+    <?php include __DIR__ . '/../../includes/chat_widget.php'; ?>
 </body>
 </html>

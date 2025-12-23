@@ -899,14 +899,14 @@ try {
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Empowering Young People</h1>
-            <p>Share your story. Get support. Inspire others. Join our community of youth making a difference.</p>
+            <h1 data-translate="empoweringYoungPeople">Empowering Young People</h1>
+            <p data-translate="homeHeroText">Share your story. Get support. Inspire others. Join our community of youth making a difference.</p>
             <div class="hero-actions">
                 <a href="signup.php" class="cta-button primary">
-                    <span>Share Your Story</span>
+                    <span data-translate="shareYourStory">Share Your Story</span>
                 </a>
                 <a href="#stories" class="cta-button secondary">
-                    <span>View Stories</span>
+                    <span data-translate="viewStories">View Stories</span>
                 </a>
             </div>
         </div>
@@ -918,8 +918,8 @@ try {
     <!-- Stories Section -->
     <section id="stories" class="profiles-section">
         <div class="section-header">
-            <h2>Youth Changing the World</h2>
-            <p>Meet the young people we support and the incredible things they're achieving</p>
+            <h2 data-translate="youthChangingWorld">Youth Changing the World</h2>
+            <p data-translate="youthChangingWorldSubtitle">Meet the young people we support and the incredible things they're achieving</p>
         </div>
 
         <div id="profiles-container" class="profiles-grid">
@@ -1056,5 +1056,8 @@ try {
     <script src="../assets/js/header_new.js"></script>
     <script src="../assets/js/scroll-to-top.js"></script>
     <script src="../assets/js/profiles-loader.js"></script>
+
+    <!-- Chat Widget -->
+    <?php include __DIR__ . '/../includes/chat_widget.php'; ?>
 </body>
 </html>

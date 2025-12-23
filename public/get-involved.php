@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $full_name = trim($_POST['full_name'] ?? '');
         $email = trim($_POST['email'] ?? '');
         $phone = trim($_POST['phone'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $confirm_password = $_POST['confirm_password'] ?? '';
         $organization = trim($_POST['organization'] ?? '');
         $website = trim($_POST['website'] ?? '');
         $country = trim($_POST['country'] ?? '');
@@ -35,26 +37,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $twitter_url = trim($_POST['twitter_url'] ?? '');
 
         // Validation
-        if (empty($full_name) || empty($email) || empty($role_type)) {
-            $error = 'Please fill in all required fields (Name, Email, and Role).';
+        if (empty($full_name) || empty($email) || empty($role_type) || empty($password)) {
+            $error = 'Please fill in all required fields (Name, Email, Password, and Role).';
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = 'Please enter a valid email address.';
+        } elseif (strlen($password) < 8) {
+            $error = 'Password must be at least 8 characters long.';
+        } elseif ($password !== $confirm_password) {
+            $error = 'Passwords do not match.';
         } else {
             // Insert into database
             $conn = getDatabaseConnection();
 
+            // Hash the password
+            $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
             $stmt = $conn->prepare("
                 INSERT INTO sponsors (
-                    full_name, email, phone, organization, website, country, city,
+                    full_name, email, phone, password_hash, organization, website, country, city,
                     role_type, expertise_domain, involvement_areas, message,
                     availability, preferred_contact, linkedin_url, facebook_url, twitter_url,
                     status, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending', NOW())
             ");
 
             $stmt->bind_param(
-                'ssssssssssssssss',
-                $full_name, $email, $phone, $organization, $website, $country, $city,
+                'sssssssssssssssss',
+                $full_name, $email, $phone, $password_hash, $organization, $website, $country, $city,
                 $role_type, $expertise_domain, $involvement_areas, $message,
                 $availability, $preferred_contact, $linkedin_url, $facebook_url, $twitter_url
             );
@@ -518,6 +527,18 @@ $csrf_token = Security::generateCSRFToken();
                         <div class="form-group">
                             <label>Phone</label>
                             <input type="tel" name="phone" class="form-control" value="<?php echo htmlspecialchars($_POST['phone'] ?? ''); ?>">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Password <span class="required">*</span></label>
+                            <input type="password" name="password" class="form-control" required minlength="8" placeholder="At least 8 characters">
+                            <small style="color: #718096; font-size: 0.875rem;">Minimum 8 characters. Use letters, numbers, and symbols for better security.</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password <span class="required">*</span></label>
+                            <input type="password" name="confirm_password" class="form-control" required minlength="8" placeholder="Re-enter your password">
                         </div>
                     </div>
 

@@ -1,37 +1,48 @@
-# PHP
-*.log
+# Environment-specific configuration
+.claude/
+config/database.php
+
+# Uploaded files (user content)
+uploads/
+assets/uploads/
+
+# Temporary files
 *.tmp
+*.log
+nul
 
-# Database
-*.sql.bak
-*.db
+# Database exports (too large for git)
+*.sql
 
-# Environment variables
-.env
-config.local.php
-
-# IDE and Editor
+# IDE files
 .vscode/
 .idea/
-*.sublime-project
-*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Operating System files
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Dependencies
+# Composer dependencies (if using)
 vendor/
-node_modules/
 
-# Temporary and test files
-*.pyc
-__pycache__/
-chromedriver.exe
-*.exe
-page_snapshot.html
-test.html
+# Node modules (if using npm)
+node_modules/
 
 # Backup files
 *.bak
-*~
-*.swp
-*.swo
+*.backup
+
+# PHP error logs
+error_log
+php_errors.log
+
+# Session files
+sessions/
+
+# Cache
+cache/
+*.cache

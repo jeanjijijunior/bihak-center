@@ -15,7 +15,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 // Perform logout
 $result = Auth::logout();
 
-// Redirect to login page
-header('Location: login.php?logout=success');
+// Redirect to public login page (not admin login)
+header('Location: ../login.php?logout=success');
 exit;
 ?>

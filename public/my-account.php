@@ -39,6 +39,60 @@ $activity_stmt->bind_param('i', $user['id']);
 $activity_stmt->execute();
 $activities = $activity_stmt->get_result();
 
+// Get mentorship relationship (if any)
+$mentorship = null;
+$mentorship_goals = [];
+
+// Wrap mentorship query in try-catch to prevent crashes
+try {
+    $stmt = $conn->prepare("
+        SELECT mr.*,
+               s.full_name as mentor_name,
+               s.email as mentor_email,
+               s.organization as mentor_org
+        FROM mentorship_relationships mr
+        JOIN sponsors s ON s.id = mr.mentor_id
+        WHERE mr.mentee_id = ? AND mr.status = 'active'
+        LIMIT 1
+    ");
+
+    if ($stmt) {
+        $stmt->bind_param('i', $user['id']);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $mentorship = $result->fetch_assoc();
+
+            // Get goals for this mentorship
+            $goals_stmt = $conn->prepare("
+                SELECT *
+                FROM mentorship_goals
+                WHERE relationship_id = ?
+                ORDER BY
+                    CASE status
+                        WHEN 'in_progress' THEN 1
+                        WHEN 'not_started' THEN 2
+                        WHEN 'completed' THEN 3
+                    END,
+                    target_date ASC
+                LIMIT 5
+            ");
+
+            if ($goals_stmt) {
+                $goals_stmt->bind_param('i', $mentorship['id']);
+                $goals_stmt->execute();
+                $mentorship_goals = $goals_stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                $goals_stmt->close();
+            }
+        }
+        $stmt->close();
+    }
+} catch (Exception $e) {
+    // Silently fail - mentorship section just won't show
+    error_log('Mentorship query error: ' . $e->getMessage());
+}
+
 closeDatabaseConnection($conn);
 ?>
 <!DOCTYPE html>
@@ -49,6 +103,7 @@ closeDatabaseConnection($conn);
     <title>My Account - Bihak Center</title>
     <link rel="stylesheet" href="../assets/css/header_new.css">
     <link rel="stylesheet" href="../assets/css/admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" type="image/png" href="../assets/images/logob.png">
     <style>
         body {
@@ -359,6 +414,70 @@ closeDatabaseConnection($conn);
                     <?php endif; ?>
                 </div>
 
+                <!-- Mentorship Card -->
+                <?php if ($mentorship): ?>
+                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h2 style="color: white; border-bottom-color: rgba(255,255,255,0.3);"><i class="fas fa-user-tie"></i> My Mentor</h2>
+
+                    <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: white; color: #667eea; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">
+                            <?php echo strtoupper(substr($mentorship['mentor_name'], 0, 1)); ?>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 20px; margin: 0 0 4px 0;"><?php echo htmlspecialchars($mentorship['mentor_name']); ?></h3>
+                            <?php if ($mentorship['mentor_org']): ?>
+                                <p style="font-size: 14px; opacity: 0.9; margin: 0;"><?php echo htmlspecialchars($mentorship['mentor_org']); ?></p>
+                            <?php endif; ?>
+                            <p style="font-size: 13px; opacity: 0.8; margin: 4px 0 0 0;">
+                                Match Score: <?php echo number_format($mentorship['match_score'], 1); ?>% |
+                                Since <?php echo date('M Y', strtotime($mentorship['accepted_at'] ?? $mentorship['created_at'])); ?>
+                            </p>
+                        </div>
+                    </div>
+
+                    <?php if (count($mentorship_goals) > 0): ?>
+                        <div style="background: rgba(255,255,255,0.1); padding: 16px; border-radius: 8px; margin-bottom: 16px;">
+                            <h4 style="font-size: 14px; font-weight: 600; margin: 0 0 12px 0;"><i class="fas fa-bullseye"></i> Our Goals (<?php echo count($mentorship_goals); ?>)</h4>
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                                <?php foreach ($mentorship_goals as $goal): ?>
+                                    <div style="display: flex; align-items: center; gap: 8px; font-size: 14px;">
+                                        <?php if ($goal['status'] === 'completed'): ?>
+                                            <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                                        <?php elseif ($goal['status'] === 'in_progress'): ?>
+                                            <i class="fas fa-clock" style="color: #f59e0b;"></i>
+                                        <?php else: ?>
+                                            <i class="far fa-circle" style="opacity: 0.5;"></i>
+                                        <?php endif; ?>
+                                        <span style="flex: 1;"><?php echo htmlspecialchars($goal['title']); ?></span>
+                                        <?php if ($goal['target_date']): ?>
+                                            <span style="font-size: 12px; opacity: 0.8;"><?php echo date('M j', strtotime($goal['target_date'])); ?></span>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <a href="mentorship/workspace.php?id=<?php echo $mentorship['id']; ?>" class="btn" style="background: white; color: #667eea; width: 100%; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                        </svg>
+                        <span data-translate="openWorkspace">Open Workspace</span>
+                    </a>
+                </div>
+                <?php else: ?>
+                <div class="card">
+                    <h2 data-translate="mentorship"><i class="fas fa-user-graduate" style="color: #667eea;"></i> Mentorship</h2>
+                    <p style="color: #718096; margin-bottom: 16px;" data-translate="noActiveMentor">You don't have an active mentor yet. Connect with experienced professionals who can guide your journey!</p>
+                    <a href="mentorship/browse-mentors.php" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+                        </svg>
+                        <span data-translate="findMentor">Find a Mentor</span>
+                    </a>
+                </div>
+                <?php endif; ?>
+
                 <!-- Recent Activity -->
                 <div class="card">
                     <h2 data-translate="recentActivity">Recent Activity</h2>
@@ -402,9 +521,9 @@ closeDatabaseConnection($conn);
                             <span class="info-label" data-translate="emailStatus">Email Status</span>
                             <span class="info-value">
                                 <?php if ($user['email_verified']): ?>
-                                    ✓ <span data-translate="verified">Verified</span>
+                                    <i class="fas fa-check-circle" style="color: #10b981;"></i> <span data-translate="verified">Verified</span>
                                 <?php else: ?>
-                                    ⚠ <span data-translate="notVerified">Not Verified</span>
+                                    <i class="fas fa-exclamation-triangle" style="color: #f59e0b;"></i> <span data-translate="notVerified">Not Verified</span>
                                 <?php endif; ?>
                             </span>
                         </div>
@@ -466,5 +585,8 @@ closeDatabaseConnection($conn);
     </div>
 
     <script src="../assets/js/header_new.js"></script>
+
+    <!-- Chat Widget -->
+    <?php include __DIR__ . '/../includes/chat_widget.php'; ?>
 </body>
 </html>

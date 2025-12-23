@@ -237,6 +237,11 @@ class Security {
      * Set security headers
      */
     public static function setSecurityHeaders() {
+        // Don't set headers if they've already been sent
+        if (headers_sent()) {
+            return;
+        }
+
         // Prevent clickjacking
         header('X-Frame-Options: DENY');
 

@@ -1,10 +1,33 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"(Get-Content ''c:\\xampp\\htdocs\\bihak-center\\public\\signup.php'' | Measure-Object -Line).Lines\")",
-      "Bash(powershell:*)",
-      "Bash(git push:*)",
-      "Bash(git remote add:*)"
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT id, conversation_id, sender_type, sender_id, sender_admin_id, sender_mentor_id, LEFT(message_text, 30) as text FROM messages LIMIT 5;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e:*)",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\":*)",
+      "Bash(\"C:\\xampp\\php\\php.exe\" -l includes/MessagingManager.php)",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT id, exercise_title, phase_id FROM incubation_exercises ORDER BY phase_id, exercise_order LIMIT 20;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT id, exercise_title, phase_id FROM incubation_exercises LIMIT 20;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"DESCRIBE incubation_teams;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SHOW TABLES LIKE ''incubation%'';\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SHOW TABLES LIKE ''%submission%'';\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"CREATE OR REPLACE VIEW incubation_exercise_progress AS SELECT it.id as team_id, it.team_name, ie.id as exercise_id, ie.exercise_title, ie.exercise_type, ie.interactive_template, COALESCE(iem.completeness_score, 0) as completeness_score, COALESCE(iem.quality_score, 0) as quality_score, COALESCE(iem.ai_suggestions_count, 0) as ai_suggestions, COALESCE(iem.time_spent_minutes, 0) as time_spent, COUNT(DISTINCT iid.id) as interactive_versions, COUNT(DISTINCT iaf.id) as ai_feedbacks, es.status as submission_status, es.submitted_at, es.updated_at as reviewed_at FROM incubation_teams it CROSS JOIN incubation_exercises ie LEFT JOIN incubation_exercise_metrics iem ON it.id = iem.team_id AND ie.id = iem.exercise_id LEFT JOIN incubation_interactive_data iid ON it.id = iid.team_id AND ie.id = iid.exercise_id LEFT JOIN incubation_ai_feedback iaf ON it.id = iaf.team_id AND ie.id = iaf.exercise_id LEFT JOIN exercise_submissions es ON it.id = es.team_id AND ie.id = es.exercise_id GROUP BY it.id, ie.id, es.status, es.submitted_at, es.updated_at;\")",
+      "Bash(if not exist \"c:\\xampp\\htdocs\\bihak-center\\assets\\js\\incubation\" mkdir \"c:\\xampp\\htdocs\\bihak-center\\assets\\js\\incubation\")",
+      "Bash(ollama --version:*)",
+      "Bash(dir:*)",
+      "Bash(\"C:\\xampp\\php\\php.exe\" -l \"c:\\xampp\\htdocs\\bihak-center\\public\\admin\\trigger-scraper.php\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"DESCRIBE exercise_submissions;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT es.id, es.team_id, es.exercise_id, es.status, es.version, es.submitted_at, es.reviewed_at FROM exercise_submissions es WHERE es.team_id = (SELECT team_id FROM exercise_submissions LIMIT 1) AND es.exercise_id = (SELECT exercise_id FROM exercise_submissions LIMIT 1) ORDER BY es.version DESC LIMIT 5;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"DESCRIBE incubation_exercises;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"DESCRIBE incubation_team_members;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT COUNT(*) as total, type FROM opportunities GROUP BY type;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"DESCRIBE incubation_phases;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT id, team_id, exercise_id, status, submitted_at FROM exercise_submissions LIMIT 10;\")",
+      "Bash(\"C:\\xampp\\mysql\\bin\\mysql.exe\" -u root bihak -e \"SELECT * FROM incubation_team_members WHERE team_id = 1;\")",
+      "Bash(tasklist:*)",
+      "Bash(findstr:*)",
+      "Bash(git --version:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": []

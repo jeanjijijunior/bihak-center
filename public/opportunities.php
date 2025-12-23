@@ -19,8 +19,18 @@ $search_query = isset($_GET['search']) ? trim($_GET['search']) : '';
 $country_filter = isset($_GET['country']) ? $_GET['country'] : '';
 $sort_by = isset($_GET['sort']) ? $_GET['sort'] : 'deadline';
 
-// Get current user
+// Get current user (check both regular user and admin sessions)
 $user = UserAuth::user();
+$is_admin = isset($_SESSION['admin_id']);
+
+// If no regular user but admin is logged in, create a user-like object for the page
+if (!$user && $is_admin) {
+    $user = [
+        'id' => $_SESSION['admin_id'],
+        'name' => $_SESSION['admin_name'] ?? 'Admin',
+        'is_admin' => true
+    ];
+}
 
 // Build SQL query
 $conn = getDatabaseConnection();
@@ -92,9 +102,9 @@ $countries_sql = "SELECT DISTINCT country FROM opportunities WHERE is_active = T
 $countries_result = $conn->query($countries_sql);
 $countries = $countries_result->fetch_all(MYSQLI_ASSOC);
 
-// Get user's saved opportunities if logged in
+// Get user's saved opportunities if logged in (only for regular users, not admins)
 $saved_opportunity_ids = [];
-if ($user) {
+if ($user && !isset($user['is_admin'])) {
     $saved_sql = "SELECT opportunity_id FROM user_saved_opportunities WHERE user_id = ?";
     $saved_stmt = $conn->prepare($saved_sql);
     $saved_stmt->bind_param('i', $user['id']);
@@ -524,6 +534,78 @@ $csrf_token = Security::generateCSRFToken();
                 white-space: nowrap;
             }
         }
+
+        /* Refresh Button */
+        .refresh-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .refresh-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .refresh-btn svg {
+            transition: transform 0.6s;
+        }
+
+        .refresh-btn.loading svg {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        #scraperStatus.success {
+            background: #d1fae5;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+
+        #scraperStatus.error {
+            background: #fee2e2;
+            border: 1px solid #ef4444;
+            color: #991b1b;
+        }
+
+        #scraperStatus.info {
+            background: #dbeafe;
+            border: 1px solid #3b82f6;
+            color: #1e40af;
+        }
+
+        /* Fix header dropdown z-index and positioning */
+        .header-new {
+            position: relative !important;
+            z-index: 1000 !important;
+        }
+
+        .user-menu {
+            position: relative !important;
+        }
+
+        .dropdown-menu {
+            position: absolute !important;
+            z-index: 1001 !important;
+        }
     </style>
 </head>
 <body>
@@ -531,11 +613,24 @@ $csrf_token = Security::generateCSRFToken();
 
     <!-- Hero Section -->
     <section class="opportunities-hero">
-        <h1 id="hero-title">Discover Your Next Opportunity</h1>
-        <p id="hero-description">
+        <h1 id="hero-title" data-translate="discoverOpportunity">Discover Your Next Opportunity</h1>
+        <p id="hero-description" data-translate="findScholarshipsJobs">
             Find scholarships, jobs, internships, and grants curated specifically for young people.
             Your future starts here.
         </p>
+
+        <?php if ($user): ?>
+        <!-- Refresh Button (Available for all logged-in users) -->
+        <div style="margin-top: 20px;">
+            <button id="refreshOpportunitiesBtn" class="refresh-btn">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" style="margin-right: 8px;">
+                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                </svg>
+                <span id="btnText" data-translate="refreshOpportunities">Refresh Opportunities</span>
+            </button>
+            <div id="scraperStatus" style="display: none; margin-top: 10px; padding: 10px; border-radius: 8px;"></div>
+        </div>
+        <?php endif; ?>
     </section>
 
     <!-- Filters Section -->
@@ -547,6 +642,7 @@ $csrf_token = Security::generateCSRFToken();
                     type="text"
                     name="search"
                     class="search-input"
+                    data-translate="searchOpportunities"
                     placeholder="Search opportunities..."
                     value="<?php echo htmlspecialchars($search_query); ?>"
                     id="search-input"
@@ -555,7 +651,7 @@ $csrf_token = Security::generateCSRFToken();
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"/>
                     </svg>
-                    <span>Search</span>
+                    <span data-translate="search">Search</span>
                 </button>
             </form>
 
@@ -589,23 +685,33 @@ $csrf_token = Security::generateCSRFToken();
             </div>
 
             <!-- Country and Sort Filters -->
-            <div class="filter-row">
-                <select name="country" class="filter-select" onchange="applyFilters()">
-                    <option value="" id="country-all">All Countries</option>
-                    <?php foreach ($countries as $country): ?>
-                        <option value="<?php echo htmlspecialchars($country['country']); ?>"
-                                <?php echo $country_filter === $country['country'] ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($country['country']); ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+            <form action="" method="GET">
+                <div class="filter-row">
+                    <select name="country" class="filter-select" onchange="this.form.submit()">
+                        <option value="" id="country-all">All Countries</option>
+                        <?php foreach ($countries as $country): ?>
+                            <option value="<?php echo htmlspecialchars($country['country']); ?>"
+                                    <?php echo $country_filter === $country['country'] ? 'selected' : ''; ?>>
+                                <?php echo htmlspecialchars($country['country']); ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
 
-                <select name="sort" class="filter-select" onchange="applyFilters()">
-                    <option value="deadline" <?php echo $sort_by === 'deadline' ? 'selected' : ''; ?> id="sort-deadline">Sort by Deadline</option>
-                    <option value="newest" <?php echo $sort_by === 'newest' ? 'selected' : ''; ?> id="sort-newest">Newest First</option>
-                    <option value="popular" <?php echo $sort_by === 'popular' ? 'selected' : ''; ?> id="sort-popular">Most Popular</option>
-                </select>
-            </div>
+                    <select name="sort" class="filter-select" onchange="this.form.submit()">
+                        <option value="deadline" <?php echo $sort_by === 'deadline' ? 'selected' : ''; ?> id="sort-deadline">Sort by Deadline</option>
+                        <option value="newest" <?php echo $sort_by === 'newest' ? 'selected' : ''; ?> id="sort-newest">Newest First</option>
+                        <option value="popular" <?php echo $sort_by === 'popular' ? 'selected' : ''; ?> id="sort-popular">Most Popular</option>
+                    </select>
+
+                    <!-- Hidden fields to preserve other filters -->
+                    <?php if ($type_filter !== 'all'): ?>
+                        <input type="hidden" name="type" value="<?php echo htmlspecialchars($type_filter); ?>">
+                    <?php endif; ?>
+                    <?php if (!empty($search_query)): ?>
+                        <input type="hidden" name="search" value="<?php echo htmlspecialchars($search_query); ?>">
+                    <?php endif; ?>
+                </div>
+            </form>
         </div>
     </section>
 
@@ -719,23 +825,9 @@ $csrf_token = Security::generateCSRFToken();
 
     <?php include __DIR__ . '/../includes/footer_new.php'; ?>
 
+    <!-- Note: header_new.js is already loaded in header_new.php include -->
+
     <script>
-        // Apply filters function
-        function applyFilters() {
-            const searchInput = document.querySelector('input[name="search"]').value;
-            const country = document.querySelector('select[name="country"]').value;
-            const sort = document.querySelector('select[name="sort"]').value;
-            const type = '<?php echo $type_filter; ?>';
-
-            const params = new URLSearchParams();
-            if (type && type !== 'all') params.append('type', type);
-            if (searchInput) params.append('search', searchInput);
-            if (country) params.append('country', country);
-            if (sort) params.append('sort', sort);
-
-            window.location.href = '?' + params.toString();
-        }
-
         // Track opportunity view
         function trackView(opportunityId) {
             fetch('../api/track_opportunity_view.php', {
@@ -838,12 +930,86 @@ $csrf_token = Security::generateCSRFToken();
             }
         });
 
-        // Set initial language
-        const currentLang = localStorage.getItem('language') || 'en';
-        if (currentLang !== 'en') {
+        // Set initial language (use existing currentLang from translations-extended.js)
+        const savedLang = localStorage.getItem('language') || 'en';
+        if (savedLang !== 'en') {
             document.dispatchEvent(new CustomEvent('languageChanged', {
-                detail: { language: currentLang }
+                detail: { language: savedLang }
             }));
+        }
+
+        // Scraper trigger function using event listener
+        function triggerScraper() {
+            console.log('🚀 triggerScraper() called');
+            const btn = document.getElementById('refreshOpportunitiesBtn');
+            const btnText = document.getElementById('btnText');
+            const status = document.getElementById('scraperStatus');
+
+            console.log('Button element:', btn);
+            console.log('Button text element:', btnText);
+            console.log('Status element:', status);
+
+            // Disable button and show loading
+            btn.disabled = true;
+            btn.classList.add('loading');
+            btnText.textContent = 'Searching...';
+            console.log('✓ Button disabled, loading class added');
+
+            // Show info message
+            status.style.display = 'block';
+            status.className = 'info';
+            status.textContent = 'Searching for new opportunities... This may take a few minutes.';
+            console.log('✓ Status message displayed');
+
+            // Make AJAX request
+            fetch('admin/trigger-scraper.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'type=all'
+            })
+            .then(response => {
+                // Check if response is ok
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Scraper response:', data); // Debug log
+
+                if (data.success) {
+                    status.className = 'success';
+                    const added = data.data?.total_added || 0;
+                    const updated = data.data?.total_updated || 0;
+                    const time = data.data?.execution_time || 0;
+                    status.textContent = `✓ Success! Added ${added} new opportunities, updated ${updated}. Execution time: ${time}s`;
+
+                    // Reload page after 2 seconds to show new opportunities
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    throw new Error(data.message || 'Unknown error occurred');
+                }
+            })
+            .catch(error => {
+                console.error('Scraper error:', error); // Debug log
+                status.className = 'error';
+                status.textContent = '✗ Error: ' + error.message + ' - Please make sure you are logged in and try again.';
+                btn.disabled = false;
+                btn.classList.remove('loading');
+                btnText.textContent = 'Refresh Opportunities';
+            });
+        }
+
+        // Attach event listener to the button
+        const refreshBtn = document.getElementById('refreshOpportunitiesBtn');
+        if (refreshBtn) {
+            console.log('✓ Refresh button found, attaching event listener');
+            refreshBtn.addEventListener('click', function() {
+                console.log('🔄 Button clicked! Starting scraper...');
+                triggerScraper();
+            });
+        } else {
+            console.log('❌ Refresh button NOT found - are you logged in?');
         }
     </script>
 </body>

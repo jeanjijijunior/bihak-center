@@ -413,6 +413,36 @@ if (session_status() === PHP_SESSION_NONE) {
                     </div>
                 </div>
             </div>
+
+            <div class="program-card">
+                <div class="program-image" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                    <svg viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                    </svg>
+                </div>
+                <div class="program-content">
+                    <h3 id="program4-title">UPSHIFT Incubation Program</h3>
+                    <p id="program4-text">Interactive social innovation incubation program guiding young people through design thinking. Complete 19 exercises across 4 phases to develop your project from concept to launch with AI-assisted guidance.</p>
+                    <div class="program-stats">
+                        <div class="stat">
+                            <span class="stat-number">4</span>
+                            <span class="stat-label" id="program4-stat1">Phases</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">19</span>
+                            <span class="stat-label" id="program4-stat2">Exercises</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <a href="incubation-program.php" class="btn" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 12px 24px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
+                            <span id="program4-cta">Start Your Journey</span>
+                            <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -527,6 +557,11 @@ if (session_status() === PHP_SESSION_NONE) {
                 'program2-text': 'Curated opportunities including scholarships, internships, grants, and jobs specifically tailored for young people to grow their careers and pursue their dreams.',
                 'program3-title': 'Mentorship Network',
                 'program3-text': 'Connecting young people with experienced professionals and successful entrepreneurs who provide guidance, advice, and support for personal and professional growth.',
+                'program4-title': 'UPSHIFT Incubation Program',
+                'program4-text': 'Interactive social innovation incubation program guiding young people through design thinking. Complete 19 exercises across 4 phases to develop your project from concept to launch with AI-assisted guidance.',
+                'program4-stat1': 'Phases',
+                'program4-stat2': 'Exercises',
+                'program4-cta': 'Start Your Journey',
                 'stories-title': 'Success Stories',
                 'timeline-title': 'Our Impact Journey',
                 'cta-title': 'Be Part of Our Success Story',
@@ -543,6 +578,11 @@ if (session_status() === PHP_SESSION_NONE) {
                 'program2-text': 'Opportunités organisées incluant des bourses, stages, subventions et emplois spécifiquement adaptés aux jeunes pour développer leurs carrières et poursuivre leurs rêves.',
                 'program3-title': 'Réseau de Mentorat',
                 'program3-text': 'Connecter les jeunes avec des professionnels expérimentés et des entrepreneurs à succès qui fournissent des conseils, des orientations et un soutien pour la croissance personnelle et professionnelle.',
+                'program4-title': 'Programme d\'Incubation UPSHIFT',
+                'program4-text': 'Programme d\'incubation d\'innovation sociale interactif guidant les jeunes à travers le design thinking. Complétez 19 exercices en 4 phases pour développer votre projet du concept au lancement avec l\'assistance de l\'IA.',
+                'program4-stat1': 'Phases',
+                'program4-stat2': 'Exercices',
+                'program4-cta': 'Commencez Votre Parcours',
                 'stories-title': 'Histoires de Réussite',
                 'timeline-title': 'Notre Parcours d\'Impact',
                 'cta-title': 'Faites Partie de Notre Histoire de Réussite',

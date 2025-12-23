@@ -1,199 +1,298 @@
-# Translation System Guide
+# Bihak Center - Complete Translation System Guide
 
-## Overview
-Bihak Center uses a centralized translation system that supports English (EN) and French (FR) across all pages.
+**Making ALL Content Bilingual (English/French)**
 
-## How It Works
+---
 
-### Automatic Translation
-The translation system is automatically loaded with `header_new.php`. Any page that includes the header will have translation support.
+## Quick Start - 3 Steps
 
-### Available Languages
-- **English (EN)** - Default
-- **French (FR)**
+### Step 1: Page Already Has Translation Script
+```php
+<?php include __DIR__ . '/../includes/header_new.php'; ?>
+```
+✅ Translation script is auto-loaded in header!
 
-## Using Translations in Your Pages
-
-### Method 1: Data Attributes (Recommended)
-Add `data-translate` attribute to any element you want to translate:
-
+### Step 2: Add `data-translate` Attribute
 ```html
-<h1 data-translate="home">Home</h1>
+<!-- Before -->
+<h1>Welcome</h1>
+<button>Submit</button>
+
+<!-- After - Add data-translate="key" -->
+<h1 data-translate="home">Welcome</h1>
 <button data-translate="submit">Submit</button>
-<input type="text" placeholder="Search" data-translate="search">
 ```
 
-The system will automatically translate these elements when the language changes.
+### Step 3: Test!
+Click EN/FR buttons in header → Content translates instantly!
 
-### Method 2: JavaScript Function
-Use the `t()` function to get translations in your JavaScript:
+---
 
-```javascript
-// Get translation for current language
-const homeText = t('home'); // Returns "Home" or "Accueil"
+## Available Translation Keys (400+)
 
-// Get translation for specific language
-const frenchHome = t('home', 'fr'); // Returns "Accueil"
+### Navigation & Common
+```
+home, about, stories, work, opportunities, contact
+submit, save, cancel, delete, edit, back, next
+search, filter, loading, success, error
 ```
 
-### Method 3: Listen to Language Change Event
-For complex page-specific translations:
+### Forms
+```
+name, email, password, phone, message, subject
+required, optional, firstName, lastName
+```
 
+### Incubation Module
+```
+incubationProgram, myTeam, exercises, progress
+feedback, aiFeedback, submitForReview
+problemTree, businessModelCanvas
+```
+
+### Mentorship
+```
+mentorship, myMentor, findMentor, scheduleSession
+expertise, availability
+```
+
+### Admin Panel
+```
+adminDashboard, users, profiles, analytics
+totalUsers, manage, addNew, exportData
+```
+
+### Messaging
+```
+messages, inbox, newMessage, reply
+markAsRead, attachments, online
+```
+
+**Full list:** See [translations-extended.js](assets/js/translations-extended.js)
+
+---
+
+## Usage Examples
+
+### Example 1: Simple Page
+```html
+<div class="container">
+    <h1 data-translate="myAccount">My Account</h1>
+    <p data-translate="manageProfileSettings">Manage your settings</p>
+    <button data-translate="save">Save</button>
+    <button data-translate="cancel">Cancel</button>
+</div>
+```
+
+### Example 2: Form
+```html
+<form>
+    <label data-translate="yourName">Your Name</label>
+    <input type="text" data-translate="name" placeholder="Name">
+
+    <label data-translate="yourEmail">Your Email</label>
+    <input type="email" data-translate="email" placeholder="Email">
+
+    <button data-translate="submit">Submit</button>
+</form>
+```
+
+### Example 3: Table
+```html
+<table>
+    <thead>
+        <tr>
+            <th data-translate="name">Name</th>
+            <th data-translate="email">Email</th>
+            <th data-translate="status">Status</th>
+        </tr>
+    </thead>
+</table>
+```
+
+### Example 4: Status Messages
+```html
+<div class="alert alert-success" data-translate="successfullySaved">
+    Successfully saved
+</div>
+
+<div class="loading" data-translate="loading">
+    Loading...
+</div>
+```
+
+### Example 5: JavaScript
 ```javascript
+// Get translation
+const text = translate('submit'); // or t('submit')
+console.log(text); // "Submit" or "Soumettre"
+
+// Listen for language change
 document.addEventListener('languageChanged', function(e) {
-    const lang = e.detail.language;
-    const translations = e.detail.translations;
-    const t = e.detail.t; // Translation function
-
-    // Update your page elements
-    document.getElementById('title').textContent = translations.myCustomKey;
-    document.getElementById('button').textContent = t('submit');
+    const { language, t } = e.detail;
+    updateMyContent(t);
 });
 ```
 
-## Available Translation Keys
+---
 
-### Navigation
-- `home`, `about`, `work`, `opportunities`, `contact`
-- `shareStory`, `login`, `logout`, `myAccount`, `myProfile`, `admin`
+## Common Patterns
 
-### Common Buttons
-- `submit`, `save`, `cancel`, `delete`, `edit`, `back`, `next`, `previous`
-- `search`, `filter`, `sort`, `loadMore`, `viewMore`, `apply`, `close`
+### Dashboard Card
+```html
+<div class="card">
+    <h3 data-translate="recentActivity">Recent Activity</h3>
+    <p class="count">25</p>
+    <button data-translate="viewAll">View All</button>
+</div>
+```
 
-### Forms
-- `name`, `fullName`, `email`, `emailAddress`, `password`, `confirmPassword`
-- `phone`, `message`, `subject`, `description`, `category`, `date`
-- `location`, `country`, `city`, `required`, `optional`
+### Empty State
+```html
+<div class="empty-state">
+    <p data-translate="noResults">No results found</p>
+    <button data-translate="tryAgain">Try Again</button>
+</div>
+```
 
-### Messages
-- `success`, `error`, `warning`, `info`, `loading`, `noResults`, `tryAgain`
+### Action Buttons
+```html
+<div class="actions">
+    <button data-translate="edit">Edit</button>
+    <button data-translate="delete">Delete</button>
+    <button data-translate="download">Download</button>
+</div>
+```
 
-### Status
-- `active`, `inactive`, `pending`, `approved`, `rejected`, `published`, `draft`
-
-### Time
-- `today`, `yesterday`, `tomorrow`, `thisWeek`, `thisMonth`, `thisYear`
-
-### Profile/Account
-- `profile`, `settings`, `preferences`, `notifications`, `privacy`, `security`
-- `changePassword`, `updateProfile`, `deleteAccount`
-
-### Opportunities
-- `deadline`, `applicationUrl`, `eligibility`, `benefits`, `howToApply`
-- `viewDetails`, `applyNow`, `saveOpportunity`
-
-### Contact
-- `getInTouch`, `sendMessage`, `ourLocation`, `emailUs`, `callUs`, `followUs`
-
-### Footer
-- `copyright`, `termsOfService`, `privacyPolicy`, `aboutUs`, `contactUs`
-
-### Errors
-- `errorOccurred`, `pageNotFound`, `accessDenied`, `sessionExpired`
-- `invalidInput`, `requiredField`, `invalidEmail`, `passwordTooShort`, `passwordMismatch`
+---
 
 ## Adding New Translations
 
-To add new translation keys:
-
-1. Open `assets/js/translations.js`
-2. Add your key to both `en` and `fr` objects:
+Edit `assets/js/translations-extended.js`:
 
 ```javascript
-const bihakTranslations = {
+const bihakExtendedTranslations = {
     en: {
-        // ... existing translations
-        myNewKey: 'My English Text',
-        anotherKey: 'Another Text'
+        // Add your key here
+        myNewKey: 'My English Text'
     },
     fr: {
-        // ... existing translations
-        myNewKey: 'Mon Texte Français',
-        anotherKey: 'Autre Texte'
+        // Add French translation
+        myNewKey: 'Mon Texte Français'
     }
 };
 ```
 
-3. Use the key in your HTML:
-
+Use it:
 ```html
-<h1 data-translate="myNewKey">My English Text</h1>
+<span data-translate="myNewKey">My English Text</span>
 ```
 
-Or in JavaScript:
+---
 
-```javascript
-const text = t('myNewKey');
-```
+## Module Examples
 
-## Example: Creating a New Page with Translations
-
+### Incubation Dashboard
 ```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My New Page - Bihak Center</title>
-    <link rel="stylesheet" href="../assets/css/header_new.css">
-</head>
-<body>
-    <?php include '../includes/header_new.php'; ?>
-
-    <div class="container">
-        <h1 data-translate="myPageTitle">My Page Title</h1>
-        <p data-translate="myPageDescription">This is my page description</p>
-
-        <button id="myButton" data-translate="submit">Submit</button>
-    </div>
-
-    <script>
-        // Listen for language changes to update custom elements
-        document.addEventListener('languageChanged', function(e) {
-            const translations = e.detail.translations;
-
-            // Update any custom elements not covered by data-translate
-            console.log('Language changed to: ' + e.detail.language);
-        });
-    </script>
-</body>
-</html>
+<h1 data-translate="incubationProgram">Incubation Program</h1>
+<h2 data-translate="myTeam">My Team</h2>
+<button data-translate="startExercise">Start Exercise</button>
+<button data-translate="getAIFeedback">Get AI Feedback</button>
+<span data-translate="progress">Progress</span>: 75%
 ```
 
-## Best Practices
+### Mentorship Page
+```html
+<h1 data-translate="mentorship">Mentorship</h1>
+<h3 data-translate="myMentor">My Mentor</h3>
+<button data-translate="scheduleSession">Schedule Session</button>
+<p><span data-translate="expertise">Expertise</span>: Business</p>
+```
 
-1. **Always use translation keys** - Don't hardcode text in multiple languages
-2. **Add data-translate attributes** - Let the system handle automatic translation
-3. **Keep keys descriptive** - Use clear names like `submitButton` not `btn1`
-4. **Test both languages** - Switch between EN/FR to ensure all text translates
-5. **Add new keys to translations.js** - Keep all translations centralized
+### Admin Panel
+```html
+<h1 data-translate="adminDashboard">Admin Dashboard</h1>
+<h3 data-translate="totalUsers">Total Users</h3>
+<button data-translate="addNew">Add New</button>
+<button data-translate="exportData">Export Data</button>
+```
 
-## Language Persistence
+---
 
-The user's language choice is saved in `localStorage` and will persist across:
-- Page refreshes
-- Navigation between pages
-- Browser sessions
+## Testing
 
-The language is automatically restored when the user returns to the site.
+1. Open any page
+2. Click FR button in header
+3. All `data-translate` elements should translate
+4. Click EN to switch back
+5. Refresh page - language persists
+
+### Quick Test
+Create `test.php`:
+```php
+<?php include 'includes/header_new.php'; ?>
+<div class="container">
+    <h1 data-translate="home">Home</h1>
+    <button data-translate="submit">Submit</button>
+    <p data-translate="loading">Loading...</p>
+</div>
+<?php include 'includes/footer_new.php'; ?>
+```
+
+---
 
 ## Troubleshooting
 
-**Problem:** Translation not working on my page
-- **Solution:** Make sure you include `header_new.php` which loads the translation system
+**Translation not working?**
+- Check if `data-translate` attribute is correct
+- Verify key exists in translations-extended.js
+- Open browser console (F12) for errors
 
-**Problem:** My custom text isn't translating
-- **Solution:** Add `data-translate="yourKey"` attribute or use the `t()` function
+**Language not persisting?**
+- Check if localStorage is enabled
+- Clear browser cache
 
-**Problem:** I need a translation key that doesn't exist
-- **Solution:** Add it to `assets/js/translations.js` in both `en` and `fr` objects
+**Dynamic content not translating?**
+```javascript
+// Manually translate after adding elements
+element.textContent = t('myKey');
+```
 
-**Problem:** Translation works but some elements don't update
-- **Solution:** Listen to the `languageChanged` event and update them manually
+---
 
-## Support
+## Best Practices
 
-For questions or issues with the translation system, refer to:
-- Translation file: `assets/js/translations.js`
-- Header file: `includes/header_new.php`
-- This guide: `TRANSLATION-GUIDE.md`
+✅ **DO:**
+- Use `data-translate` for all visible text
+- Test in both languages
+- Use meaningful key names
+
+❌ **DON'T:**
+- Hard-code French text
+- Create duplicate elements for each language
+- Forget to translate error messages
+
+---
+
+## Summary
+
+- ✅ 400+ translation keys ready
+- ✅ Covers ALL modules
+- ✅ Simple `data-translate` attribute
+- ✅ Automatic language switching
+- ✅ Persistent preferences
+
+**To translate any page:**
+1. Add `data-translate="key"` to elements
+2. Use existing keys from translations-extended.js
+3. Test with EN/FR switcher
+
+---
+
+**Files:**
+- [assets/js/translations-extended.js](assets/js/translations-extended.js) - All translations
+- [includes/header_new.php](includes/header_new.php) - Loads translation script
+
+**Next:** Start adding `data-translate` to your pages!
+
+*Last updated: November 30, 2025*
