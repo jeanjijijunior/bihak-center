@@ -173,7 +173,7 @@ $widget_api_path = '/api/messaging/';
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     border: none;
     color: white;
     cursor: pointer;
@@ -231,7 +231,7 @@ $widget_api_path = '/api/messaging/';
 }
 
 .chat-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     color: white;
     padding: 16px;
     display: flex;
@@ -298,7 +298,7 @@ $widget_api_path = '/api/messaging/';
 }
 
 .chat-tab.active {
-    color: #667eea;
+    color: #1cabe2;
     background: white;
 }
 
@@ -345,14 +345,14 @@ $widget_api_path = '/api/messaging/';
 
 .chat-search input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #1cabe2;
 }
 
 .new-conversation-btn {
     width: 36px;
     height: 36px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     border: none;
     color: white;
     cursor: pointer;
@@ -433,7 +433,7 @@ $widget_api_path = '/api/messaging/';
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -493,12 +493,12 @@ $widget_api_path = '/api/messaging/';
 
 .conversation-item.unread {
     background: #edf5ff;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #1cabe2;
 }
 
 .conversation-item.unread .conversation-name {
     font-weight: 700;
-    color: #667eea;
+    color: #1cabe2;
 }
 
 .conversation-unread-badge {
@@ -520,7 +520,7 @@ $widget_api_path = '/api/messaging/';
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -626,7 +626,7 @@ $widget_api_path = '/api/messaging/';
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     color: white;
     display: flex;
     align-items: center;
@@ -645,7 +645,7 @@ $widget_api_path = '/api/messaging/';
 }
 
 .message.sent .message-bubble {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     color: white;
 }
 
@@ -737,14 +737,14 @@ $widget_api_path = '/api/messaging/';
 
 #messageInput:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #1cabe2;
 }
 
 .send-btn {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
     border: none;
     color: white;
     cursor: pointer;
@@ -1547,7 +1547,7 @@ function renderContactItem(contact) {
     // Handle empty names
     const name = contact.name || 'Unknown';
     const initial = name.charAt(0).toUpperCase();
-    const roleColor = contact.badge_color || '#667eea';
+    const roleColor = contact.badge_color || '#1cabe2';
 
     return `
         <div class="contact-item" onclick="startConversationWith('${contact.type}', ${contact.id}, '${escapeHtml(name)}')">

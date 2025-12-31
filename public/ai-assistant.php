@@ -226,7 +226,7 @@ function getSuggestionsForExercise($exercise_type, $lang) {
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             border: none;
             color: white;
             font-size: 1.8rem;
@@ -259,7 +259,7 @@ function getSuggestionsForExercise($exercise_type, $lang) {
         }
 
         .ai-panel-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 20px;
             border-radius: 20px 20px 0 0;
@@ -294,7 +294,7 @@ function getSuggestionsForExercise($exercise_type, $lang) {
         }
 
         .ai-suggestions h4 {
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 15px;
             font-size: 1rem;
         }
@@ -313,9 +313,9 @@ function getSuggestionsForExercise($exercise_type, $lang) {
         }
 
         .suggestion-btn:hover {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .ai-chat {
@@ -331,7 +331,7 @@ function getSuggestionsForExercise($exercise_type, $lang) {
         }
 
         .ai-message.user {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             align-self: flex-end;
             border-bottom-right-radius: 5px;
@@ -368,12 +368,12 @@ function getSuggestionsForExercise($exercise_type, $lang) {
 
         .ai-input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .ai-send-btn {
             padding: 12px 20px;
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             border: none;
             border-radius: 10px;

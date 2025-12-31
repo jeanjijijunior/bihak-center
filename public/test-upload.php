@@ -27,7 +27,7 @@
         }
         h2 {
             color: #333;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #1cabe2;
             padding-bottom: 10px;
         }
         .info-row {
@@ -223,7 +223,7 @@
     </div>
 
     <p style="text-align: center; color: #888; margin-top: 40px;">
-        <a href="signup.php" style="color: #667eea;">← Back to Signup</a>
+        <a href="signup.php" style="color: #1cabe2;">← Back to Signup</a>
     </p>
 </body>
 </html>

@@ -123,7 +123,7 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
         }
 
         .workspace-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             border-radius: 12px;
@@ -188,7 +188,7 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -199,12 +199,12 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
 
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #1cabe2;
+            border: 2px solid #1cabe2;
         }
 
         .btn-secondary:hover {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 
@@ -228,7 +228,7 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
         }
 
         .goal-card:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 
@@ -346,9 +346,9 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: #667eea;
+            background: #1cabe2;
             border: 3px solid white;
-            box-shadow: 0 0 0 2px #667eea;
+            box-shadow: 0 0 0 2px #1cabe2;
         }
 
         .activity-header {
@@ -455,7 +455,7 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 600;
         }
@@ -511,7 +511,7 @@ $other_party_email = $is_mentor ? $relationship['mentee_email'] : $relationship[
             <div>
                 <div class="section">
                     <div class="section-header">
-                        <h2><i class="fas fa-bullseye" style="color: #667eea;"></i> Goals</h2>
+                        <h2><i class="fas fa-bullseye" style="color: #1cabe2;"></i> Goals</h2>
                         <button class="btn btn-primary btn-sm" onclick="showGoalModal()">+ Add Goal</button>
                     </div>
 

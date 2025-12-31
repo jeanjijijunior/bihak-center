@@ -78,7 +78,7 @@ closeDatabaseConnection($conn);
 
         .page-header h1 {
             font-size: 2.5rem;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -88,7 +88,7 @@ closeDatabaseConnection($conn);
         }
 
         .capacity-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 20px;
             border-radius: 12px;
@@ -141,7 +141,7 @@ closeDatabaseConnection($conn);
             position: absolute;
             top: 15px;
             right: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -159,7 +159,7 @@ closeDatabaseConnection($conn);
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -221,7 +221,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -274,7 +274,7 @@ closeDatabaseConnection($conn);
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 600;
         }

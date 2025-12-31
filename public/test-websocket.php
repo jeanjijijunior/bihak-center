@@ -26,7 +26,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -44,7 +44,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
         }
 
         .test-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -167,7 +167,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
         }
 
         .test-btn.primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -212,7 +212,7 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id']) && !isset($_SE
 
         .message-input input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
     </style>
 </head>

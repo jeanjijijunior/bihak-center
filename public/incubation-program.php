@@ -141,7 +141,7 @@ $lang = $_SESSION['lang'] ?? 'en';
         }
 
         .hero-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 80px 20px;
             text-align: center;
@@ -182,7 +182,7 @@ $lang = $_SESSION['lang'] ?? 'en';
 
         .btn-primary {
             background: white;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .btn-primary:hover {
@@ -198,7 +198,7 @@ $lang = $_SESSION['lang'] ?? 'en';
 
         .btn-secondary:hover {
             background: white;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .btn-admin {
@@ -244,7 +244,7 @@ $lang = $_SESSION['lang'] ?? 'en';
         .stat-number {
             font-size: 3rem;
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -279,7 +279,7 @@ $lang = $_SESSION['lang'] ?? 'en';
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s ease;
-            border-top: 5px solid #667eea;
+            border-top: 5px solid #1cabe2;
         }
 
         .phase-card:nth-child(2) {
@@ -302,7 +302,7 @@ $lang = $_SESSION['lang'] ?? 'en';
         .phase-number {
             font-size: 3rem;
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
             opacity: 0.2;
             margin-bottom: -20px;
         }

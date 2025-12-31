@@ -540,7 +540,7 @@ $csrf_token = Security::generateCSRFToken();
             display: inline-flex;
             align-items: center;
             padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             border: none;
             border-radius: 8px;

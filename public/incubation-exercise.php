@@ -327,7 +327,7 @@ closeDatabaseConnection($conn);
         }
 
         .breadcrumb a {
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -338,7 +338,7 @@ closeDatabaseConnection($conn);
         }
 
         .team-badge {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -370,7 +370,7 @@ closeDatabaseConnection($conn);
         }
 
         .exercise-number {
-            color: #667eea;
+            color: #1cabe2;
             font-weight: 700;
             font-size: 1.2rem;
             margin-bottom: 10px;
@@ -404,7 +404,7 @@ closeDatabaseConnection($conn);
             color: #333;
             margin: 30px 0 15px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #1cabe2;
         }
 
         .instructions {
@@ -444,7 +444,7 @@ closeDatabaseConnection($conn);
 
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .file-upload {
@@ -457,7 +457,7 @@ closeDatabaseConnection($conn);
         }
 
         .file-upload:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: #f8f9ff;
         }
 
@@ -494,7 +494,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             flex: 1;
         }

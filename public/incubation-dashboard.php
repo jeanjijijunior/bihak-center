@@ -136,7 +136,7 @@ closeDatabaseConnection($conn);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -236,14 +236,14 @@ closeDatabaseConnection($conn);
         }
 
         .phase-tab:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: #f8f9ff;
         }
 
         .phase-tab.active {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .phase-tab.completed {
@@ -268,7 +268,7 @@ closeDatabaseConnection($conn);
         }
 
         .exercise-item:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
         }
 
@@ -278,7 +278,7 @@ closeDatabaseConnection($conn);
 
         .exercise-number {
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 5px;
         }
 
@@ -344,7 +344,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 
@@ -382,7 +382,7 @@ closeDatabaseConnection($conn);
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             display: flex;
             align-items: center;
@@ -416,7 +416,7 @@ closeDatabaseConnection($conn);
         .activity-item {
             padding: 15px;
             background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
             border-radius: 5px;
         }
 

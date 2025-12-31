@@ -81,7 +81,7 @@ closeDatabaseConnection($conn);
         .sidebar-header {
             padding: 20px;
             border-bottom: 2px solid #e2e8f0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -117,7 +117,7 @@ closeDatabaseConnection($conn);
 
         .search-box input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .conversations-list {
@@ -141,7 +141,7 @@ closeDatabaseConnection($conn);
 
         .conversation-item.active {
             background: #edf2f7;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
         }
 
         .conversation-item.unread {
@@ -152,7 +152,7 @@ closeDatabaseConnection($conn);
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -226,7 +226,7 @@ closeDatabaseConnection($conn);
 
         .unread-count {
             display: inline-block;
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             padding: 2px 8px;
             border-radius: 12px;
@@ -270,7 +270,7 @@ closeDatabaseConnection($conn);
         .new-conversation-btn {
             margin: 15px;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             border: none;
             border-radius: 8px;

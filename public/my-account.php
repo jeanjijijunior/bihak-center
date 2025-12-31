@@ -416,11 +416,11 @@ closeDatabaseConnection($conn);
 
                 <!-- Mentorship Card -->
                 <?php if ($mentorship): ?>
-                <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="card" style="background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%); color: white;">
                     <h2 style="color: white; border-bottom-color: rgba(255,255,255,0.3);"><i class="fas fa-user-tie"></i> My Mentor</h2>
 
                     <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
-                        <div style="width: 60px; height: 60px; border-radius: 50%; background: white; color: #667eea; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: white; color: #1cabe2; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold;">
                             <?php echo strtoupper(substr($mentorship['mentor_name'], 0, 1)); ?>
                         </div>
                         <div>
@@ -458,7 +458,7 @@ closeDatabaseConnection($conn);
                         </div>
                     <?php endif; ?>
 
-                    <a href="mentorship/workspace.php?id=<?php echo $mentorship['id']; ?>" class="btn" style="background: white; color: #667eea; width: 100%; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <a href="mentorship/workspace.php?id=<?php echo $mentorship['id']; ?>" class="btn" style="background: white; color: #1cabe2; width: 100%; text-align: center; padding: 12px; border-radius: 8px; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px;">
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                         </svg>
@@ -467,7 +467,7 @@ closeDatabaseConnection($conn);
                 </div>
                 <?php else: ?>
                 <div class="card">
-                    <h2 data-translate="mentorship"><i class="fas fa-user-graduate" style="color: #667eea;"></i> Mentorship</h2>
+                    <h2 data-translate="mentorship"><i class="fas fa-user-graduate" style="color: #1cabe2;"></i> Mentorship</h2>
                     <p style="color: #718096; margin-bottom: 16px;" data-translate="noActiveMentor">You don't have an active mentor yet. Connect with experienced professionals who can guide your journey!</p>
                     <a href="mentorship/browse-mentors.php" class="btn btn-primary">
                         <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">

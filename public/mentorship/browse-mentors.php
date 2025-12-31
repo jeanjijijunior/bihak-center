@@ -65,7 +65,7 @@ closeDatabaseConnection($conn);
 
         .page-header h1 {
             font-size: 2.5rem;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -126,7 +126,7 @@ closeDatabaseConnection($conn);
             position: absolute;
             top: 15px;
             right: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 8px 16px;
             border-radius: 20px;
@@ -145,7 +145,7 @@ closeDatabaseConnection($conn);
         }
 
         .mentor-role {
-            color: #667eea;
+            color: #1cabe2;
             font-weight: 600;
             text-transform: capitalize;
         }
@@ -204,7 +204,7 @@ closeDatabaseConnection($conn);
         .stat-value {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .stat-label {
@@ -228,7 +228,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -287,7 +287,7 @@ closeDatabaseConnection($conn);
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 600;
         }

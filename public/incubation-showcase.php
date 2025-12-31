@@ -147,7 +147,7 @@ closeDatabaseConnection($conn);
         }
 
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 60px 20px;
             text-align: center;
@@ -259,14 +259,14 @@ closeDatabaseConnection($conn);
         }
 
         .filter-tag:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: #f8f9ff;
         }
 
         .filter-tag.active {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .sort-select {
@@ -301,7 +301,7 @@ closeDatabaseConnection($conn);
 
         .project-image {
             height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -323,7 +323,7 @@ closeDatabaseConnection($conn);
         }
 
         .project-team {
-            color: #667eea;
+            color: #1cabe2;
             font-size: 0.9rem;
             margin-bottom: 15px;
         }
@@ -358,7 +358,7 @@ closeDatabaseConnection($conn);
 
         .vote-btn {
             padding: 10px 25px;
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             border: none;
             border-radius: 8px;

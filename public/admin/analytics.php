@@ -355,7 +355,7 @@ closeDatabaseConnection($conn);
         }
 
         .metric-card.users { border-left: 4px solid #3b82f6; }
-        .metric-card.mentors { border-left: 4px solid #8b5cf6; }
+        .metric-card.mentors { border-left: 4px solid #147ba5; }
         .metric-card.messages { border-left: 4px solid #10b981; }
         .metric-card.teams { border-left: 4px solid #f59e0b; }
 
@@ -437,7 +437,7 @@ closeDatabaseConnection($conn);
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, #3b82f6, #147ba5);
             transition: width 0.3s ease;
         }
 
@@ -616,7 +616,7 @@ closeDatabaseConnection($conn);
                         <h3>Total Messages</h3>
                         <div class="metric-value"><?php echo number_format($total_messages); ?></div>
                     </div>
-                    <div class="metric-card" style="border-left: 4px solid #8b5cf6;">
+                    <div class="metric-card" style="border-left: 4px solid #147ba5;">
                         <h3>Avg Messages/Conversation</h3>
                         <div class="metric-value"><?php echo $avg_messages; ?></div>
                     </div>
@@ -824,7 +824,7 @@ closeDatabaseConnection($conn);
         // Chart configurations
         const chartColors = {
             blue: '#3b82f6',
-            purple: '#8b5cf6',
+            purple: '#147ba5',
             green: '#10b981',
             orange: '#f59e0b',
             red: '#ef4444',

@@ -25,7 +25,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Poppins', sans-serif;
             line-height: 1.6;
             color: #2d3748;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -91,7 +91,7 @@
 
         .info-box {
             background: #f7fafc;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
             padding: 20px;
             margin: 30px 0;
             text-align: left;
@@ -138,7 +138,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -149,12 +149,12 @@
 
         .btn-secondary {
             background: white;
-            color: #667eea;
-            border: 2px solid #667eea;
+            color: #1cabe2;
+            border: 2px solid #1cabe2;
         }
 
         .btn-secondary:hover {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             transform: translateY(-2px);
         }
@@ -186,7 +186,7 @@
         .stat-box strong {
             display: block;
             font-size: 1.8rem;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 5px;
         }
 

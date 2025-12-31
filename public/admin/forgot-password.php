@@ -73,7 +73,7 @@ $csrf_token = Security::generateCSRFToken();
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             padding: 20px;
         }
 
@@ -98,7 +98,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .reset-header .badge {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             padding: 6px 16px;
             border-radius: 20px;
@@ -145,7 +145,7 @@ $csrf_token = Security::generateCSRFToken();
             </form>
 
             <div class="login-footer" style="margin-top: 20px; text-align: center;">
-                <a href="login.php" style="color: #667eea; text-decoration: none; font-weight: 500;">← Back to Admin Login</a>
+                <a href="login.php" style="color: #1cabe2; text-decoration: none; font-weight: 500;">← Back to Admin Login</a>
             </div>
         </div>
     </div>

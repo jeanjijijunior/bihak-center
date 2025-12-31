@@ -194,7 +194,7 @@ $page_title = 'Review Submission';
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -339,12 +339,12 @@ $page_title = 'Review Submission';
         }
 
         .file-list li:hover {
-            border-color: #6366f1;
+            border-color: #1cabe2;
             box-shadow: 0 2px 8px rgba(99, 102, 241, 0.1);
         }
 
         .file-list a {
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 500;
             flex: 1;
@@ -356,7 +356,7 @@ $page_title = 'Review Submission';
 
         .file-preview-btn {
             padding: 4px 12px;
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
             border: none;
             border-radius: 4px;
@@ -400,7 +400,7 @@ $page_title = 'Review Submission';
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: #1cabe2;
         }
 
         .form-group textarea {
@@ -434,7 +434,7 @@ $page_title = 'Review Submission';
         }
 
         .score-display {
-            color: #6366f1;
+            color: #1cabe2;
             font-weight: 700;
         }
 
@@ -453,7 +453,7 @@ $page_title = 'Review Submission';
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #6366f1;
+            background: #1cabe2;
             cursor: pointer;
         }
 
@@ -461,7 +461,7 @@ $page_title = 'Review Submission';
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background: #6366f1;
+            background: #1cabe2;
             cursor: pointer;
             border: none;
         }
@@ -551,7 +551,7 @@ $page_title = 'Review Submission';
             background: #f9fafb;
             margin-bottom: 8px;
             border-radius: 6px;
-            border-left: 3px solid #6366f1;
+            border-left: 3px solid #1cabe2;
         }
 
         .history-item .version {
@@ -587,7 +587,7 @@ $page_title = 'Review Submission';
         .stat-value {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #6366f1;
+            color: #1cabe2;
         }
 
         .stat-label {
@@ -621,7 +621,7 @@ $page_title = 'Review Submission';
 
         .quick-action-btn i {
             margin-right: 8px;
-            color: #6366f1;
+            color: #1cabe2;
         }
 
         @media (max-width: 1200px) {
@@ -764,7 +764,7 @@ $page_title = 'Review Submission';
                                         elseif (in_array($ext, ['xls', 'xlsx'])) $icon = 'fa-file-excel';
                                 ?>
                                     <li>
-                                        <i class="fas <?php echo $icon; ?>" style="color: #6366f1;"></i>
+                                        <i class="fas <?php echo $icon; ?>" style="color: #1cabe2;"></i>
                                         <a href="../../<?php echo htmlspecialchars($file); ?>" target="_blank">
                                             <?php echo basename($file); ?>
                                         </a>

@@ -74,7 +74,7 @@ closeDatabaseConnection($conn);
 
         .dashboard-header h1 {
             font-size: 2.5rem;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -101,7 +101,7 @@ closeDatabaseConnection($conn);
         .stat-card .number {
             font-size: 3rem;
             font-weight: bold;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .stat-card .label {
@@ -143,7 +143,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -173,7 +173,7 @@ closeDatabaseConnection($conn);
         }
 
         .relationship-card:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 

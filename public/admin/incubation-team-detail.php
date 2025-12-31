@@ -210,7 +210,7 @@ $page_title = 'Team Details - ' . $team['team_name'];
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -269,7 +269,7 @@ $page_title = 'Team Details - ' . $team['team_name'];
         .stat-value {
             font-size: 2rem;
             font-weight: 700;
-            color: #6366f1;
+            color: #1cabe2;
         }
 
         .stat-label {
@@ -372,7 +372,7 @@ $page_title = 'Team Details - ' . $team['team_name'];
         }
 
         .btn-primary {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 

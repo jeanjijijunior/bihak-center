@@ -150,7 +150,7 @@ closeDatabaseConnection($conn);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -172,7 +172,7 @@ closeDatabaseConnection($conn);
         }
 
         .intro-box h2 {
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 15px;
         }
 
@@ -207,7 +207,7 @@ closeDatabaseConnection($conn);
         .criteria-score {
             font-size: 2rem;
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .criteria-description {
@@ -247,13 +247,13 @@ closeDatabaseConnection($conn);
         }
 
         .rating-option:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: #f8f9ff;
         }
 
         .rating-option.selected {
-            border-color: #667eea;
-            background: #667eea;
+            border-color: #1cabe2;
+            background: #1cabe2;
             color: white;
         }
 
@@ -315,7 +315,7 @@ closeDatabaseConnection($conn);
         }
 
         .recommendations h3 {
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 20px;
         }
 
@@ -347,7 +347,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 

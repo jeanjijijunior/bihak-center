@@ -176,7 +176,7 @@ closeDatabaseConnection($conn);
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(90deg, #3b82f6, #147ba5);
             transition: width 0.3s ease;
         }
 
@@ -217,13 +217,13 @@ closeDatabaseConnection($conn);
 
         .toolbar-btn:hover {
             background: #f9fafb;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .toolbar-btn.active {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .action-buttons {
@@ -245,7 +245,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 
@@ -424,7 +424,7 @@ closeDatabaseConnection($conn);
 
         .spinner {
             border: 3px solid #f3f4f6;
-            border-top: 3px solid #667eea;
+            border-top: 3px solid #1cabe2;
             border-radius: 50%;
             width: 40px;
             height: 40px;

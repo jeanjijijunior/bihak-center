@@ -228,8 +228,8 @@ closeDatabaseConnection($conn);
         }
 
         .tab.active {
-            color: #6366f1;
-            border-bottom-color: #6366f1;
+            color: #1cabe2;
+            border-bottom-color: #1cabe2;
         }
 
         .badge {
@@ -243,7 +243,7 @@ closeDatabaseConnection($conn);
         }
 
         .tab.active .badge {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 
@@ -372,7 +372,7 @@ closeDatabaseConnection($conn);
 
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .radio-group {

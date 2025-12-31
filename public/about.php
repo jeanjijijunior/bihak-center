@@ -193,7 +193,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             text-align: center;
             padding: 80px 20px;
@@ -231,7 +231,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .btn-white {
             background: white;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .btn-white:hover {
@@ -247,7 +247,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         .btn-outline:hover {
             background: white;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         /* Responsive */

@@ -156,7 +156,7 @@ $total_without_passwords = count($users_without_passwords) + count($sponsors_wit
         }
 
         .stats-banner {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 20px 30px;
             border-radius: 10px;
@@ -208,7 +208,7 @@ $total_without_passwords = count($users_without_passwords) + count($sponsors_wit
         }
 
         .tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -303,7 +303,7 @@ $total_without_passwords = count($users_without_passwords) + count($sponsors_wit
         }
 
         .btn-primary {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 
@@ -376,7 +376,7 @@ $total_without_passwords = count($users_without_passwords) + count($sponsors_wit
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 500;
         }

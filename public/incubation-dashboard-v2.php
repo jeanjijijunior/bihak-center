@@ -207,7 +207,7 @@ foreach ($phases as $p) {
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -310,14 +310,14 @@ foreach ($phases as $p) {
         }
 
         .phase-tab:not(.locked):hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: #f8f9ff;
         }
 
         .phase-tab.active {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .phase-tab.completed {
@@ -362,14 +362,14 @@ foreach ($phases as $p) {
 
         .phase-info-box {
             background: #f8f9ff;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
             padding: 20px;
             border-radius: 5px;
             margin-bottom: 25px;
         }
 
         .phase-info-box h3 {
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -395,7 +395,7 @@ foreach ($phases as $p) {
         }
 
         .exercise-item:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
         }
 
@@ -405,7 +405,7 @@ foreach ($phases as $p) {
 
         .exercise-number {
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 5px;
         }
 
@@ -471,7 +471,7 @@ foreach ($phases as $p) {
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 
@@ -509,7 +509,7 @@ foreach ($phases as $p) {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: #667eea;
+            background: #1cabe2;
             color: white;
             display: flex;
             align-items: center;
@@ -543,7 +543,7 @@ foreach ($phases as $p) {
         .activity-item {
             padding: 15px;
             background: #f8f9fa;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
             border-radius: 5px;
         }
 
@@ -801,7 +801,7 @@ foreach ($phases as $p) {
                                     <div class="member-name">
                                         <?php echo htmlspecialchars($member['full_name']); ?>
                                         <?php if ($member['id'] == $user_id): ?>
-                                            <span style="color: #667eea; font-size: 0.85rem;">(<?php echo $lang === 'fr' ? 'Vous' : 'You'; ?>)</span>
+                                            <span style="color: #1cabe2; font-size: 0.85rem;">(<?php echo $lang === 'fr' ? 'Vous' : 'You'; ?>)</span>
                                         <?php endif; ?>
                                     </div>
                                     <div class="member-role">

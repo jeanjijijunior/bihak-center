@@ -98,7 +98,7 @@ closeDatabaseConnection($conn);
 
         .page-header h1 {
             font-size: 2.5rem;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 10px;
         }
 
@@ -127,7 +127,7 @@ closeDatabaseConnection($conn);
         }
 
         .section-header .count {
-            color: #667eea;
+            color: #1cabe2;
             font-weight: bold;
         }
 
@@ -140,7 +140,7 @@ closeDatabaseConnection($conn);
         }
 
         .request-card:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
         }
 
@@ -254,7 +254,7 @@ closeDatabaseConnection($conn);
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 600;
         }
@@ -264,7 +264,7 @@ closeDatabaseConnection($conn);
         }
 
         .match-score-badge {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 4px 10px;
             border-radius: 15px;

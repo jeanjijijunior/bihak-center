@@ -212,7 +212,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 
@@ -285,7 +285,7 @@ closeDatabaseConnection($conn);
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 500;
         }

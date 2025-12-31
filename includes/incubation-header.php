@@ -35,15 +35,15 @@ if ($is_logged_in && isset($_SESSION['user_id'])) {
 <style>
     /*
     Incubation Module Color Scheme:
-    - Primary Blue: #6366f1 (Indigo - main brand color, headers, buttons)
-    - Secondary Blue: #8b5cf6 (Purple - gradients, accents)
+    - Primary Blue: #1cabe2 (Indigo - main brand color, headers, buttons)
+    - Secondary Blue: #147ba5 (Purple - gradients, accents)
     - Accent Orange: #f59e0b (Amber - admin features, highlights)
     - Success Green: #10b981 (Emerald - success states, completed items)
     - Light variants for backgrounds and hover states
     */
 
     .incubation-header {
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+        background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
         color: white;
         padding: 0;
         box-shadow: 0 2px 10px rgba(0,0,0,0.1);

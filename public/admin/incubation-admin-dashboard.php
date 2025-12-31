@@ -104,7 +104,7 @@ $page_title = 'Incubation Admin Dashboard';
     <link rel="stylesheet" href="../../assets/css/admin-dashboard.css">
     <style>
         .dashboard-header {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             border-radius: 12px;
@@ -133,7 +133,7 @@ $page_title = 'Incubation Admin Dashboard';
             padding: 25px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border-left: 4px solid #6366f1;
+            border-left: 4px solid #1cabe2;
         }
 
         .stat-card.warning {
@@ -196,7 +196,7 @@ $page_title = 'Incubation Admin Dashboard';
         }
 
         .btn-primary {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 
@@ -287,7 +287,7 @@ $page_title = 'Incubation Admin Dashboard';
 
         .quick-action-card:hover {
             transform: translateY(-3px);
-            border-color: #6366f1;
+            border-color: #1cabe2;
         }
 
         .quick-action-card a {

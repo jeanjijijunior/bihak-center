@@ -37,7 +37,7 @@ $user = UserAuth::user();
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         h1 {
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 20px;
         }
         .status {
@@ -60,7 +60,7 @@ $user = UserAuth::user();
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid #1cabe2;
         }
         .checklist {
             list-style: none;
@@ -81,7 +81,7 @@ $user = UserAuth::user();
         .btn {
             display: inline-block;
             padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             text-decoration: none;
             border-radius: 8px;

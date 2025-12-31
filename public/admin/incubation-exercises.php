@@ -129,7 +129,7 @@ $page_title = 'Manage Exercises - Incubation Admin';
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -193,7 +193,7 @@ $page_title = 'Manage Exercises - Incubation Admin';
         }
 
         .btn-primary {
-            background: #6366f1;
+            background: #1cabe2;
             color: white;
         }
 
@@ -417,7 +417,7 @@ $page_title = 'Manage Exercises - Incubation Admin';
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #6366f1;
+            border-color: #1cabe2;
         }
 
         .form-group textarea {
@@ -516,7 +516,7 @@ $page_title = 'Manage Exercises - Incubation Admin';
                                 <td>
                                     <strong><?php echo htmlspecialchars($exercise['exercise_title']); ?></strong>
                                     <?php if ($exercise['ai_enabled']): ?>
-                                        <i class="fas fa-robot" style="color: #6366f1; margin-left: 5px;" title="AI Enabled"></i>
+                                        <i class="fas fa-robot" style="color: #1cabe2; margin-left: 5px;" title="AI Enabled"></i>
                                     <?php endif; ?>
                                 </td>
                                 <td><span class="badge badge-info"><?php echo htmlspecialchars($exercise['phase_name']); ?></span></td>

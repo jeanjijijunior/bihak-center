@@ -742,7 +742,7 @@ $age = $now->diff($dob)->y;
 
                 <!-- Mentorship CTA (for mentors viewing user profiles) -->
                 <?php if ($canOfferMentorship): ?>
-                <div class="support-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="support-card" style="background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);">
                     <h3 style="color: white; border-bottom-color: rgba(255, 255, 255, 0.3);">🤝 Mentorship Opportunity</h3>
                     <p>Offer mentorship to <?php echo htmlspecialchars(explode(' ', $profile['full_name'])[0]); ?> and help guide their journey</p>
                     <button onclick="offerMentorship(<?php echo $profile['user_id']; ?>, '<?php echo htmlspecialchars($profile['full_name']); ?>')" class="btn-support">

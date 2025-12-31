@@ -149,7 +149,7 @@ closeDatabaseConnection($conn);
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             padding: 40px 20px;
         }
@@ -203,7 +203,7 @@ closeDatabaseConnection($conn);
         input:focus,
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         textarea {
@@ -291,7 +291,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 

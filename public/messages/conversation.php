@@ -119,21 +119,21 @@ $display_name = $current_conversation['display_name'] ?? $current_conversation['
         }
 
         .back-btn {
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-size: 1.5rem;
             transition: all 0.3s;
         }
 
         .back-btn:hover {
-            color: #764ba2;
+            color: #147ba5;
         }
 
         .chat-avatar {
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -165,7 +165,7 @@ $display_name = $current_conversation['display_name'] ?? $current_conversation['
         }
 
         .typing-indicator {
-            color: #667eea;
+            color: #1cabe2;
             font-size: 0.9rem;
             font-style: italic;
             display: none;
@@ -206,7 +206,7 @@ $display_name = $current_conversation['display_name'] ?? $current_conversation['
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -252,7 +252,7 @@ $display_name = $current_conversation['display_name'] ?? $current_conversation['
         }
 
         .message.sent .message-bubble {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
         }
 
@@ -300,12 +300,12 @@ $display_name = $current_conversation['display_name'] ?? $current_conversation['
 
         #messageInput:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .send-btn {
             padding: 12px 24px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             border: none;
             border-radius: 8px;

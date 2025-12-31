@@ -129,7 +129,7 @@ closeDatabaseConnection($conn);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             padding: 30px;
             border-radius: 15px;
@@ -198,13 +198,13 @@ closeDatabaseConnection($conn);
         }
 
         .canvas-block:hover {
-            border-color: #667eea;
+            border-color: #1cabe2;
             background: white;
         }
 
         .block-title {
             font-weight: 700;
-            color: #667eea;
+            color: #1cabe2;
             margin-bottom: 15px;
             font-size: 1rem;
             display: flex;
@@ -216,7 +216,7 @@ closeDatabaseConnection($conn);
             content: '';
             width: 4px;
             height: 20px;
-            background: #667eea;
+            background: #1cabe2;
             border-radius: 2px;
         }
 
@@ -234,7 +234,7 @@ closeDatabaseConnection($conn);
 
         textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
@@ -331,7 +331,7 @@ closeDatabaseConnection($conn);
         }
 
         .btn-primary {
-            background: #667eea;
+            background: #1cabe2;
             color: white;
         }
 

@@ -27,7 +27,15 @@
       "Bash(findstr:*)",
       "Bash(git --version:*)",
       "Bash(git init:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git config:*)",
+      "Bash(git commit:*)",
+      "Bash(ssh -i \"C:\\\\Users\\\\jijin\\\\.ssh\\\\private-bihak.key\" ubuntu@155.248.239.239 \"sudo mysql -u root -pbihak2024 -e ''USE bihak; DESCRIBE opportunities;''\")",
+      "Bash(git push)",
+      "Bash(git push:*)",
+      "Bash(ssh -i \"C:\\\\Users\\\\jijin\\\\.ssh\\\\private-bihak.key\" ubuntu@155.248.239.239 \"cd /var/www/html && sudo git pull origin main\")",
+      "Bash(powershell.exe -ExecutionPolicy Bypass -File fix-branding.ps1)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

@@ -90,7 +90,7 @@ if (session_status() === PHP_SESSION_NONE) {
         .program-image {
             width: 100%;
             height: 220px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -268,7 +268,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             text-align: center;
             padding: 80px 20px;
@@ -296,7 +296,7 @@ if (session_status() === PHP_SESSION_NONE) {
             text-decoration: none;
             transition: all 0.3s ease;
             background: white;
-            color: #667eea;
+            color: #1cabe2;
         }
 
         .btn:hover {
@@ -415,7 +415,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <div class="program-card">
-                <div class="program-image" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);">
+                <div class="program-image" style="background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);">
                     <svg viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
                     </svg>
@@ -434,7 +434,7 @@ if (session_status() === PHP_SESSION_NONE) {
                         </div>
                     </div>
                     <div style="margin-top: 20px;">
-                        <a href="incubation-program.php" class="btn" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 12px 24px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
+                        <a href="incubation-program.php" class="btn" style="background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%); color: white; padding: 12px 24px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease;">
                             <span id="program4-cta">Start Your Journey</span>
                             <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>

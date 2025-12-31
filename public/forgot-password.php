@@ -126,7 +126,7 @@ $csrf_token = Security::generateCSRFToken();
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -199,13 +199,13 @@ $csrf_token = Security::generateCSRFToken();
 
         .form-control:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1cabe2;
         }
 
         .btn {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -225,7 +225,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .back-link a {
-            color: #667eea;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 500;
         }
@@ -247,7 +247,7 @@ $csrf_token = Security::generateCSRFToken();
 <body>
     <div class="reset-container">
         <div class="reset-header">
-            <h1><i class="fas fa-lock" style="color: #667eea;"></i> Reset Password</h1>
+            <h1><i class="fas fa-lock" style="color: #1cabe2;"></i> Reset Password</h1>
             <p>Enter your email to begin the password reset process</p>
         </div>
 
