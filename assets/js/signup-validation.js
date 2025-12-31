@@ -171,7 +171,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 showMessage(result.message || 'An error occurred while creating your account. Please try again.', 'error', errorDetails);
-                messageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (error) {
             // More detailed error message
@@ -289,7 +288,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show errors if any
         if (errors.length > 0) {
             showMessage('Please fix the following errors:', 'error', errors);
-            messageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             return false;
         }
 
@@ -297,25 +295,147 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Show message to user
+     * Show message to user in a modal popup
      */
     function showMessage(message, type, errors = []) {
-        const alertClass = type === 'success' ? 'alert-success' : 'alert-error';
-
-        let html = `<div class="alert ${alertClass}">`;
-        html += `<strong>${message}</strong>`;
-
-        if (errors.length > 0) {
-            html += '<ul>';
-            errors.forEach(error => {
-                html += `<li>${error}</li>`;
-            });
-            html += '</ul>';
+        // Remove any existing modal
+        const existingModal = document.getElementById('signupModal');
+        if (existingModal) {
+            existingModal.remove();
         }
 
-        html += '</div>';
+        // Determine icon and colors based on type
+        const isSuccess = type === 'success';
+        const iconColor = isSuccess ? '#10b981' : '#ef4444';
+        const iconSvg = isSuccess
+            ? '<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>'
+            : '<path d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>';
 
-        messageContainer.innerHTML = html;
+        // Build error list HTML
+        let errorListHtml = '';
+        if (errors.length > 0) {
+            errorListHtml = '<ul style="margin: 15px 0 0 0; padding-left: 20px; text-align: left;">';
+            errors.forEach(error => {
+                errorListHtml += `<li style="margin: 8px 0; color: #4b5563;">${error}</li>`;
+            });
+            errorListHtml += '</ul>';
+        }
+
+        // Create modal HTML
+        const modalHtml = `
+            <div id="signupModal" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+                animation: fadeIn 0.2s ease;
+            ">
+                <div style="
+                    background: white;
+                    border-radius: 12px;
+                    padding: 30px;
+                    max-width: 500px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+                    animation: slideUp 0.3s ease;
+                    text-align: center;
+                ">
+                    <div style="
+                        width: 60px;
+                        height: 60px;
+                        margin: 0 auto 20px;
+                        border-radius: 50%;
+                        background: ${iconColor}15;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    ">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="${iconColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            ${iconSvg}
+                        </svg>
+                    </div>
+                    <h3 style="
+                        font-size: 1.5rem;
+                        font-weight: 600;
+                        color: #1f2937;
+                        margin: 0 0 15px 0;
+                    ">${isSuccess ? 'Success!' : 'Oops!'}</h3>
+                    <p style="
+                        font-size: 1rem;
+                        color: #4b5563;
+                        line-height: 1.6;
+                        margin: 0;
+                    ">${message}</p>
+                    ${errorListHtml}
+                    <button onclick="document.getElementById('signupModal').remove()" style="
+                        margin-top: 25px;
+                        padding: 12px 32px;
+                        background: ${isSuccess ? '#10b981' : '#ef4444'};
+                        color: white;
+                        border: none;
+                        border-radius: 8px;
+                        font-size: 1rem;
+                        font-weight: 600;
+                        cursor: pointer;
+                        transition: all 0.2s;
+                    " onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                        ${isSuccess ? 'Got it!' : 'OK, I\'ll fix it'}
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Add modal to page
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        // Add CSS animations if not already present
+        if (!document.getElementById('signupModalStyles')) {
+            const styles = document.createElement('style');
+            styles.id = 'signupModalStyles';
+            styles.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes slideUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+
+        // Close modal on escape key
+        const closeOnEscape = (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('signupModal');
+                if (modal) modal.remove();
+                document.removeEventListener('keydown', closeOnEscape);
+            }
+        };
+        document.addEventListener('keydown', closeOnEscape);
+
+        // Close modal when clicking outside
+        const modal = document.getElementById('signupModal');
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.remove();
+            }
+        });
     }
 
     /**
