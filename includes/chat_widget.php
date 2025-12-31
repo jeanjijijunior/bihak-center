@@ -41,8 +41,17 @@ if (!$chat_participant_type) {
 
 // Get base path for assets and API - use absolute paths from web root
 // This works on both localhost and production servers regardless of DocumentRoot
-$widget_assets_path = '/assets/';
-$widget_api_path = '/api/messaging/';
+$is_localhost = (isset($_SERVER['HTTP_HOST']) && (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false));
+
+if ($is_localhost) {
+    // Localhost uses direct paths (XAMPP DocumentRoot is the project root)
+    $widget_assets_path = '/bihak-center/assets/';
+    $widget_api_path = '/bihak-center/api/messaging/';
+} else {
+    // Production uses Apache Aliases
+    $widget_assets_path = '/assets/';
+    $widget_api_path = '/api/messaging/';
+}
 ?>
 
 <!-- Chat Widget Container -->
