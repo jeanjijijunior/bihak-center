@@ -260,16 +260,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!profileImagesInput.files || profileImagesInput.files.length === 0) {
             errors.push('At least one profile image is required');
         } else {
-            const maxSize = 5 * 1024 * 1024; // 5MB per image
+            const maxSize = 2 * 1024 * 1024; // 2MB per image (server limit)
+            const maxImages = 3; // Limit to 3 images due to 8MB post_max_size
             const files = Array.from(profileImagesInput.files);
 
-            if (files.length > 5) {
-                errors.push('Maximum 5 images allowed');
+            if (files.length > maxImages) {
+                errors.push(`Maximum ${maxImages} images allowed`);
             }
 
             files.forEach((file, index) => {
                 if (file.size > maxSize) {
-                    errors.push(`Image ${index + 1} exceeds 5MB limit`);
+                    errors.push(`Image ${index + 1} exceeds 2MB limit (size: ${(file.size / 1024 / 1024).toFixed(2)}MB)`);
                 }
                 if (!file.type.startsWith('image/')) {
                     errors.push(`File ${index + 1} is not a valid image`);

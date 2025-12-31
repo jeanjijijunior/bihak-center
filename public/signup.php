@@ -735,7 +735,7 @@ $csrf_token = Security::generateCSRFToken();
                 <div class="form-group">
                     <label for="profile_images"><span data-translate="profilePhotos">Profile photos</span> <span class="required">*</span></label>
                     <input type="file" id="profile_images" name="profile_images[]" accept="image/*" multiple required>
-                    <small>Accepted formats: JPG, PNG (max size: 5MB per image). You can select multiple images.</small>
+                    <small>Accepted formats: JPG, PNG (max size: 2MB per image). You can select up to 3 images.</small>
                     <div id="images-preview-container" class="media-preview-grid"></div>
                 </div>
 

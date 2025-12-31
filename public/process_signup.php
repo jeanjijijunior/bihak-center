@@ -136,8 +136,8 @@ try {
     if (isset($_FILES['profile_images']) && !empty($_FILES['profile_images']['name'][0])) {
         $fileCount = count($_FILES['profile_images']['name']);
         $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
-        $maxSize = 5 * 1024 * 1024; // 5MB per image
-        $maxImages = 5;
+        $maxSize = 2 * 1024 * 1024; // 2MB per image (matches server upload_max_filesize)
+        $maxImages = 3; // Reduced to 3 to stay within 8MB post_max_size limit
 
         if ($fileCount > $maxImages) {
             throw new Exception("Maximum {$maxImages} images allowed");
@@ -150,8 +150,8 @@ try {
                     // Provide user-friendly error messages based on PHP upload error codes
                     $errorCode = $_FILES['profile_images']['error'][$i];
                     $errorMessages = [
-                        UPLOAD_ERR_INI_SIZE => 'Image ' . ($i + 1) . ' is too large. Maximum file size allowed by server is exceeded.',
-                        UPLOAD_ERR_FORM_SIZE => 'Image ' . ($i + 1) . ' exceeds the maximum allowed size (5MB).',
+                        UPLOAD_ERR_INI_SIZE => 'Image ' . ($i + 1) . ' is too large. Maximum file size allowed by server is 2MB.',
+                        UPLOAD_ERR_FORM_SIZE => 'Image ' . ($i + 1) . ' exceeds the maximum allowed size (2MB).',
                         UPLOAD_ERR_PARTIAL => 'Image ' . ($i + 1) . ' was only partially uploaded. Please try again.',
                         UPLOAD_ERR_NO_TMP_DIR => 'Server error: Temporary upload folder is missing. Please contact support.',
                         UPLOAD_ERR_CANT_WRITE => 'Server error: Failed to save image ' . ($i + 1) . ' to disk. Please contact support.',
@@ -181,7 +181,7 @@ try {
 
             // Validate file size
             if ($fileInfo['size'] > $maxSize) {
-                throw new Exception('Image ' . ($i + 1) . ' must be less than 5MB');
+                throw new Exception('Image ' . ($i + 1) . ' must be less than 2MB');
             }
 
             // Generate unique filename
