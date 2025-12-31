@@ -1,4 +1,7 @@
 <?php
+// Detect if we're on production (not localhost)
+$is_localhost = (isset($_SERVER['HTTP_HOST']) && (strpos($_SERVER['HTTP_HOST'], 'localhost') !== false || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') !== false));
+
 // Determine base path based on current file location
 $current_dir = dirname($_SERVER['SCRIPT_FILENAME']);
 $dir_name = basename($current_dir);
@@ -10,22 +13,25 @@ $is_in_public = ($dir_name === 'public');
 $is_in_admin = ($dir_name === 'admin');
 
 // Set base path for navigation links
-if ($is_in_admin) {
-    // In public/admin/ directory
-    $base_path = '../';
-    $assets_path = '../../assets/';
-} elseif ($is_in_public_subdir) {
-    // In public/mentorship/ or public/messages/ etc.
-    $base_path = '../';
-    $assets_path = '../../assets/';
-} elseif ($is_in_public) {
-    // In public/ directory
-    $base_path = '';
-    $assets_path = '../assets/';
+if ($is_localhost) {
+    // Localhost - use relative paths for XAMPP
+    if ($is_in_admin) {
+        $base_path = '../';
+        $assets_path = '../../assets/';
+    } elseif ($is_in_public_subdir) {
+        $base_path = '../';
+        $assets_path = '../../assets/';
+    } elseif ($is_in_public) {
+        $base_path = '';
+        $assets_path = '../assets/';
+    } else {
+        $base_path = 'public/';
+        $assets_path = 'assets/';
+    }
 } else {
-    // In root directory
-    $base_path = 'public/';
-    $assets_path = 'assets/';
+    // Production - use absolute paths with Apache Alias
+    $base_path = '/';
+    $assets_path = '/assets/';
 }
 ?>
 <!-- Enhanced Header Component - Fixed and Improved -->
