@@ -9,9 +9,16 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once __DIR__ . '/../config/security.php';
+require_once __DIR__ . '/../config/database.php';
 
 // Generate CSRF token
 $csrf_token = Security::generateCSRFToken();
+
+// Get available security questions
+$conn = getDatabaseConnection();
+$questionsStmt = $conn->query("SELECT id, question_text FROM security_questions WHERE is_active = 1 ORDER BY display_order");
+$available_questions = $questionsStmt->fetch_all(MYSQLI_ASSOC);
+closeDatabaseConnection($conn);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -417,6 +424,36 @@ $csrf_token = Security::generateCSRFToken();
                         <label for="password_confirm"><span data-translate="confirmPassword">Confirm Password</span> <span class="required">*</span></label>
                         <input type="password" id="password_confirm" name="password_confirm" required minlength="8">
                     </div>
+                </div>
+
+                <!-- Security Questions for Password Recovery -->
+                <div class="form-section" style="background: #f7fafc; padding: 20px; border-radius: 8px; margin-top: 20px;">
+                    <h3 style="font-size: 1.2rem; color: #2d3748; margin-bottom: 10px;">Security Questions for Password Recovery</h3>
+                    <p style="color: #718096; font-size: 0.9rem; margin-bottom: 20px;">Choose 3 security questions and provide answers. These will be used if you forget your password.</p>
+
+                    <?php for ($i = 1; $i <= 3; $i++): ?>
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="security_question_<?php echo $i; ?>">
+                            <span>Security Question <?php echo $i; ?></span> <span class="required">*</span>
+                        </label>
+                        <select id="security_question_<?php echo $i; ?>" name="security_question_<?php echo $i; ?>" required>
+                            <option value="">Select a security question</option>
+                            <?php foreach ($available_questions as $question): ?>
+                            <option value="<?php echo htmlspecialchars($question['id']); ?>">
+                                <?php echo htmlspecialchars($question['question_text']); ?>
+                            </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 25px;">
+                        <label for="security_answer_<?php echo $i; ?>">
+                            <span>Answer <?php echo $i; ?></span> <span class="required">*</span>
+                        </label>
+                        <input type="text" id="security_answer_<?php echo $i; ?>" name="security_answer_<?php echo $i; ?>" required placeholder="Enter your answer">
+                        <small>Answers are not case-sensitive</small>
+                    </div>
+                    <?php endfor; ?>
                 </div>
 
                 <div class="form-row">

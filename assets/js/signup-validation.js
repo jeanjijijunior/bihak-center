@@ -278,6 +278,35 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
+        // Validate security questions
+        const securityQuestion1 = form.security_question_1.value;
+        const securityQuestion2 = form.security_question_2.value;
+        const securityQuestion3 = form.security_question_3.value;
+        const securityAnswer1 = form.security_answer_1.value.trim();
+        const securityAnswer2 = form.security_answer_2.value.trim();
+        const securityAnswer3 = form.security_answer_3.value.trim();
+
+        // Check if all security questions are selected
+        if (!securityQuestion1 || !securityQuestion2 || !securityQuestion3) {
+            errors.push('Please select all 3 security questions');
+        }
+
+        // Check if all answers are provided
+        if (!securityAnswer1 || !securityAnswer2 || !securityAnswer3) {
+            errors.push('Please provide answers to all 3 security questions');
+        }
+
+        // Check if the same question is selected multiple times
+        if (securityQuestion1 && securityQuestion2 && securityQuestion1 === securityQuestion2) {
+            errors.push('Security questions 1 and 2 must be different');
+        }
+        if (securityQuestion1 && securityQuestion3 && securityQuestion1 === securityQuestion3) {
+            errors.push('Security questions 1 and 3 must be different');
+        }
+        if (securityQuestion2 && securityQuestion3 && securityQuestion2 === securityQuestion3) {
+            errors.push('Security questions 2 and 3 must be different');
+        }
+
         // Validate checkboxes
         if (!form.terms.checked) {
             errors.push('You must agree to share your story publicly');

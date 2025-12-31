@@ -59,6 +59,13 @@ try {
         'linkedin_url' => trim($_POST['linkedin_url'] ?? '')
     ];
 
+    // Get security questions and answers
+    $security_questions = [
+        ['question_id' => intval($_POST['security_question_1'] ?? 0), 'answer' => trim($_POST['security_answer_1'] ?? '')],
+        ['question_id' => intval($_POST['security_question_2'] ?? 0), 'answer' => trim($_POST['security_answer_2'] ?? '')],
+        ['question_id' => intval($_POST['security_question_3'] ?? 0), 'answer' => trim($_POST['security_answer_3'] ?? '')]
+    ];
+
     // Validate required fields
     $required = ['full_name', 'email', 'password', 'password_confirm', 'date_of_birth', 'city', 'district', 'education_level', 'title', 'short_description', 'full_story'];
     foreach ($required as $field) {
@@ -80,6 +87,23 @@ try {
     // Validate password match
     if ($data['password'] !== $data['password_confirm']) {
         $response['errors'][] = 'Passwords do not match';
+    }
+
+    // Validate security questions
+    foreach ($security_questions as $index => $sq) {
+        $questionNum = $index + 1;
+        if (empty($sq['question_id'])) {
+            $response['errors'][] = "Security question {$questionNum} is required";
+        }
+        if (empty($sq['answer'])) {
+            $response['errors'][] = "Answer for security question {$questionNum} is required";
+        }
+    }
+
+    // Check if all security questions are different
+    $question_ids = array_column($security_questions, 'question_id');
+    if (count($question_ids) !== count(array_unique($question_ids))) {
+        $response['errors'][] = 'All security questions must be different';
     }
 
     // Check if email already exists
@@ -354,6 +378,27 @@ try {
 
             $mediaStmt->close();
         }
+
+        // Save security question answers
+        $securitySql = "INSERT INTO user_security_answers (user_id, question_id, answer_hash) VALUES (?, ?, ?)";
+        $securityStmt = $conn->prepare($securitySql);
+
+        if (!$securityStmt) {
+            throw new Exception('Failed to prepare security questions statement: ' . $conn->error);
+        }
+
+        foreach ($security_questions as $sq) {
+            // Hash the answer (case-insensitive)
+            $answerHash = password_hash(strtolower($sq['answer']), PASSWORD_BCRYPT);
+
+            $securityStmt->bind_param('iis', $userId, $sq['question_id'], $answerHash);
+
+            if (!$securityStmt->execute()) {
+                throw new Exception('Failed to save security answer: ' . $securityStmt->error);
+            }
+        }
+
+        $securityStmt->close();
 
         // Commit transaction
         $conn->commit();
