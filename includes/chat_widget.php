@@ -39,21 +39,10 @@ if (!$chat_participant_type) {
     return;
 }
 
-// Get base path for assets and API
-$current_dir = dirname($_SERVER['SCRIPT_FILENAME']);
-$is_in_public = (basename($current_dir) === 'public');
-$is_in_admin = (basename($current_dir) === 'admin');
-
-if ($is_in_admin) {
-    $widget_assets_path = '../../assets/';
-    $widget_api_path = '../../api/messaging/';
-} elseif ($is_in_public) {
-    $widget_assets_path = '../assets/';
-    $widget_api_path = '../api/messaging/';
-} else {
-    $widget_assets_path = 'assets/';
-    $widget_api_path = 'api/messaging/';
-}
+// Get base path for assets and API - use absolute paths from web root
+// This works on both localhost and production servers regardless of DocumentRoot
+$widget_assets_path = '/assets/';
+$widget_api_path = '/api/messaging/';
 ?>
 
 <!-- Chat Widget Container -->
