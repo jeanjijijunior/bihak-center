@@ -107,8 +107,12 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Clear previous messages
+        // Clear previous messages (both top container and any existing modals)
         messageContainer.innerHTML = '';
+        const existingModal = document.getElementById('signupModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
 
         // Validate form
         if (!validateForm()) {
@@ -142,10 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 imageDescriptionsContainer.innerHTML = '';
                 imageDescriptionsContainer.style.display = 'none';
 
-                // Scroll to message
-                messageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                // Optional: Redirect after success
+                // Redirect after success (modal will show for 3 seconds)
                 setTimeout(() => {
                     window.location.href = 'login.php?message=' + encodeURIComponent('Account created successfully! Please log in.');
                 }, 3000);
