@@ -26,19 +26,19 @@
             <ul>
                 <li>
                     <a href="https://facebook.com/bihakcenter" target="_blank" rel="noopener noreferrer">
-                        <img src="/bihak-center/assets/images/facebook-icon.png" alt="Facebook">
+                        <img src="/assets/images/facebook-icon.png" alt="Facebook">
                         <span>Bihak Center</span>
                     </a>
                 </li>
                 <li>
                     <a href="https://instagram.com/bihakcenter" target="_blank" rel="noopener noreferrer">
-                        <img src="/bihak-center/assets/images/instagram-icon.png" alt="Instagram">
+                        <img src="/assets/images/instagram-icon.png" alt="Instagram">
                         <span>Bihak Center</span>
                     </a>
                 </li>
                 <li>
                     <a href="https://x.com/bihak_center" target="_blank" rel="noopener noreferrer">
-                        <img src="/bihak-center/assets/images/x-logo.png" alt="X (Twitter)">
+                        <img src="/assets/images/x-logo.png" alt="X (Twitter)">
                         <span>@bihak_center</span>
                     </a>
                 </li>

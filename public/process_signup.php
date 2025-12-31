@@ -191,7 +191,21 @@ try {
 
             // Move uploaded file
             if (!move_uploaded_file($fileInfo['tmp_name'], $destination)) {
-                throw new Exception('Failed to upload image ' . ($i + 1));
+                // Provide detailed error message about why the move failed
+                $error_msg = 'Failed to save image ' . ($i + 1) . '. ';
+
+                // Check common issues
+                if (!is_writable(dirname($destination))) {
+                    $error_msg .= 'Upload folder does not have write permissions. Please contact support.';
+                } elseif (!file_exists($fileInfo['tmp_name'])) {
+                    $error_msg .= 'Temporary file was not found. This may be due to a server timeout. Please try uploading a smaller image.';
+                } elseif (disk_free_space(dirname($destination)) < $fileInfo['size']) {
+                    $error_msg .= 'Server disk is full. Please contact support.';
+                } else {
+                    $error_msg .= 'The file could not be saved to the server. Please try again or contact support if the problem persists.';
+                }
+
+                throw new Exception($error_msg);
             }
 
             // Store image info
