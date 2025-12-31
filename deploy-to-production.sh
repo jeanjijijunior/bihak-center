@@ -130,6 +130,24 @@ if [ -f "$APACHE_CONF" ]; then
     else
         echo -e "${GREEN}✓ DocumentRoot is already correct${NC}"
     fi
+
+    # Add Alias for /assets directory (for images, CSS, JS)
+    echo -e "${YELLOW}Setting up /assets Alias...${NC}"
+    if ! grep -q "Alias /assets" "$APACHE_CONF"; then
+        sed -i "/<\/VirtualHost>/i\\
+    # Assets Directory Alias\\
+    Alias /assets $SCRIPT_DIR/assets\\
+    <Directory $SCRIPT_DIR/assets>\\
+        Options Indexes FollowSymLinks\\
+        AllowOverride None\\
+        Require all granted\\
+    </Directory>\\
+" "$APACHE_CONF"
+        echo -e "${GREEN}✓ Assets Alias added${NC}"
+        systemctl reload apache2
+    else
+        echo -e "${GREEN}✓ Assets Alias already exists${NC}"
+    fi
 else
     echo -e "${RED}⚠ Apache config file not found at expected location${NC}"
 fi
