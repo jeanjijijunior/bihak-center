@@ -147,7 +147,22 @@ try {
             // Check if file was uploaded successfully
             if ($_FILES['profile_images']['error'][$i] !== UPLOAD_ERR_OK) {
                 if ($_FILES['profile_images']['error'][$i] !== UPLOAD_ERR_NO_FILE) {
-                    throw new Exception("Error uploading image " . ($i + 1));
+                    // Provide user-friendly error messages based on PHP upload error codes
+                    $errorCode = $_FILES['profile_images']['error'][$i];
+                    $errorMessages = [
+                        UPLOAD_ERR_INI_SIZE => 'Image ' . ($i + 1) . ' is too large. Maximum file size allowed by server is exceeded.',
+                        UPLOAD_ERR_FORM_SIZE => 'Image ' . ($i + 1) . ' exceeds the maximum allowed size (5MB).',
+                        UPLOAD_ERR_PARTIAL => 'Image ' . ($i + 1) . ' was only partially uploaded. Please try again.',
+                        UPLOAD_ERR_NO_TMP_DIR => 'Server error: Temporary upload folder is missing. Please contact support.',
+                        UPLOAD_ERR_CANT_WRITE => 'Server error: Failed to save image ' . ($i + 1) . ' to disk. Please contact support.',
+                        UPLOAD_ERR_EXTENSION => 'Server error: A PHP extension blocked the upload of image ' . ($i + 1) . '. Please contact support.'
+                    ];
+
+                    $errorMsg = isset($errorMessages[$errorCode])
+                        ? $errorMessages[$errorCode]
+                        : 'Unknown error uploading image ' . ($i + 1) . '. Error code: ' . $errorCode;
+
+                    throw new Exception($errorMsg);
                 }
                 continue;
             }

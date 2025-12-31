@@ -157,18 +157,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     errorDetails = result.errors;
                 }
 
-                // Add database error if present
+                // Add database error if present (only in development)
                 if (result.database_error) {
-                    errorDetails.push('Database Error: ' + result.database_error);
+                    console.error('Database Error:', result.database_error);
+                    errorDetails.push('A database error occurred. Please try again or contact support if the problem persists.');
                 }
 
-                // Add error details for debugging
+                // Log technical details to console for debugging (not shown to user)
                 if (result.error_details) {
-                    console.error('Error Details:', result.error_details);
-                    errorDetails.push('Error Type: ' + result.error_details.type);
+                    console.error('Technical Error Details:', result.error_details);
+                    console.error('Error Type:', result.error_details.type);
+                    console.error('Location:', result.error_details.file, result.error_details.line);
                 }
 
-                showMessage(result.message || 'An error occurred', 'error', errorDetails);
+                showMessage(result.message || 'An error occurred while creating your account. Please try again.', 'error', errorDetails);
                 messageContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         } catch (error) {
