@@ -135,10 +135,8 @@ try {
         $response['errors'][] = 'Title must be 200 characters or less';
     }
 
-    // Validate full story length
-    if (str_word_count($data['full_story']) < 50) {
-        $response['errors'][] = 'Full story must be at least 50 words';
-    }
+    // Full story is required but no minimum word count
+    // Users can share their story in their own words without restrictions
 
     // Check if errors occurred
     if (!empty($response['errors'])) {

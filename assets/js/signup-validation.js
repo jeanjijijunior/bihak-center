@@ -249,12 +249,8 @@ document.addEventListener('DOMContentLoaded', function() {
             errors.push('Short description must be at least 50 characters');
         }
 
-        // Validate full story
-        const fullStory = form.full_story.value.trim();
-        const wordCount = fullStory.split(/\s+/).filter(word => word.length > 0).length;
-        if (wordCount < 50) {
-            errors.push('Full story must be at least 50 words');
-        }
+        // Full story is required (handled by HTML5 required attribute)
+        // No minimum word count - users can share their story freely
 
         // Validate profile images
         if (!profileImagesInput.files || profileImagesInput.files.length === 0) {
