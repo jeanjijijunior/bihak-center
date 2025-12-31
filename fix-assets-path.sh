@@ -52,9 +52,16 @@ if [ -f "$APACHE_CONF" ]; then
         AllowOverride None\\
         Require all granted\\
     </Directory>\\
+    # API Directory Alias\\
+    Alias /api $SCRIPT_DIR/api\\
+    <Directory $SCRIPT_DIR/api>\\
+        Options Indexes FollowSymLinks\\
+        AllowOverride None\\
+        Require all granted\\
+    </Directory>\\
 " "$APACHE_CONF"
 
-    echo -e "${GREEN}✓ Apache Alias configured${NC}"
+    echo -e "${GREEN}✓ Apache Aliases configured (assets + api)${NC}"
     echo -e "${YELLOW}Reloading Apache...${NC}"
     systemctl reload apache2
     echo -e "${GREEN}✓ Apache reloaded${NC}"
@@ -131,9 +138,12 @@ echo "2. Directory permissions set to allow web access"
 echo "3. Apache configuration reloaded"
 echo ""
 echo -e "${YELLOW}Test URLs:${NC}"
-echo "  http://155.248.239.239/assets/images/facebook-icon.png"
-echo "  http://155.248.239.239/assets/images/instagram-icon.png"
-echo "  http://155.248.239.239/assets/images/x-logo.png"
+echo "  Assets:"
+echo "    http://155.248.239.239/assets/images/facebook-icon.png"
+echo "    http://155.248.239.239/assets/images/instagram-icon.png"
+echo "    http://155.248.239.239/assets/images/x-logo.png"
+echo "  API:"
+echo "    http://155.248.239.239/api/messaging/search_users.php"
 echo ""
 echo -e "${YELLOW}Next steps:${NC}"
 echo "1. Clear your browser cache (Ctrl+Shift+Delete)"

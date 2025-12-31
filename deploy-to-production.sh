@@ -148,6 +148,24 @@ if [ -f "$APACHE_CONF" ]; then
     else
         echo -e "${GREEN}✓ Assets Alias already exists${NC}"
     fi
+
+    # Add Alias for /api directory (for chat widget and messaging APIs)
+    echo -e "${YELLOW}Setting up /api Alias...${NC}"
+    if ! grep -q "Alias /api" "$APACHE_CONF"; then
+        sed -i "/<\/VirtualHost>/i\\
+    # API Directory Alias\\
+    Alias /api $SCRIPT_DIR/api\\
+    <Directory $SCRIPT_DIR/api>\\
+        Options Indexes FollowSymLinks\\
+        AllowOverride None\\
+        Require all granted\\
+    </Directory>\\
+" "$APACHE_CONF"
+        echo -e "${GREEN}✓ API Alias added${NC}"
+        systemctl reload apache2
+    else
+        echo -e "${GREEN}✓ API Alias already exists${NC}"
+    fi
 else
     echo -e "${RED}⚠ Apache config file not found at expected location${NC}"
 fi
