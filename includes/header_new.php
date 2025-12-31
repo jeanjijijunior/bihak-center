@@ -38,13 +38,6 @@ if ($is_in_admin) {
             </a>
         </div>
 
-        <!-- Mobile Menu Toggle -->
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
         <!-- Navigation Menu -->
         <nav class="navbar" id="main-navbar">
             <ul class="nav-links">
@@ -218,6 +211,13 @@ if ($is_in_admin) {
                     FR
                 </button>
             </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </div>
 </header>

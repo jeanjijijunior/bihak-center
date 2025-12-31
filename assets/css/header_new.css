@@ -461,9 +461,9 @@ header {
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
+        background: rgba(28, 171, 226, 0.98);
+        backdrop-filter: blur(10px);
         padding: 24px;
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         display: none !important;
         width: 100vw;
         height: calc(100vh - 70px);
@@ -472,18 +472,22 @@ header {
     }
 
     .navbar.active {
-        display: block !important;
+        display: flex !important;
+        flex-direction: column;
     }
 
     .nav-links {
-        flex-direction: column;
+        display: flex !important;
+        flex-direction: column !important;
         gap: 12px;
         width: 100%;
         align-items: stretch;
+        list-style: none;
     }
 
     .nav-links li {
         width: 100%;
+        display: block;
     }
 
     .nav-links li a {
@@ -495,11 +499,13 @@ header {
         font-weight: 500;
         border-radius: 8px;
         transition: background-color 0.2s ease;
+        color: white;
+        text-decoration: none;
     }
 
     .nav-links li a:hover,
     .nav-links li a.active {
-        background-color: rgba(255, 255, 255, 0.15);
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
     .header-right {
