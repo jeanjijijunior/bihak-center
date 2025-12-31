@@ -154,7 +154,7 @@ The complete user journey:
 ## 🗄️ Database
 
 **Schema:** 26 tables installed
-**Data:** Pre-populated with UPSHIFT program
+**Data:** Pre-populated with innovation program
 - 1 incubation program
 - 4 phases
 - 19 exercises with complete instructions
@@ -171,12 +171,12 @@ Both the header button and work page section support English/French:
 
 **English:**
 - "Incubation Program"
-- "UPSHIFT Incubation Program"
+- "Innovation Incubation Program"
 - "Start Your Journey"
 
 **French:**
 - "Programme d'Incubation"
-- "Programme d'Incubation UPSHIFT"
+- "Programme d'Incubation innovation"
 - "Commencez Votre Parcours"
 
 Language switching is automatic via the header language selector.

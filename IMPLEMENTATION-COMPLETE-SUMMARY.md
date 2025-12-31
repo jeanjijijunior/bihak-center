@@ -39,7 +39,7 @@ A complete password recovery system that works without email/SMTP (perfect for l
 
 ### 2. ✅ Complete Incubation Platform Database Schema
 
-A comprehensive database structure for the UPSHIFT incubation program:
+A comprehensive database structure for the innovation incubation program:
 
 #### Tables Created:
 1. **incubation_teams** - Team information and status

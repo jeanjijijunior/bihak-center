@@ -7,7 +7,7 @@
 
 ## 🎯 Project Overview
 
-A comprehensive, interactive incubation platform for the Bihak Center website that enables teams of 3-5 users to go through the **UPSHIFT Social Innovation Program**. Teams complete design thinking exercises across 4 phases, receive admin feedback, and showcase their final projects with public voting.
+A comprehensive, interactive incubation platform for the Bihak Center website that enables teams of 3-5 users to go through the **innovation Social Innovation Program**. Teams complete design thinking exercises across 4 phases, receive admin feedback, and showcase their final projects with public voting.
 
 ---
 
@@ -37,7 +37,7 @@ A comprehensive, interactive incubation platform for the Bihak Center website th
 - **26 tables** organized in 9 categories
 - **Full relational integrity** with foreign keys
 - **Bilingual support** (English/French) built-in
-- **Initial data** includes complete UPSHIFT program structure
+- **Initial data** includes complete innovation program structure
 
 ### Supporting Documentation
 - **INCUBATION-PLATFORM-DATABASE-DESIGN.md** - Complete database documentation
@@ -76,7 +76,7 @@ A comprehensive, interactive incubation platform for the Bihak Center website th
 
 ---
 
-## 📚 The UPSHIFT Program
+## 📚 The innovation Program
 
 ### Phase 1: Understand & Observe (5 exercises)
 1.1. Problem Tree
@@ -438,7 +438,7 @@ Landing Page: http://localhost/bihak-center/public/incubation-program.php
 ## 💡 Innovation Aspects
 
 ### What Makes This Platform Unique:
-1. **Complete UPSHIFT Integration** - First digital implementation
+1. **Complete innovation Integration** - First digital implementation
 2. **Structured Learning Path** - 19 guided exercises
 3. **Public Voting System** - Community engagement
 4. **Bilingual by Design** - French/English throughout
@@ -456,7 +456,7 @@ Landing Page: http://localhost/bihak-center/public/incubation-program.php
 ### ✅ Completed Components:
 
 **Planning & Design:**
-- [x] UPSHIFT program analysis
+- [x] innovation program analysis
 - [x] Database schema design
 - [x] User journey mapping
 - [x] UI/UX wireframing

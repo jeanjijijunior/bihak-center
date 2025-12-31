@@ -463,11 +463,11 @@ header {
         background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
         padding: 16px 24px;
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        display: none;
+        display: none !important; /* Force hide by default on mobile */
     }
 
     .navbar.active {
-        display: block;
+        display: block !important; /* Show when hamburger is clicked */
     }
 
     .nav-links {

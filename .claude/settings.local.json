@@ -35,7 +35,8 @@
       "Bash(git push:*)",
       "Bash(ssh -i \"C:\\\\Users\\\\jijin\\\\.ssh\\\\private-bihak.key\" ubuntu@155.248.239.239 \"cd /var/www/html && sudo git pull origin main\")",
       "Bash(powershell.exe -ExecutionPolicy Bypass -File fix-branding.ps1)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(ssh:*)"
     ],
     "deny": [],
     "ask": []

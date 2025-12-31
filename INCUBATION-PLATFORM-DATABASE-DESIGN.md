@@ -7,7 +7,7 @@
 
 ## Overview
 
-This database schema supports a comprehensive **UPSHIFT-based incubation platform** that allows users to:
+This database schema supports a comprehensive **innovation-based incubation platform** that allows users to:
 
 1. Form teams and go through design thinking exercises
 2. Complete all 4 phases with 19 exercises
@@ -31,7 +31,7 @@ This database schema supports a comprehensive **UPSHIFT-based incubation platfor
 6. **Mentorship** (2 tables) - Mentor assignments, sessions
 7. **Notifications** (1 table) - Team notifications
 8. **Supporting** (2 tables) - Milestones, milestone progress
-9. **Initial Data** (5 inserts) - Pre-populated UPSHIFT program
+9. **Initial Data** (5 inserts) - Pre-populated innovation program
 
 ---
 
@@ -52,7 +52,7 @@ This database schema supports a comprehensive **UPSHIFT-based incubation platfor
 | duration_weeks | INT | Total program duration (16 weeks) |
 | is_active | BOOLEAN | Active status |
 
-**Initial Data:** UPSHIFT Social Innovation Program
+**Initial Data:** innovation Social Innovation Program
 
 ---
 
@@ -94,7 +94,7 @@ This database schema supports a comprehensive **UPSHIFT-based incubation platfor
 | deliverable_type | ENUM | 'text', 'file', 'both', 'canvas' |
 | is_required | BOOLEAN | Required to complete phase |
 
-**Initial Data:** 19 exercises from UPSHIFT curriculum
+**Initial Data:** 19 exercises from innovation curriculum
 
 **Phase 1 Exercises (5):**
 - 1.1: Problem Tree (60 min)
@@ -521,7 +521,7 @@ LIMIT 1;
 | duration_weeks | INT | Duration in weeks |
 | deliverables | TEXT | Expected deliverables |
 
-**Initial Milestones (from UPSHIFT page 50):**
+**Initial Milestones (from innovation page 50):**
 1. **Conception** (Week 1, 1 week) - Finalize solution concept
 2. **Validation** (Week 2, 3 weeks) - Test with target audience
 3. **MVP Stage** (Week 5, 7 weeks) - Build minimum viable product
@@ -741,7 +741,7 @@ SHOW TABLES LIKE '%business_model%';
 
 ### Step 3: Verify Initial Data
 ```sql
--- Check UPSHIFT program created
+-- Check innovation program created
 SELECT * FROM incubation_programs;
 
 -- Check 4 phases
@@ -808,7 +808,7 @@ SELECT * FROM project_tags;
 - ✅ All foreign keys defined
 - ✅ Proper indexes added
 - ✅ Bilingual support (EN/FR)
-- ✅ UPSHIFT program structure populated
+- ✅ innovation program structure populated
 - ✅ 19 exercises with instructions
 - ✅ 5 mentorship milestones
 - ✅ 10 project tags
@@ -828,7 +828,7 @@ SELECT * FROM project_tags;
 [INCUBATION-PLATFORM-DATABASE-DESIGN.md](INCUBATION-PLATFORM-DATABASE-DESIGN.md)
 
 **Source Materials:**
-- [Fiches orientation/MODULE UPSHIFT VF Burundi - AM+PB+JB.pdf](Fiches orientation/MODULE UPSHIFT VF Burundi - AM+PB+JB.pdf)
+- [Fiches orientation/MODULE innovation VF Burundi - AM+PB+JB.pdf](Fiches orientation/MODULE innovation VF Burundi - AM+PB+JB.pdf)
 - [Fiches orientation/Fiches d'orientation/*.docx](Fiches orientation/Fiches d'orientation/)
 
 ---

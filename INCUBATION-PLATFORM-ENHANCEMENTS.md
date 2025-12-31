@@ -515,7 +515,7 @@ function callOpenAI($question, $context) {
     $data = [
         'model' => 'gpt-4',
         'messages' => [
-            ['role' => 'system', 'content' => 'You are a design thinking expert helping teams with UPSHIFT exercises.'],
+            ['role' => 'system', 'content' => 'You are a design thinking expert helping teams with innovation exercises.'],
             ['role' => 'user', 'content' => $question . "\n\nContext: " . $context]
         ]
     ];

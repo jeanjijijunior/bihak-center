@@ -421,7 +421,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </svg>
                 </div>
                 <div class="program-content">
-                    <h3 id="program4-title">UPSHIFT Incubation Program</h3>
+                    <h3 id="program4-title">Innovation Incubation Program</h3>
                     <p id="program4-text">Interactive social innovation incubation program guiding young people through design thinking. Complete 19 exercises across 4 phases to develop your project from concept to launch with AI-assisted guidance.</p>
                     <div class="program-stats">
                         <div class="stat">
@@ -557,7 +557,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 'program2-text': 'Curated opportunities including scholarships, internships, grants, and jobs specifically tailored for young people to grow their careers and pursue their dreams.',
                 'program3-title': 'Mentorship Network',
                 'program3-text': 'Connecting young people with experienced professionals and successful entrepreneurs who provide guidance, advice, and support for personal and professional growth.',
-                'program4-title': 'UPSHIFT Incubation Program',
+                'program4-title': 'Innovation Incubation Program',
                 'program4-text': 'Interactive social innovation incubation program guiding young people through design thinking. Complete 19 exercises across 4 phases to develop your project from concept to launch with AI-assisted guidance.',
                 'program4-stat1': 'Phases',
                 'program4-stat2': 'Exercises',
@@ -578,7 +578,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 'program2-text': 'Opportunités organisées incluant des bourses, stages, subventions et emplois spécifiquement adaptés aux jeunes pour développer leurs carrières et poursuivre leurs rêves.',
                 'program3-title': 'Réseau de Mentorat',
                 'program3-text': 'Connecter les jeunes avec des professionnels expérimentés et des entrepreneurs à succès qui fournissent des conseils, des orientations et un soutien pour la croissance personnelle et professionnelle.',
-                'program4-title': 'Programme d\'Incubation UPSHIFT',
+                'program4-title': 'Programme d\'Incubation innovation',
                 'program4-text': 'Programme d\'incubation d\'innovation sociale interactif guidant les jeunes à travers le design thinking. Complétez 19 exercices en 4 phases pour développer votre projet du concept au lancement avec l\'assistance de l\'IA.',
                 'program4-stat1': 'Phases',
                 'program4-stat2': 'Exercices',

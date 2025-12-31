@@ -7,7 +7,7 @@
 
 ## Overview
 
-Complete interactive incubation platform built for the Bihak Center website, based on the UPSHIFT social innovation program. The platform enables teams to go through a structured design thinking process, complete exercises, submit work, and showcase their projects with public voting.
+Complete interactive incubation platform built for the Bihak Center website, based on the innovation social innovation program. The platform enables teams to go through a structured design thinking process, complete exercises, submit work, and showcase their projects with public voting.
 
 ---
 
@@ -133,7 +133,7 @@ Complete interactive incubation platform built for the Bihak Center website, bas
 8. Supporting (2 tables) - Milestones, milestone progress
 
 **Initial Data Included:**
-- UPSHIFT program definition
+- innovation program definition
 - 4 phases (Understand & Observe, Design, Build & Test, Make It Real)
 - 19 exercises with full instructions
 - 5 mentorship milestones (Conception, Validation, MVP, Pilot, Perfect)
@@ -210,7 +210,7 @@ team_milestone_progress
 
 **Check Initial Data:**
 ```sql
--- Check UPSHIFT program
+-- Check innovation program
 SELECT * FROM incubation_programs;
 
 -- Check 4 phases
@@ -269,7 +269,7 @@ mkdir uploads\exercises
 **Expected:**
 - ✅ Page loads without errors
 - ✅ Hero section with gradient background
-- ✅ UPSHIFT program name displayed
+- ✅ innovation program name displayed
 - ✅ Statistics show (0 teams, 0 participants, etc.)
 - ✅ 4 phase cards displayed with exercise counts
 - ✅ Call-to-action buttons (Sign Up / Login if not logged in)
@@ -594,7 +594,7 @@ c:\xampp\htdocs\bihak-center\
 
 ### 1. Discovery
 - User visits landing page
-- Learns about UPSHIFT program
+- Learns about innovation program
 - Views 4 phases and statistics
 - Decides to join
 

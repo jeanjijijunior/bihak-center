@@ -1,6 +1,6 @@
 <?php
 /**
- * UPSHIFT Incubation Program - Landing Page
+ * Innovation Incubation Program - Landing Page
  * Displays program overview and allows users to join or create teams
  */
 
