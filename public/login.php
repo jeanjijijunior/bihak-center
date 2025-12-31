@@ -253,7 +253,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .alert svg {
-            flex-shrink: 0;
+            display: none;
         }
 
         /* Form Styles */
@@ -278,17 +278,12 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .input-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #a0aec0;
-            pointer-events: none;
+            display: none;
         }
 
         .form-control {
             width: 100%;
-            padding: 12px 12px 12px 40px;
+            padding: 12px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 15px;
@@ -298,8 +293,8 @@ $csrf_token = Security::generateCSRFToken();
 
         .form-control:focus {
             outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+            border-color: #1cabe2;
+            box-shadow: 0 0 0 3px rgba(28, 171, 226, 0.1);
         }
 
         .toggle-password {
@@ -316,7 +311,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .toggle-password:hover {
-            color: #6366f1;
+            color: #1cabe2;
         }
 
         /* Form Options */
@@ -348,7 +343,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .forgot-link {
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
@@ -358,7 +353,7 @@ $csrf_token = Security::generateCSRFToken();
             text-decoration: underline;
         }
 
-        /* Button - Blue-Orange-Green Scheme */
+        /* Button */
         .btn {
             width: 100%;
             padding: 14px 24px;
@@ -375,14 +370,14 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            background: linear-gradient(135deg, #1cabe2 0%, #147ba5 100%);
             color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(28, 171, 226, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 6px 20px rgba(28, 171, 226, 0.4);
         }
 
         .btn-primary:active {
@@ -390,7 +385,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .btn-icon {
-            flex-shrink: 0;
+            display: none;
         }
 
         /* Links Sections */
@@ -408,7 +403,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .signup-link a {
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
             font-weight: 600;
             font-size: 15px;
@@ -430,7 +425,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .admin-link a {
-            color: #f59e0b !important;
+            color: #147ba5 !important;
             font-size: 14px !important;
         }
 
@@ -450,6 +445,10 @@ $csrf_token = Security::generateCSRFToken();
             margin-bottom: 12px;
         }
 
+        .security-notice svg {
+            display: none;
+        }
+
         .login-help {
             display: flex;
             align-items: center;
@@ -459,7 +458,7 @@ $csrf_token = Security::generateCSRFToken();
         }
 
         .login-help a {
-            color: #6366f1;
+            color: #1cabe2;
             text-decoration: none;
         }
 
