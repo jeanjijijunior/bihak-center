@@ -466,10 +466,13 @@ header {
         display: none !important; /* Force hide by default on mobile */
         max-width: 100vw;
         overflow-x: hidden;
+        z-index: 1000;
     }
 
     .navbar.active {
         display: block !important; /* Show when hamburger is clicked */
+        visibility: visible !important;
+        opacity: 1 !important;
     }
 
     .nav-links {
