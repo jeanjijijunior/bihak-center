@@ -505,6 +505,8 @@ header {
     .header-right {
         gap: 6px;
         flex-wrap: nowrap;
+        flex-shrink: 0;
+        min-width: fit-content;
     }
 
     .btn-get-involved,
@@ -512,6 +514,12 @@ header {
         padding: 8px 10px;
         font-size: 0.85rem;
         white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .language-switcher {
+        flex-shrink: 0;
+        min-width: 70px;
     }
 
     /* Prevent horizontal overflow on mobile */
@@ -523,6 +531,12 @@ header {
     .header-container {
         max-width: 100vw;
         overflow-x: hidden;
+        justify-content: space-between;
+    }
+
+    .logo {
+        flex-shrink: 1;
+        min-width: 0;
     }
 }
 
@@ -558,17 +572,21 @@ header {
     }
 
     .header-right {
-        gap: 4px;
+        gap: 3px;
+        flex-shrink: 0;
     }
 
     .language-switcher {
-        padding: 4px 6px;
-        gap: 2px;
+        padding: 3px 5px;
+        gap: 1px;
+        min-width: 60px;
+        flex-shrink: 0;
     }
 
     .lang-btn {
-        font-size: 0.75rem;
-        padding: 2px 4px;
+        font-size: 0.7rem;
+        padding: 2px 3px;
+        min-width: 22px;
     }
 
     .language-switcher .separator {
