@@ -26,6 +26,8 @@ function initMobileMenu() {
             e.stopPropagation();
             this.classList.toggle('active');
             navbar.classList.toggle('active');
+            // Prevent body scroll when menu is open
+            document.body.classList.toggle('menu-open');
         });
 
         // Close menu when clicking outside
@@ -34,6 +36,7 @@ function initMobileMenu() {
             if (!isClickInside && navbar.classList.contains('active')) {
                 toggle.classList.remove('active');
                 navbar.classList.remove('active');
+                document.body.classList.remove('menu-open');
             }
         });
 
@@ -43,6 +46,7 @@ function initMobileMenu() {
             link.addEventListener('click', function() {
                 toggle.classList.remove('active');
                 navbar.classList.remove('active');
+                document.body.classList.remove('menu-open');
             });
         });
     }
