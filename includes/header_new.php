@@ -12,25 +12,35 @@ $is_in_public_subdir = ($parent_dir === 'public');
 $is_in_public = ($dir_name === 'public');
 $is_in_admin = ($dir_name === 'admin');
 
-// Set base path for navigation links
+// Set base path for navigation links (always relative)
+if ($is_in_admin) {
+    // In public/admin/ directory
+    $base_path = '../';
+} elseif ($is_in_public_subdir) {
+    // In public/mentorship/ or public/messages/ etc.
+    $base_path = '../';
+} elseif ($is_in_public) {
+    // In public/ directory
+    $base_path = '';
+} else {
+    // In root directory
+    $base_path = 'public/';
+}
+
+// Set assets path - use absolute on production, relative on localhost
 if ($is_localhost) {
     // Localhost - use relative paths for XAMPP
     if ($is_in_admin) {
-        $base_path = '../';
         $assets_path = '../../assets/';
     } elseif ($is_in_public_subdir) {
-        $base_path = '../';
         $assets_path = '../../assets/';
     } elseif ($is_in_public) {
-        $base_path = '';
         $assets_path = '../assets/';
     } else {
-        $base_path = 'public/';
         $assets_path = 'assets/';
     }
 } else {
-    // Production - use absolute paths with Apache Alias
-    $base_path = '/';
+    // Production - use absolute path with Apache Alias
     $assets_path = '/assets/';
 }
 ?>
