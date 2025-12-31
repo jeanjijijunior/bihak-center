@@ -21,17 +21,11 @@ function initMobileMenu() {
     const toggle = document.getElementById('mobile-menu-toggle');
     const navbar = document.getElementById('main-navbar');
 
-    console.log('Mobile menu init:', { toggle, navbar }); // Debug log
-
     if (toggle && navbar) {
-        console.log('Setting up mobile menu listeners'); // Debug log
-
         toggle.addEventListener('click', function(e) {
             e.stopPropagation();
-            console.log('Hamburger clicked!'); // Debug log
             this.classList.toggle('active');
             navbar.classList.toggle('active');
-            console.log('Navbar classes:', navbar.classList); // Debug log
         });
 
         // Close menu when clicking outside
@@ -51,8 +45,6 @@ function initMobileMenu() {
                 navbar.classList.remove('active');
             });
         });
-    } else {
-        console.error('Mobile menu elements not found!', { toggle, navbar }); // Debug log
     }
 }
 

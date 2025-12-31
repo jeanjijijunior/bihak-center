@@ -225,33 +225,5 @@ if ($is_in_admin) {
 <!-- Load Header JavaScript -->
 <script src="<?php echo $assets_path; ?>js/header_new.js"></script>
 
-<!-- Inline fallback for mobile menu if external script fails -->
-<script>
-// Emergency fallback for mobile menu toggle
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Fallback script loaded');
-    const toggle = document.getElementById('mobile-menu-toggle');
-    const navbar = document.getElementById('main-navbar');
-
-    if (toggle && navbar) {
-        console.log('Fallback: Elements found', { toggle, navbar });
-
-        // Remove any existing listeners and add fresh one
-        toggle.onclick = function(e) {
-            e.stopPropagation();
-            console.log('Fallback: Hamburger clicked!');
-
-            // Toggle classes
-            toggle.classList.toggle('active');
-            navbar.classList.toggle('active');
-
-            console.log('Fallback: Navbar has active?', navbar.classList.contains('active'));
-        };
-    } else {
-        console.error('Fallback: Elements not found', { toggle, navbar });
-    }
-});
-</script>
-
 <!-- Load Extended Translation System (ALL modules) -->
 <script src="<?php echo $assets_path; ?>js/translations-extended.js"></script>
