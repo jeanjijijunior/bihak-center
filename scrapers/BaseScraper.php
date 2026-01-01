@@ -435,7 +435,7 @@ abstract class BaseScraper {
                     report_generated_at = CURRENT_TIMESTAMP
             ");
 
-            $report_stmt->bind_param('ssiiiii',
+            $report_stmt->bind_param('ssiiii',
                 $current_month,
                 $this->scraper_type,
                 $this->items_scraped,
