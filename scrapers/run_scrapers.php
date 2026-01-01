@@ -50,6 +50,7 @@ try {
             logMessage("  - Items scraped: {$result['items_scraped']}");
             logMessage("  - Items added: {$result['items_added']}");
             logMessage("  - Items updated: {$result['items_updated']}");
+            logMessage("  - Expired deleted: {$result['expired_deleted']}");
         } else {
             logMessage("✗ Scholarship Scraper failed: {$result['error']}");
         }
@@ -67,6 +68,7 @@ try {
             logMessage("  - Items scraped: {$result['items_scraped']}");
             logMessage("  - Items added: {$result['items_added']}");
             logMessage("  - Items updated: {$result['items_updated']}");
+            logMessage("  - Expired deleted: {$result['expired_deleted']}");
         } else {
             logMessage("✗ Job Scraper failed: {$result['error']}");
         }
@@ -84,6 +86,7 @@ try {
             logMessage("  - Items scraped: {$result['items_scraped']}");
             logMessage("  - Items added: {$result['items_added']}");
             logMessage("  - Items updated: {$result['items_updated']}");
+            logMessage("  - Expired deleted: {$result['expired_deleted']}");
         } else {
             logMessage("✗ Internship Scraper failed: {$result['error']}");
         }
@@ -101,6 +104,7 @@ try {
             logMessage("  - Items scraped: {$result['items_scraped']}");
             logMessage("  - Items added: {$result['items_added']}");
             logMessage("  - Items updated: {$result['items_updated']}");
+            logMessage("  - Expired deleted: {$result['expired_deleted']}");
         } else {
             logMessage("✗ Grant Scraper failed: {$result['error']}");
         }
@@ -118,6 +122,7 @@ try {
             logMessage("  - Items scraped: {$result['items_scraped']}");
             logMessage("  - Items added: {$result['items_added']}");
             logMessage("  - Items updated: {$result['items_updated']}");
+            logMessage("  - Expired deleted: {$result['expired_deleted']}");
         } else {
             logMessage("✗ Competition Scraper failed: {$result['error']}");
         }

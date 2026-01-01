@@ -355,20 +355,126 @@ abstract class BaseScraper {
     }
 
     /**
+     * Archive and delete expired opportunities
+     */
+    protected function cleanupExpiredOpportunities() {
+        try {
+            // First, archive expired opportunities
+            $archive_stmt = $this->conn->prepare("
+                INSERT INTO archived_opportunities (
+                    original_opportunity_id, title, description, type, organization,
+                    location, country, deadline, application_url, amount, currency,
+                    source_name, archived_reason, original_created_at
+                )
+                SELECT
+                    id, title, description, type, organization,
+                    location, country, deadline, application_url, amount, currency,
+                    source_name, 'expired', created_at
+                FROM opportunities
+                WHERE deadline < CURDATE()
+                AND deadline IS NOT NULL
+                AND is_active = TRUE
+            ");
+
+            $archive_stmt->execute();
+            $archived_count = $archive_stmt->affected_rows;
+
+            // Then delete expired opportunities
+            $delete_stmt = $this->conn->prepare("
+                DELETE FROM opportunities
+                WHERE deadline < CURDATE()
+                AND deadline IS NOT NULL
+            ");
+
+            $delete_stmt->execute();
+            $deleted_count = $delete_stmt->affected_rows;
+
+            if ($deleted_count > 0) {
+                error_log("Cleaned up {$deleted_count} expired opportunities (archived: {$archived_count})");
+            }
+
+            return $deleted_count;
+
+        } catch (Exception $e) {
+            error_log("Error cleaning up expired opportunities: " . $e->getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Update monthly report statistics
+     */
+    protected function updateMonthlyReport() {
+        try {
+            $current_month = date('Y-m-01'); // First day of current month
+
+            // Get active opportunities count
+            $active_stmt = $this->conn->prepare("
+                SELECT COUNT(*) as count FROM opportunities
+                WHERE type = ? AND is_active = TRUE
+            ");
+            $active_stmt->bind_param('s', $this->scraper_type);
+            $active_stmt->execute();
+            $active_result = $active_stmt->get_result();
+            $active_count = $active_result->fetch_assoc()['count'];
+
+            // Update or insert monthly report
+            $report_stmt = $this->conn->prepare("
+                INSERT INTO monthly_scraper_reports (
+                    report_month, scraper_type, total_opportunities_scraped,
+                    opportunities_added, opportunities_updated, active_opportunities,
+                    total_runs, successful_runs
+                ) VALUES (?, ?, ?, ?, ?, ?, 1, 1)
+                ON DUPLICATE KEY UPDATE
+                    total_opportunities_scraped = total_opportunities_scraped + VALUES(total_opportunities_scraped),
+                    opportunities_added = opportunities_added + VALUES(opportunities_added),
+                    opportunities_updated = opportunities_updated + VALUES(opportunities_updated),
+                    active_opportunities = VALUES(active_opportunities),
+                    total_runs = total_runs + 1,
+                    successful_runs = successful_runs + 1,
+                    report_generated_at = CURRENT_TIMESTAMP
+            ");
+
+            $report_stmt->bind_param('ssiiiii',
+                $current_month,
+                $this->scraper_type,
+                $this->items_scraped,
+                $this->items_added,
+                $this->items_updated,
+                $active_count
+            );
+
+            $report_stmt->execute();
+
+        } catch (Exception $e) {
+            error_log("Error updating monthly report: " . $e->getMessage());
+        }
+    }
+
+    /**
      * Run the scraper with error handling and logging
      */
     public function run() {
         $this->startLog();
 
         try {
+            // Clean up expired opportunities before scraping
+            $expired_count = $this->cleanupExpiredOpportunities();
+
+            // Run the scraper
             $this->scrape();
+
+            // Update monthly statistics
+            $this->updateMonthlyReport();
+
             $this->completeLog('success');
 
             return [
                 'success' => true,
                 'items_scraped' => $this->items_scraped,
                 'items_added' => $this->items_added,
-                'items_updated' => $this->items_updated
+                'items_updated' => $this->items_updated,
+                'expired_deleted' => $expired_count
             ];
 
         } catch (Exception $e) {
