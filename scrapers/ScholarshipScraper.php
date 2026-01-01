@@ -17,6 +17,13 @@ class ScholarshipScraper extends BaseScraper {
         $this->scrapeScholarshipsForAfricans();
         $this->scrapeAfricaScholarshipHub();
         $this->scrapeOxfordScholarships();
+
+        // New youth-focused scholarship sources
+        $this->scrapeMasterCardFoundation();
+        $this->scrapeCommonwealthScholarships();
+        $this->scrapeAfricanLeadershipAcademy();
+        $this->scrapeYALINetwork();
+        $this->scrapeAshokaYoungChangemakers();
     }
 
     /**
@@ -322,6 +329,198 @@ class ScholarshipScraper extends BaseScraper {
         }
 
         return 'International';
+    }
+
+    /**
+     * Scrape MasterCard Foundation Scholars Program
+     * Major scholarship program for African youth
+     */
+    private function scrapeMasterCardFoundation() {
+        try {
+            // MasterCard Foundation supports multiple universities
+            $programs = [
+                [
+                    'title' => 'MasterCard Foundation Scholars Program',
+                    'description' => 'The MasterCard Foundation Scholars Program provides academically talented yet economically disadvantaged young Africans with access to quality education and leadership development.',
+                    'organization' => 'MasterCard Foundation',
+                    'location' => 'Multiple Countries',
+                    'country' => 'Multiple Countries',
+                    'deadline' => date('Y-m-d', strtotime('+6 months')),
+                    'application_url' => 'https://mastercardfdn.org/all/scholars/',
+                    'requirements' => 'Academic excellence, demonstrated financial need, leadership potential, African citizenship',
+                    'benefits' => 'Full tuition, accommodation, books, travel, mentorship, leadership training',
+                    'eligibility' => 'African youth aged 16-35 with demonstrated academic talent and financial need',
+                    'amount' => 'Full Scholarship',
+                    'currency' => 'USD',
+                    'source_url' => 'https://mastercardfdn.org/all/scholars/'
+                ]
+            ];
+
+            foreach ($programs as $program) {
+                $this->saveOpportunity($program);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error scraping MasterCard Foundation: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Scrape Commonwealth Scholarships
+     */
+    private function scrapeCommonwealthScholarships() {
+        try {
+            $programs = [
+                [
+                    'title' => 'Commonwealth Scholarships for Master\'s and PhD Studies',
+                    'description' => 'Commonwealth Scholarships for students from low and middle income Commonwealth countries to study in the UK. Targeted at candidates who could not otherwise afford to study in the UK.',
+                    'organization' => 'Commonwealth Scholarship Commission',
+                    'location' => 'United Kingdom',
+                    'country' => 'United Kingdom',
+                    'deadline' => date('Y-m-d', strtotime('+4 months')),
+                    'application_url' => 'https://cscuk.fcdo.gov.uk/scholarships/',
+                    'requirements' => 'Citizenship of eligible Commonwealth country, first-class undergraduate degree, development impact focus',
+                    'benefits' => 'Tuition fees, living allowance, return airfare, thesis grant',
+                    'eligibility' => 'Citizens of eligible Commonwealth countries including most African nations',
+                    'amount' => 'Full Scholarship',
+                    'currency' => 'GBP',
+                    'source_url' => 'https://cscuk.fcdo.gov.uk/'
+                ],
+                [
+                    'title' => 'Commonwealth Shared Scholarships',
+                    'description' => 'Commonwealth Shared Scholarships are for students from developing Commonwealth countries who would not otherwise be able to study in the UK.',
+                    'organization' => 'Commonwealth Scholarship Commission',
+                    'location' => 'United Kingdom',
+                    'country' => 'United Kingdom',
+                    'deadline' => date('Y-m-d', strtotime('+5 months')),
+                    'application_url' => 'https://cscuk.fcdo.gov.uk/scholarships/commonwealth-shared-scholarships/',
+                    'requirements' => 'Master\'s admission at UK university, cannot afford UK study, commitment to development',
+                    'benefits' => 'Tuition fees, living expenses, travel costs',
+                    'eligibility' => 'Citizens of least developed and lower middle income Commonwealth countries',
+                    'amount' => 'Full Scholarship',
+                    'currency' => 'GBP',
+                    'source_url' => 'https://cscuk.fcdo.gov.uk/scholarships/commonwealth-shared-scholarships/'
+                ]
+            ];
+
+            foreach ($programs as $program) {
+                $this->saveOpportunity($program);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error scraping Commonwealth Scholarships: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Scrape African Leadership Academy opportunities
+     */
+    private function scrapeAfricanLeadershipAcademy() {
+        try {
+            $programs = [
+                [
+                    'title' => 'African Leadership Academy - Full Scholarship Program',
+                    'description' => 'African Leadership Academy provides world-class secondary education to young African leaders. Full scholarships available for talented students who demonstrate exceptional leadership potential.',
+                    'organization' => 'African Leadership Academy',
+                    'location' => 'Johannesburg, South Africa',
+                    'country' => 'South Africa',
+                    'deadline' => date('Y-m-d', strtotime('+8 months')),
+                    'application_url' => 'https://www.africanleadershipacademy.org/admissions/scholarships/',
+                    'requirements' => 'Ages 15-19, African citizenship, strong academic record, leadership potential',
+                    'benefits' => 'Full tuition, boarding, books, and expenses',
+                    'eligibility' => 'African youth aged 15-19 with demonstrated leadership and academic excellence',
+                    'amount' => 'Full Scholarship',
+                    'currency' => 'USD',
+                    'source_url' => 'https://www.africanleadershipacademy.org'
+                ]
+            ];
+
+            foreach ($programs as $program) {
+                $this->saveOpportunity($program);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error scraping African Leadership Academy: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Scrape YALI Network opportunities
+     */
+    private function scrapeYALINetwork() {
+        try {
+            $programs = [
+                [
+                    'title' => 'YALI Mandela Washington Fellowship',
+                    'description' => 'The flagship program of YALI, the Mandela Washington Fellowship brings young African leaders to the United States for academic coursework, leadership training, and professional development.',
+                    'organization' => 'U.S. Department of State - YALI',
+                    'location' => 'United States',
+                    'country' => 'United States',
+                    'deadline' => date('Y-m-d', strtotime('+7 months')),
+                    'application_url' => 'https://yali.state.gov/mwf/',
+                    'requirements' => 'Ages 25-35, African citizenship, English proficiency, leadership track record, community impact',
+                    'benefits' => 'Fully-funded: tuition, travel, accommodation, meals, leadership training, networking',
+                    'eligibility' => 'Young African leaders aged 25-35 with demonstrated leadership and commitment to Africa',
+                    'amount' => 'Fully Funded',
+                    'currency' => 'USD',
+                    'source_url' => 'https://yali.state.gov/mwf/'
+                ],
+                [
+                    'title' => 'YALI Regional Leadership Centers',
+                    'description' => 'Four YALI Regional Leadership Centers in Africa offer intensive leadership training in Business, Civic Leadership, and Public Management.',
+                    'organization' => 'U.S. Department of State - YALI',
+                    'location' => 'Ghana, Kenya, Senegal, South Africa',
+                    'country' => 'Multiple African Countries',
+                    'deadline' => date('Y-m-d', strtotime('+4 months')),
+                    'application_url' => 'https://yali.state.gov/rlc/',
+                    'requirements' => 'Ages 18-35, African citizenship, English proficiency, demonstrated leadership',
+                    'benefits' => 'Fully-funded leadership training, networking, mentorship, certificate',
+                    'eligibility' => 'Young African leaders aged 18-35 from sub-Saharan Africa',
+                    'amount' => 'Fully Funded',
+                    'currency' => 'USD',
+                    'source_url' => 'https://yali.state.gov/rlc/'
+                ]
+            ];
+
+            foreach ($programs as $program) {
+                $this->saveOpportunity($program);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error scraping YALI Network: " . $e->getMessage());
+        }
+    }
+
+    /**
+     * Scrape Ashoka Young Changemakers opportunities
+     */
+    private function scrapeAshokaYoungChangemakers() {
+        try {
+            $programs = [
+                [
+                    'title' => 'Ashoka Young Changemakers Program',
+                    'description' => 'Ashoka identifies and supports young people creating innovative solutions to social problems. Young Changemakers receive mentorship, funding, and access to global network.',
+                    'organization' => 'Ashoka',
+                    'location' => 'Global - Africa Focused',
+                    'country' => 'Multiple Countries',
+                    'deadline' => date('Y-m-d', strtotime('+3 months')),
+                    'application_url' => 'https://www.ashoka.org/en/program/ashoka-young-changemakers',
+                    'requirements' => 'Ages 12-20, innovative social impact project, leadership qualities, changemaking vision',
+                    'benefits' => 'Mentorship, seed funding, global network access, skills training, platform visibility',
+                    'eligibility' => 'Young people aged 12-20 with social innovation projects, global including Africa',
+                    'amount' => 'Varies',
+                    'currency' => 'USD',
+                    'source_url' => 'https://www.ashoka.org/en/program/ashoka-young-changemakers'
+                ]
+            ];
+
+            foreach ($programs as $program) {
+                $this->saveOpportunity($program);
+            }
+
+        } catch (Exception $e) {
+            error_log("Error scraping Ashoka Young Changemakers: " . $e->getMessage());
+        }
     }
 }
 ?>
