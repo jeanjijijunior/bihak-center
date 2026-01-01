@@ -6,7 +6,7 @@
  * Usage:
  * - Manual: php run_scrapers.php
  * - Scheduled: Set up Windows Task Scheduler or cron job
- * - Command: php run_scrapers.php [scholarship|job|internship|grant|all]
+ * - Command: php run_scrapers.php [scholarship|job|internship|grant|competition|all]
  */
 
 // Set execution time limit (scrapers may take a while)
@@ -21,6 +21,7 @@ require_once __DIR__ . '/ScholarshipScraper.php';
 require_once __DIR__ . '/JobScraper.php';
 require_once __DIR__ . '/InternshipScraper.php';
 require_once __DIR__ . '/GrantScraper.php';
+require_once __DIR__ . '/CompetitionScraper.php';
 
 // Output formatting
 function logMessage($message) {
@@ -102,6 +103,23 @@ try {
             logMessage("  - Items updated: {$result['items_updated']}");
         } else {
             logMessage("✗ Grant Scraper failed: {$result['error']}");
+        }
+    }
+
+    // Run Competition Scraper
+    if ($scraper_type === 'all' || $scraper_type === 'competition') {
+        logMessage("\n--- Running Competition Scraper ---");
+        $competitionScraper = new CompetitionScraper($conn);
+        $result = $competitionScraper->run();
+        $results['competition'] = $result;
+
+        if ($result['success']) {
+            logMessage("✓ Competition Scraper completed successfully");
+            logMessage("  - Items scraped: {$result['items_scraped']}");
+            logMessage("  - Items added: {$result['items_added']}");
+            logMessage("  - Items updated: {$result['items_updated']}");
+        } else {
+            logMessage("✗ Competition Scraper failed: {$result['error']}");
         }
     }
 

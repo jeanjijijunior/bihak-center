@@ -85,8 +85,6 @@ switch ($sort_by) {
         $sql .= " ORDER BY o.deadline ASC";
 }
 
-$sql .= " LIMIT 50";
-
 $stmt = $conn->prepare($sql);
 
 if (!empty($params)) {
@@ -331,6 +329,11 @@ $csrf_token = Security::generateCSRFToken();
         .type-grant {
             background: #fce7f3;
             color: #be185d;
+        }
+
+        .type-competition {
+            background: #f3e8ff;
+            color: #7c3aed;
         }
 
         .opportunity-card h3 {
@@ -615,7 +618,7 @@ $csrf_token = Security::generateCSRFToken();
     <section class="opportunities-hero">
         <h1 id="hero-title" data-translate="discoverOpportunity">Discover Your Next Opportunity</h1>
         <p id="hero-description" data-translate="findScholarshipsJobs">
-            Find scholarships, jobs, internships, and grants curated specifically for young people.
+            Find scholarships, jobs, internships, grants, and competitions curated specifically for young people.
             Your future starts here.
         </p>
 
@@ -681,6 +684,11 @@ $csrf_token = Security::generateCSRFToken();
                    class="filter-tab <?php echo $type_filter === 'grant' ? 'active' : ''; ?>"
                    data-type="grant">
                     <span id="filter-grant">Grants</span>
+                </a>
+                <a href="?type=competition&search=<?php echo urlencode($search_query); ?>&country=<?php echo urlencode($country_filter); ?>&sort=<?php echo urlencode($sort_by); ?>"
+                   class="filter-tab <?php echo $type_filter === 'competition' ? 'active' : ''; ?>"
+                   data-type="competition">
+                    <span id="filter-competition">Competitions</span>
                 </a>
             </div>
 
@@ -873,7 +881,7 @@ $csrf_token = Security::generateCSRFToken();
         const opportunitiesTranslations = {
             en: {
                 'hero-title': 'Discover Your Next Opportunity',
-                'hero-description': 'Find scholarships, jobs, internships, and grants curated specifically for young people. Your future starts here.',
+                'hero-description': 'Find scholarships, jobs, internships, grants, and competitions curated specifically for young people. Your future starts here.',
                 'search-input': 'Search opportunities...',
                 'search-btn': 'Search',
                 'filter-all': 'All Opportunities',
@@ -881,6 +889,7 @@ $csrf_token = Security::generateCSRFToken();
                 'filter-job': 'Jobs',
                 'filter-internship': 'Internships',
                 'filter-grant': 'Grants',
+                'filter-competition': 'Competitions',
                 'country-all': 'All Countries',
                 'sort-deadline': 'Sort by Deadline',
                 'sort-newest': 'Newest First',
@@ -892,7 +901,7 @@ $csrf_token = Security::generateCSRFToken();
             },
             fr: {
                 'hero-title': 'Découvrez Votre Prochaine Opportunité',
-                'hero-description': 'Trouvez des bourses, emplois, stages et subventions sélectionnés spécifiquement pour les jeunes. Votre avenir commence ici.',
+                'hero-description': 'Trouvez des bourses, emplois, stages, subventions et compétitions sélectionnés spécifiquement pour les jeunes. Votre avenir commence ici.',
                 'search-input': 'Rechercher des opportunités...',
                 'search-btn': 'Rechercher',
                 'filter-all': 'Toutes les Opportunités',
@@ -900,6 +909,7 @@ $csrf_token = Security::generateCSRFToken();
                 'filter-job': 'Emplois',
                 'filter-internship': 'Stages',
                 'filter-grant': 'Subventions',
+                'filter-competition': 'Compétitions',
                 'country-all': 'Tous les Pays',
                 'sort-deadline': 'Trier par Date Limite',
                 'sort-newest': 'Plus Récent',
